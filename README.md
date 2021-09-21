@@ -1,5 +1,9 @@
 # unipar-2021-trabalho-plano
 
+djonathanb/unipar-2021-trabalho-plano
+
+![CircleCI](https://img.shields.io/circleci/build/github/djonathanb/unipar-2021-trabalho-plano)
+
 ## Descrição
 
 O presente projeto implementa uma API para a gestão operational de de uma operadora de planos de saúde.
