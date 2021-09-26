@@ -2,7 +2,7 @@
 
 djonathanb/unipar-2021-trabalho-plano
 
-![CircleCI](https://img.shields.io/circleci/build/github/djonathanb/unipar-2021-trabalho-plano)
+![badge](https://github.com/djonathanb/unipar-2021-trabalho-plano/actions/workflows/test-CI.yml/badge.svg)
 
 ## Descrição
 
