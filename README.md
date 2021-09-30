@@ -44,7 +44,28 @@ Como um **Agente**, preciso ***descrecendiar prestadores*** para que seus servi�
 - O prestador deve estar **Ativo**.
 
 
-### E2.1 - Cadastro de Contrato
+### E2.1 - Cadastro de Plano
+
+Como um **Agente**, preciso ***cadastrar novos planos*** para informar os parâmetros de serviço prestados para os usuários.
+
+#### Critérios de Aceite
+
+- Um plano descreve pode ter Abrangência Nacional ou Estadual.
+- Os Tipo de Acomodação permitidos são (Compartilhado e Individual).
+- O plano pode ter ou não Obstetrícia.
+- O plano pode ter ou não Transporte Aéreo.
+- Todo plano tem um valor base de mensalidade que não deve ser menor que R$100.00.
+
+### E2.2 - Exclusão de Plano
+
+Como um **Agente**, preciso ***deletar planos*** para que os mesmos não sejam mais utilizados.
+
+#### Critérios de Aceite
+
+- O plano não pode estar sendo utilizado em nenhum contrato.
+
+
+### E3.1 - Cadastro de Contrato
 
 Como um **Agente**, preciso ***cadastrar contratos*** para registrar nossos usuários.
 
@@ -52,11 +73,10 @@ Como um **Agente**, preciso ***cadastrar contratos*** para registrar nossos usu�
 
 - O contrato deve ter pelo menos um Titular com CPF válido.
 - O Titular não deve ter outro contrato em Aberto com o seu CPF.
-- Os Tipo de Acomodação permitidos são (Compartilhado e Individual) e Áreas de Abrangência (Regional, Estadual e Nacional), somente upgrades de planos são permitidos em caso de alteração contratual.
 - Os tipos de dependentes permitidos são: CONJUGE, FILHO, PAIS.
+- Somente upgrades de planos são permitidos em caso de alteração contratual.
 
-
-### E2.2 - Cancelamento de Contrato
+### E3.2 - Cancelamento de Contrato
 
 Como um **Agente**, preciso ***cancelar contratos*** para bloquear o acesso aos nossos serviços.
 
@@ -66,20 +86,20 @@ Como um **Agente**, preciso ***cancelar contratos*** para bloquear o acesso aos 
 - O contrato não deve ter pagamentos em aberto.
 
 
-### E3.1 - Lançamento de Cobrança
+### E4.1 - Lançamento de Cobrança
 
 Como um **Agente**, preciso ***lançar cobranças*** para cobrar os serviços de um contrato.
 
 #### Critérios de Aceite
 
-- É cobrado para cada usuário do contrato "100 reais + idade_do_usuario/100".
-- É cobrado um adicional de "10 reais por consulta/procedimento realizado no mês + 1000 rais por cirurgia realizada no mês".
+- É cobrado para cada usuário do contrato "valor base do plano + idade_do_usuario".
+- É cobrado um adicional de "10 reais por consulta/procedimento realizado no mês + 1000 reais por cirurgia realizada no mês".
 - O vencimento da cobrança é para o Décimo dia subsequente a data de lançamento.
 - Não podem ser geradas duas cobranças para o mesmo mês (permitido caso as outras cobranças do mesmo mês estejam Canceladas).
 - Podem ser lançadas cobranças para qualquer mês anterior ao da data de lançamento.
 
 
-### E3.2 - Cancelamento de Cobrança
+### E4.2 - Cancelamento de Cobrança
 
 Como um **Agente**, preciso ***cancelar cobranças*** para desfazer possíveis erros de lançamento.
 
@@ -88,7 +108,7 @@ Como um **Agente**, preciso ***cancelar cobranças*** para desfazer possíveis e
 - Somente é permitido cancelar cobranças em Aberto.
 
 
-### E4.1 - Emissão de Carteirinha
+### E5.1 - Emissão de Carteirinha
 
 Como um **Agente**, preciso ***solicitar a emissão de carteirinhas*** para que os usuário possam acessar os nossos serviços.
 
@@ -99,7 +119,7 @@ Como um **Agente**, preciso ***solicitar a emissão de carteirinhas*** para que 
 - O prazo de validade da carteirinha é de 3 anos a partir da data de emissão.
 
 
-### E4.2 - Registrar Entrega de Carteirinha
+### E5.2 - Registrar Entrega de Carteirinha
 
 Como um **Agente**, preciso ***registrar a entrega de carteirinhas*** para registrar quando a mesma foi entregue ao usuário e liberar a sua utilização.
 
@@ -108,7 +128,7 @@ Como um **Agente**, preciso ***registrar a entrega de carteirinhas*** para regis
 - A data de liberação deve ser maior que a de emissão.
 
 
-### E4.3 - Registra Extravio de Carteirinha
+### E5.3 - Registra Extravio de Carteirinha
 
 Como um **Agente**, preciso ***registrar o extravio de carteirinhas*** para registrar quando a mesma foi extraviada pelo usuário.
 
@@ -118,7 +138,7 @@ Como um **Agente**, preciso ***registrar o extravio de carteirinhas*** para regi
 - Deve ser registrado o motivo do registro.
 
 
-### E5.1 - Registrar Procedimento
+### E6.1 - Registrar Procedimento
 
 Como um **Prestador**, preciso ***registrar a realização de um procedimento*** para registrar informar quanto algum serviço foi efetivamente prestado.
 
@@ -130,7 +150,7 @@ Como um **Prestador**, preciso ***registrar a realização de um procedimento***
 - O procedimento deve realizado somente de acordo com a Área de Abrangência do Contrato, do contrário uma exceção deve ser retornada.
 
 
-### E5.2 - Cancelar Procedimento
+### E6.2 - Cancelar Procedimento
 
 Como um **Prestador**, preciso ***cancelar a realização de um procedimento*** para corrigir lançamentos indevidos.
 
@@ -139,7 +159,7 @@ Como um **Prestador**, preciso ***cancelar a realização de um procedimento*** 
 - O procedimento prestado não pode ter sido previamente cancelado.
 
 
-### E5.3 - Extrato de Prestação de Serviços
+### E6.3 - Extrato de Prestação de Serviços
 
 Como um **Prestador**, preciso ***emitir o Extrato de Serviços Prestados*** para controlar os meus rendimentos com o plano.
 
@@ -151,7 +171,7 @@ Como um **Prestador**, preciso ***emitir o Extrato de Serviços Prestados*** par
 - O extrato deve ter a sumarização do valor total dos serviços prestados.
 
 
-### E6.1 - Solicitar Liberação de Procedimento
+### E7.1 - Solicitar Liberação de Procedimento
 
 Como um **Usuário**, preciso ***solicitar a liberação de um procedimento*** para ter acesso aos serviços restritos.
 
@@ -162,7 +182,7 @@ Como um **Usuário**, preciso ***solicitar a liberação de um procedimento*** p
 - A solicitação deve conter o Médico solicitante.
 
 
-### E6.2 - Liberar Procedimento
+### E7.2 - Liberar Procedimento
 
 Como um **Agente**, preciso ***liberar procedimentos*** para ter os usuário tenham acesso aos serviços restritos.
 
@@ -172,7 +192,7 @@ Como um **Agente**, preciso ***liberar procedimentos*** para ter os usuário ten
 - É permitido no máximo duas solicitações para o mesmo procedimento no mês.
 
 
-### E6.3 - Rejeitar Procedimento
+### E7.3 - Rejeitar Procedimento
 
 Como um **Agente**, preciso ***rejeitar procedimentos*** caso eu perceba excessos.
 
@@ -180,3 +200,93 @@ Como um **Agente**, preciso ***rejeitar procedimentos*** caso eu perceba excesso
 
 - Somente podem ser rejeitadas liberações em Aberto.
 - A rejeição deve ter uma descrição com o motivo.
+
+
+### E8.1 - Solicitar Reembolso
+
+Como um **Usuário**, preciso ***solicitar o reembolso*** caso eu tenha sido atendido em uma emergência fora de minha área de abrangência.
+
+#### Critérios de Aceite
+
+- A solicitação deve ser solicitada para uma carteirinha válida.
+- A solicitação deve ser feita para um estado fora da Área de Abrangência do plano.
+- É permitido no máximo quatro solicitações de reembolso ano no valor total de R$5000.00.
+
+
+### E8.2 - Autorizar Reembolso
+
+Como um **Agente**, preciso ***autorizar reembolsos*** para que o usuário possa receber seu dinheiro.
+
+#### Critérios de Aceite
+
+- O reembolso deve ter sido solicitado previamente pelo Usuário.
+
+
+### E8.3 - Rejeitar Reembolso
+
+Como um **Agente**, preciso ***rejeitar reembolsos*** caso não esteja em conformidade.
+
+#### Critérios de Aceite
+
+- O reembolso deve ter sido solicitado previamente pelo Usuário.
+- A rejeição deve ter uma descrição com o motivo.
+
+
+### E9.1 - Solicitar Pré-Natal
+
+Como um **Usuário**, preciso ***solicitar o pré-natal*** para liberar o pacote de exames para acompanhamento de grávidez.
+
+#### Critérios de Aceite
+
+- A solicitação deve ser solicitada para uma carteirinha válida.
+- O plano contratado deve incluir Obstetrícia.
+- É permitido no máximo uma solicitação por ano.
+
+
+### E9.2 - Cancelar solicitação de Pré-Natal
+
+Como um **Usuário**, preciso ***cancelar uma solicitar de pré-natal*** caso tenha sido lançada indevidamente.
+
+#### Critérios de Aceite
+
+- A solicitação não pode ter sido autorizada.
+
+
+### E9.3 - Autorizar Pré-Natal
+
+Como um **Agente**, preciso ***autorizar o pré-natal*** para que o pacote de exames básico seja criado.
+
+#### Critérios de Aceite
+
+- O pré-natal deve ter sido solicitado previamente pelo Usuário.
+- Ao autorizar o pré-natal uma cirurgia será autorizada bem como 9 consultas gineológicas.
+
+
+### E10.1 - Solicitar Transporte
+
+Como um **Usuário**, preciso ***solicitar transporte*** para encaminhar passageiros entre diferentes cidades.
+
+#### Critérios de Aceite
+
+- A solicitação deve ser solicitada para uma carteirinha válida.
+- A soliciação deve conter a cidade de origem e destino.
+- Os tipos de transporte são Ambulância, UTI Móvel ou Aereo.
+- O transporte aéreo só é permitido se contratado no plano.
+
+
+### E10.2 - Cancelar solicitação de Transporte
+
+Como um **Usuário**, preciso ***cancelar uma solicitar de transporte*** caso tenha sido lançada indevidamente.
+
+#### Critérios de Aceite
+
+- A solicitação não pode ter sido autorizada.
+
+
+### E10.3 - Autorizar Transporte
+
+Como um **Agente**, preciso ***cancelar uma solicitação transporte*** caso detecte qualquer irregularidade.
+
+#### Critérios de Aceite
+
+- O transporte deve ter sido solicitado previamente pelo Usuário.
