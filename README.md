@@ -290,3 +290,138 @@ Como um **Agente**, preciso ***cancelar uma solicitação transporte*** caso det
 #### Critérios de Aceite
 
 - O transporte deve ter sido solicitado previamente pelo Usuário.
+
+---
+
+## Equipes
+
+<table>
+<thead>
+  <tr>
+    <th>Equipe</th>
+    <th>Estórias</th>
+    <th>Integrantes</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>1</td>
+    <td>
+      E1.1 - Credenciamento de Prestador<br>
+      E1.2 - Descredenciamento de Prestador
+    </td>
+    <td>
+      William Schanoski (schanoski)<br>
+      Stéfano (marianistefanoj)
+    </td>
+  </tr>
+  <tr>
+    <td>2</td>
+    <td>
+      E2.1 - Cadastro de Plano<br>
+      E2.2 - Exclusão de Plano
+    </td>
+    <td>
+      Sergio Schulz(sergioschu)<br>
+      Lucas Martins (Lucas-Martins-de-Oliveira)
+    </td>
+  </tr>
+  <tr>
+    <td>3</td>
+    <td>
+      E3.1 - Cadastro de Contrato<br>
+      E3.2 - Cancelamento de Contrato
+    </td>
+    <td>
+      Matheus Gobo (MatheusGobo)<br>
+      Everton Busse (evertonab)
+    </td>
+  </tr>
+  <tr>
+    <td>4</td>
+    <td>
+      E4.1 - Lançamento de Cobrança<br>
+      E4.2 - Cancelamento de Cobrança
+    </td>
+    <td>
+      Bruno Henrique Pereira Szczuk (brunoszczuk)<br>
+      Jader Hericks Anschau (jaderhe)
+    </td>
+  </tr>
+  <tr>
+    <td>5</td>
+    <td>
+      E5.1 - Emissão de Carteirinha<br>
+      E5.2 - Registrar Entrega de Carteirinha<br>
+      E5.3 - Registra Extravio de Carteirinha
+    </td>
+    <td>
+      Kevin Santos (kevin120)<br>
+      Adriel Schneider (AdrielSchneider)
+    </td>
+  </tr>
+  <tr>
+    <td>6</td>
+    <td>
+      E6.1 - Registrar Procedimento<br>
+      E6.2 - Cancelar Procedimento<br>
+      E6.3 - Extrato de Prestação de Serviços
+    </td>
+    <td>
+      Simon(SimonLRS)<br>
+      Henrique (hmaltaurodev)
+    </td>
+  </tr>
+  <tr>
+    <td>7</td>
+    <td>
+      E7.1 - Solicitar Liberação de Procedimento<br>
+      E7.2 - Liberar Procedimento<br>
+      E7.3 - Rejeitar Procedimento
+    </td>
+    <td>
+      Thiago Crestani(Thiagohcrestani)<br>
+      Riquelmy (rofontin)
+    </td>
+  </tr>
+  <tr>
+    <td>8</td>
+    <td>
+      E8.1 - Solicitar Reembolso<br>
+      E8.2 - Autorizar Reembolso<br>
+      E8.3 - Rejeitar Reembolso
+    </td>
+    <td>
+      Bruno Reolon<br>
+      Gabriel Sementino
+    </td>
+  </tr>
+  <tr>
+    <td>9</td>
+    <td>
+      E9.1 - Solicitar Pré-Natal<br>
+      E9.2 - Cancelar solicitação de Pré-Natal<br>
+      E9.3 - Autorizar Pré-Natal
+    </td>
+    <td>
+      Victor Paro (Terrible-Developer)<br>
+      Matheus Ferreira (wyvern800)
+    </td>
+  </tr>
+  <tr>
+    <td>10</td>
+    <td>
+      E10.1 - Solicitar Transporte<br>
+      E10.2 - Cancelar solicitação de Transporte<br>
+      E10.3 - Autorizar Transporte
+    </td>
+    <td>
+      Lucas Baccan (lucasbaccan)<br>
+      João Kirst (joaoalexandre2)<br>
+      Luiz Fernando Brogliatto Ferreira(luiz0067)
+    </td>
+  </tr>
+</tbody>
+</table>
+
+Planilha de Equipes: [link](https://docs.google.com/spreadsheets/d/1NDHDftwt-9-F2ftglRxZueyslExN4CASVx8UtSOvP0k)
