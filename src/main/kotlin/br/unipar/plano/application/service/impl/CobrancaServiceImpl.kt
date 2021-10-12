@@ -28,6 +28,9 @@ class CobrancaServiceImpl(
         if (verificaSeExisteCobrancaProContratoNoMes(contrato, dataEmissao)) {
             throw NegocioException("Já existe cobrança em aberto para o contrato ${contrato.id} para o período ${dataEmissao.format(DateTimeFormatter.ISO_LOCAL_DATE)}.")
         }
+        if (dataEmissao.isAfter(LocalDate.now())) {
+            throw NegocioException("Não é possível registrar uma Cobrança para uma data futura.")
+        }
         val cobranca = Cobranca(
             id = UUID.randomUUID(),
             valorContrato = calculaValorBase(contrato),
@@ -54,7 +57,7 @@ class CobrancaServiceImpl(
 
     override fun buscarPorId(id: UUID): Cobranca {
         try {
-           return repository.findById(id)
+            return repository.findById(id)
         } catch (exception: NoSuchElementException) {
             throw RegistroNaoEncontradoException()
         }

@@ -16,7 +16,7 @@ import java.util.*
 @RequestMapping("/cobrancas")
 class CobrancaResourceImpl(private val service: CobrancaService) : CobrancaResource {
     @GetMapping
-    @ApiResponses(ApiResponse(description = "ok", responseCode = "200"))
+    @ApiResponses(ApiResponse(description = "ok.", responseCode = "200"))
     @Operation(description = "Retorna todas as cobranças já registradas.")
     override fun buscaTodos(): ResponseEntity<MutableIterable<Cobranca>> =
         ResponseEntity.ok(service.buscaTodos())
@@ -24,8 +24,8 @@ class CobrancaResourceImpl(private val service: CobrancaService) : CobrancaResou
 
     @GetMapping("/{id}")
     @ApiResponses(
-        ApiResponse(description = "ok", responseCode = "200"),
-        ApiResponse(description = "Caso não exista a cobrança", responseCode = "404", )
+        ApiResponse(description = "ok.", responseCode = "200"),
+        ApiResponse(description = "Caso não exista a cobrança.", responseCode = "404")
     )
     @Operation(description = "Retorna a cobrança a partir do ID informado.")
     override fun buscaPorId(@PathVariable("id") id: UUID): ResponseEntity<Cobranca> =
@@ -33,8 +33,10 @@ class CobrancaResourceImpl(private val service: CobrancaService) : CobrancaResou
 
     @PostMapping
     @ApiResponses(
-        ApiResponse(description = "ok", responseCode = "200"),
-        ApiResponse(description = "Pode retornar erro caso já exista uma cobrança não cancelada no mês e ano informado", responseCode = "400")
+        ApiResponse(description = "ok.", responseCode = "200"),
+        ApiResponse(description = "Caso já exista uma cobrança não cancelada no mês e ano informado.", responseCode = "400"),
+        ApiResponse(description = "Caso seja requisitado um registro de cobrança com data futura.", responseCode = "400")
+
     )
     @Operation(description = "Registra uma cobrança a partir do contrato informado para a data informada.")
     override fun registrarCobranca(@RequestBody dto: CobrancaDTO): ResponseEntity<Void> {
@@ -46,9 +48,9 @@ class CobrancaResourceImpl(private val service: CobrancaService) : CobrancaResou
 
     @PutMapping("/{id}/cancelamento")
     @ApiResponses(
-        ApiResponse(description = "ok", responseCode = "200"),
-        ApiResponse(description = "Pode retornar erro caso já exista uma cobrança não cancelada no mês e ano informado", responseCode = "400"),
-        ApiResponse(description = "Caso não exista a cobrança", responseCode = "404")
+        ApiResponse(description = "ok.", responseCode = "200"),
+        ApiResponse(description = "Pode retornar erro caso já exista uma cobrança não cancelada no mês e ano informado.", responseCode = "400"),
+        ApiResponse(description = "Caso não exista a cobrança.", responseCode = "404")
     )
     @Operation(description = "Cancela a cobrança informada.")
     override fun cancelarCobranca(@PathVariable("id") id: UUID): ResponseEntity<Cobranca> = ResponseEntity.ok(service.cancelarCobranca(service.buscarPorId(id)))

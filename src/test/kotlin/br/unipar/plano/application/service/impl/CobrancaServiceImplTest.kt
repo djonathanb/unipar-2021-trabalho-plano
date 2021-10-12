@@ -60,6 +60,15 @@ class CobrancaServiceImplTest() {
         }
 
     }
+    @Test
+    fun `nao deve gerar cobranca com data futura`() {
+        Mockito.`when`(repository.existsInMonthByContratoAndByDateAndByStatusNotEquals(any(), any(), any())).thenReturn(false)
+        val contrato = getContratoMockado()
+        assertThrows(NegocioException::class.java) {
+            service.registrarCobranca(contrato, LocalDate.now().plusDays(1L))
+        }
+
+    }
 
     @Test
     fun `deve cancelar a cobranca`() {
