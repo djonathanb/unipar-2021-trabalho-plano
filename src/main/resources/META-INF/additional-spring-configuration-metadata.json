@@ -1,0 +1,19 @@
+{
+  "properties": [
+    {
+      "name": "valor.adicional.consulta",
+      "type": "java.math.BigDecimal",
+      "description": "Valor em R$ de adicional para cada Consulta efetuada pelo usuário."
+    },
+    {
+      "name": "valor.adicional.cirurgia",
+      "type": "java.math.BigDecimal",
+      "description": "Valor em R$ de adicional para cada Cirurgia efetuada pelo usuário."
+    },
+    {
+      "name": "dias.vencimento.cobranca",
+      "type": "java.lang.Integer",
+      "description": "Quantidade de dias subsequente a data de lançamento."
+    }
+  ]
+}
