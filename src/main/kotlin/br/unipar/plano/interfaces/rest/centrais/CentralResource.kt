@@ -1,15 +1,14 @@
 package br.unipar.plano.interfaces.rest.centrais
 
+import br.unipar.plano.domain.centrais.model.IdCentral
 import br.unipar.plano.domain.centrais.services.CentralApplicationService
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.responses.ApiResponses
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder
+import java.util.*
 import javax.validation.Valid
 
 @RestController
@@ -22,7 +21,7 @@ class CentralResource(private val centralApplicationService: CentralApplicationS
     ])
     @PostMapping
     fun criar(@RequestBody @Valid centralDTO: CentralDTO): ResponseEntity<Void> {
-        val idNovaCentral = centralApplicationService.criar(centralDTO)
+        val idNovaCentral = centralApplicationService.cria(centralDTO)
 
         val uri = ServletUriComponentsBuilder.fromCurrentRequest()
             .path("/{id}")
@@ -30,6 +29,16 @@ class CentralResource(private val centralApplicationService: CentralApplicationS
             .toUri()
 
         return ResponseEntity.created(uri).build()
+    }
+
+    @GetMapping
+    fun lista(): ResponseEntity<List<CentralSummaryDTO>> {
+        return ResponseEntity.ok(centralApplicationService.lista())
+    }
+
+    @GetMapping("/{idCentral}")
+    fun buscaPorId(@PathVariable("idCentral") idCentral: UUID): ResponseEntity<CentralDetailsDTO> {
+        return ResponseEntity.ok(centralApplicationService.buscaPorId(IdCentral(idCentral)))
     }
 
 }

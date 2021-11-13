@@ -1,11 +1,23 @@
 package br.unipar.plano.interfaces.rest.centrais
 
+import br.unipar.plano.domain.centrais.model.IdCentral
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.NotNull
 import javax.validation.constraints.Size
 
 private const val MIN_NAME_SIZE = 10
 private const val MAX_NAME_SIZE = 120
+
+data class CentralSummaryDTO(
+    val id: IdCentral,
+    val nome: String,
+    val cidade: Int
+)
+
+data class CentralDetailsDTO(
+    val id: IdCentral,
+    val centralData: CentralDTO
+)
 
 data class CentralDTO(
 

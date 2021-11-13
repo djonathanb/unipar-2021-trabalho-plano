@@ -35,7 +35,7 @@ class CentralResourceTest {
         val idNovaCentral = IdCentral()
         val localizacaoEsperada = "http://localhost$BASE_PATH/${idNovaCentral.id}"
 
-        `when`(centralApplicationService.criar(any())).thenReturn(idNovaCentral)
+        `when`(centralApplicationService.cria(any())).thenReturn(idNovaCentral)
 
         val centralDTO = centralDTO()
 
@@ -46,7 +46,7 @@ class CentralResourceTest {
             .andExpect(status().isCreated)
             .andExpect(header().string("location", localizacaoEsperada))
 
-        verify(centralApplicationService).criar(eq(centralDTO))
+        verify(centralApplicationService).cria(eq(centralDTO))
     }
 
     @Test
@@ -61,7 +61,7 @@ class CentralResourceTest {
         mockMvc.perform(requisicao)
             .andExpect(status().isBadRequest)
 
-        verify(centralApplicationService, never()).criar(any())
+        verify(centralApplicationService, never()).cria(any())
     }
 
 }
