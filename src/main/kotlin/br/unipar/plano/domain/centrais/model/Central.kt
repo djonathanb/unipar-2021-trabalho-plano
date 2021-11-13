@@ -1,15 +1,28 @@
 package br.unipar.plano.domain.centrais.model
 
+import javax.persistence.*
+
 enum class StatusCentral {
     CRIADA, CREDENCIADA, DESCREDENCIADA
 }
 
+@Entity
 class Central(
+    @field:EmbeddedId
     val id: IdCentral,
+
+    @Column(nullable = false)
     val nome: String,
+
+    @Column(nullable = false)
     val cnpj: String,
+
+    @OneToOne(cascade = [CascadeType.ALL], orphanRemoval = true)
     val endereco: Endereco,
+
+    @Enumerated(EnumType.STRING)
     val status: StatusCentral = StatusCentral.CRIADA
+
 ) {
 
     fun descredencia(): Central {

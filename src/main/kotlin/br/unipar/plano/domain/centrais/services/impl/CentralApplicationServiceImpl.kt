@@ -19,7 +19,7 @@ class CentralApplicationServiceImpl(
 ) : CentralApplicationService {
 
     override fun cria(centralDTO: CentralDTO): IdCentral {
-        val central = toModel(centralDTO)
+        val central = toModel(IdCentral(), centralDTO)
         val novaCentral = criaCentralUseCase.executa(central)
         return novaCentral.id
     }
@@ -28,15 +28,14 @@ class CentralApplicationServiceImpl(
         toSummaryDTO(it)
     }
 
-    override fun buscaPorId(idCentral: IdCentral): CentralDetailsDTO = centralQueryService.buscaPorId(idCentral).let {
-        toDetailsDTO(it)
-    }
+    override fun buscaPorId(idCentral: IdCentral): CentralDetailsDTO = toDetailsDTO(centralQueryService.buscaPorId(idCentral))
 
-    private fun toModel(centralDTO: CentralDTO) = Central(
-        id = IdCentral(),
+    private fun toModel(id: IdCentral, centralDTO: CentralDTO) = Central(
+        id = id,
         nome = centralDTO.nome,
         cnpj = centralDTO.cnpj,
         endereco = Endereco(
+            idCentral = id,
             cidade = centralDTO.endereco.cidade,
             cep = centralDTO.endereco.cep,
             bairro = centralDTO.endereco.bairro,
