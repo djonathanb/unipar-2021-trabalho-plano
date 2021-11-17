@@ -34,7 +34,6 @@ data class CentralDTO(
 
     @field:NotNull
     val endereco: EnderecoDTO
-
 )
 
 data class EnderecoDTO(
