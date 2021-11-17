@@ -5,9 +5,8 @@ import javax.persistence.*
 @Entity
 class PrestadorClinicaHospital(
 
-    @Id
-    @Column(nullable = false)
-    val id: Long,
+    @field:EmbeddedId
+    val id: IdPrestadorClinicaHospital,
 
     @Column(nullable = false)
     val nome: String,
@@ -20,16 +19,16 @@ class PrestadorClinicaHospital(
 
     @Column(nullable = false)
     val servico: String
-){
+) {
 
     fun with(
-        id: Long = this.id,
+        id: IdPrestadorClinicaHospital = this.id,
         nome: String = this.nome,
         status: Status = this.status,
         responsavel: PrestadorMedico = this.responsavel,
         servico: String = this.servico
     ) = copy(
-        id =id,
+        id = id,
         nome = nome,
         status = status,
         responsavel = responsavel,
@@ -37,13 +36,13 @@ class PrestadorClinicaHospital(
     )
 
     private fun copy(
-        id: Long = this.id,
+        id: IdPrestadorClinicaHospital = this.id,
         nome: String = this.nome,
         status: Status = this.status,
         responsavel: PrestadorMedico = this.responsavel,
         servico: String = this.servico
     ) = PrestadorClinicaHospital(
-        id =id,
+        id = id,
         nome = nome,
         status = status,
         responsavel = responsavel,
