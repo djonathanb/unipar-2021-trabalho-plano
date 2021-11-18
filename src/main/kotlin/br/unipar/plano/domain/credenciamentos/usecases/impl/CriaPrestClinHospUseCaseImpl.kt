@@ -1,8 +1,5 @@
 package br.unipar.plano.domain.credenciamentos.usecases.impl
 
-import br.unipar.plano.domain.centrais.model.Central
-import br.unipar.plano.domain.centrais.model.CentralRepository
-import br.unipar.plano.domain.centrais.usecases.CriaCentralUseCase
 import br.unipar.plano.domain.credenciamentos.model.PrestadorClinicaHospital
 import br.unipar.plano.domain.credenciamentos.model.PrestadorClinicaHospitalRepository
 import br.unipar.plano.domain.credenciamentos.usecases.CriaPrestClinHospUseCase

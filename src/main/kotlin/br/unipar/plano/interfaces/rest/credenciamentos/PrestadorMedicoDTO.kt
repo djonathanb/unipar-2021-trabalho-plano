@@ -1,52 +1,48 @@
 package br.unipar.plano.interfaces.rest.credenciamentos
 
-
-import br.unipar.plano.domain.centrais.model.IdCentral
+import br.unipar.plano.domain.credenciamentos.model.IdPrestadorMedico
+import br.unipar.plano.domain.credenciamentos.model.Status
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.NotNull
 import javax.validation.constraints.Size
 
-private const val MIN_NAME_SIZE = 10
-private const val MAX_NAME_SIZE = 120
+private const val MIN_CRM_SIZE = 0
+private const val MAX_CRM_SIZE = 10
 
 data class PrestadorMedicoSummaryDTO(
-    val id: IdCentral,
+    val id: IdPrestadorMedico,
     val nome: String,
-    val cidade: Int
-)
+    val status: Status,
+    val crm: String,
+    val especialidade: String
+
+    )
+
 
 data class PrestadorMedicoDetailsDTO(
-    val id: IdCentral,
-    val centralData: PrestClinHospDTO
+    val id: IdPrestadorMedico,
+    val prestMedData: PrestMedDTO
 )
 
 data class PrestMedDTO(
 
     @field:NotBlank(message = "O nome deve ser informado")
-    @field:Size(
-        min = MIN_NAME_SIZE,
-        max = MAX_NAME_SIZE,
-        message = "O nome deve ter entre $MIN_NAME_SIZE e $MAX_NAME_SIZE caracteres"
-    )
     val nome: String,
 
-    @field:NotBlank(message = "O nome deve ser informado")
-    val cnpj: String,
-
     @field:NotNull
-    val endereco: PrestadorMedicoEnderecoDTO
+    val status: Status,
+
+    @field:NotBlank(message = "O CRM deve ser informado")
+    @field:Size(
+        min = MIN_CRM_SIZE,
+        max = MAX_CRM_SIZE,
+        message = "O CRM deve ter entre $MIN_CRM_SIZE e $MAX_CRM_SIZE caracteres"
+    )
+    val crm: String,
+
+    @field:NotBlank(message = "A especialidade deve ser informada")
+    val especialidade: String
+
 
 )
 
-data class PrestadorMedicoEnderecoDTO(
-
-    @field:NotNull
-    @field:Size(min = 1010000)
-    val cidade: Int,
-
-    val cep: String,
-    val bairro: String,
-    val logradouro: String,
-    val numero: Int,
-    val complemento: String
-)

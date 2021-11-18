@@ -7,6 +7,6 @@ import br.unipar.plano.domain.credenciamentos.model.PrestadorMedico
 import br.unipar.plano.interfaces.rest.credenciamentos.PrestMedDTO
 
 interface PrestMedQueryService {
-    fun lista(): List<PrestMedDTO>
+    fun lista(): List<PrestadorMedico>
     fun buscaPorId(idPrestadorMedico: IdPrestadorMedico): PrestadorMedico
 }

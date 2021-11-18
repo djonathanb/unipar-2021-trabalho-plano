@@ -36,7 +36,7 @@ class PrestadorMedico(
         especialidade = especialidade
     )
 
-    private fun copy(
+    private fun copy (
         id: IdPrestadorMedico = this.id,
         nome: String = this.nome,
         status: Status = this.status,
