@@ -2,6 +2,7 @@ package br.unipar.plano.domain.credenciamentos.model
 
 import javax.persistence.*
 
+/*
 @Entity
 class PrestadorClinicaHospital(
 
@@ -49,3 +50,5 @@ class PrestadorClinicaHospital(
         servico = servico
     )
 }
+
+ */

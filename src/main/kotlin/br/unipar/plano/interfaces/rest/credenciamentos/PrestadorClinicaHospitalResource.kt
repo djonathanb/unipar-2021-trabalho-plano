@@ -1,9 +1,7 @@
 package br.unipar.plano.interfaces.rest.credenciamentos
 
-import br.unipar.plano.domain.centrais.model.IdCentral
-import br.unipar.plano.domain.centrais.services.CentralApplicationService
 import br.unipar.plano.domain.credenciamentos.model.IdPrestadorClinicaHospital
-import br.unipar.plano.domain.credenciamentos.services.PrestClinHospAppService
+//import br.unipar.plano.domain.credenciamentos.services.PrestClinHospAppService
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.responses.ApiResponses
@@ -14,7 +12,7 @@ import java.util.*
 import javax.validation.Valid
 
 class PrestadorClinicaHospitalResource {
-
+/*
     @RestController
     @RequestMapping("/centrais")
     class CentralResource(private val prestClinHospAppService: PrestClinHospAppService) {
@@ -46,5 +44,7 @@ class PrestadorClinicaHospitalResource {
         }
 
     }
+
+ */
 
 }
