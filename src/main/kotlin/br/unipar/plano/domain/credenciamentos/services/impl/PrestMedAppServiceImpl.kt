@@ -1,10 +1,12 @@
 package br.unipar.plano.domain.credenciamentos.services.impl
 
+import br.unipar.plano.domain.credenciamentos.model.Especialidade
 import br.unipar.plano.domain.credenciamentos.model.IdPrestadorMedico
 import br.unipar.plano.domain.credenciamentos.model.PrestadorMedico
 import br.unipar.plano.domain.credenciamentos.services.PrestMedAppService
 import br.unipar.plano.domain.credenciamentos.services.PrestMedQueryService
 import br.unipar.plano.domain.credenciamentos.usecases.CriaPrestMedicoUseCase
+import br.unipar.plano.interfaces.rest.credenciamentos.EspecialidadeDTO
 import br.unipar.plano.interfaces.rest.credenciamentos.PrestMedDTO
 import br.unipar.plano.interfaces.rest.credenciamentos.PrestadorMedicoDetailsDTO
 import br.unipar.plano.interfaces.rest.credenciamentos.PrestadorMedicoSummaryDTO
@@ -35,16 +37,19 @@ class PrestMedAppServiceImpl(
         id = id,
         nome = prestadorMedicoDTO.nome,
         crm = prestadorMedicoDTO.crm,
-        especialidade = prestadorMedicoDTO.especialidade,
+        especialidade = Especialidade(
+            idPrestadorMedico = id,
+            nomeEspecialidade = prestadorMedicoDTO.especialidade.nomeEspecialidade
+        ),
         status = prestadorMedicoDTO.status
     )
 
     private fun toSummaryDTO(prestadorMedico: PrestadorMedico) = PrestadorMedicoSummaryDTO(
         id = prestadorMedico.id,
         nome = prestadorMedico.nome,
-        crm = prestadorMedico.crm,
-        especialidade = prestadorMedico.especialidade,
-        status = prestadorMedico.status
+        especialidade = prestadorMedico.especialidade.nomeEspecialidade,
+        status = prestadorMedico.status,
+        crm = prestadorMedico.crm
     )
 
     private fun toDetailsDTO(prestadorMedico: PrestadorMedico) = PrestadorMedicoDetailsDTO(
@@ -55,7 +60,9 @@ class PrestMedAppServiceImpl(
     private fun toDTO(prestadorMedico: PrestadorMedico) = PrestMedDTO(
         nome = prestadorMedico.nome,
         crm = prestadorMedico.crm,
-        especialidade = prestadorMedico.especialidade,
+        especialidade = EspecialidadeDTO(
+            nomeEspecialidade = prestadorMedico.especialidade.nomeEspecialidade
+        ),
         status = prestadorMedico.status
     )
 

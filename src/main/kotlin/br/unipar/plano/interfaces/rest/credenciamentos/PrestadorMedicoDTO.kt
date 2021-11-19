@@ -41,8 +41,11 @@ data class PrestMedDTO(
     val crm: String,
 
     @field:NotBlank(message = "A especialidade deve ser informada")
-    val especialidade: String
-
+    val especialidade: EspecialidadeDTO
 
 )
 
+data class EspecialidadeDTO(
+    @field:NotNull
+    val nomeEspecialidade: String
+)

@@ -17,8 +17,8 @@ class PrestadorMedico(
     @Column(nullable = false)
     val crm: String,
 
-    @Column(nullable = false)
-    val especialidade: String
+    @OneToOne(cascade = [CascadeType.ALL], orphanRemoval = true)
+    val especialidade: Especialidade
 
 ) {
 
@@ -27,7 +27,7 @@ class PrestadorMedico(
         nome: String = this.nome,
         status: Status = this.status,
         crm: String = this.crm,
-        especialidade: String = this.especialidade
+        especialidade: Especialidade = this.especialidade
     ) = copy(
         id = id,
         nome = nome,
@@ -41,7 +41,7 @@ class PrestadorMedico(
         nome: String = this.nome,
         status: Status = this.status,
         crm: String = this.crm,
-        especialidade: String = this.especialidade
+        especialidade: Especialidade = this.especialidade
     ) = PrestadorMedico(
         id = id,
         nome = nome,
