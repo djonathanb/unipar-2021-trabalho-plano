@@ -1,5 +1,5 @@
 package br.unipar.plano.domain.credenciamentos.usecases.impl
-/*
+
 import br.unipar.plano.domain.credenciamentos.model.PrestadorClinicaHospital
 import br.unipar.plano.domain.credenciamentos.model.PrestadorClinicaHospitalRepository
 import br.unipar.plano.domain.credenciamentos.usecases.CriaPrestClinHospUseCase
@@ -14,4 +14,3 @@ class CriaPrestClinHospUseCaseImpl(private val prestadorClinicaHospitalRepositor
 
 }
 
- */

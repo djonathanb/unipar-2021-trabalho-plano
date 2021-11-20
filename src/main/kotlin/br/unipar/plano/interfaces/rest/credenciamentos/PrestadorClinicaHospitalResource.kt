@@ -1,6 +1,7 @@
 package br.unipar.plano.interfaces.rest.credenciamentos
 
 import br.unipar.plano.domain.credenciamentos.model.IdPrestadorClinicaHospital
+import br.unipar.plano.domain.credenciamentos.services.PrestClinHospAppService
 //import br.unipar.plano.domain.credenciamentos.services.PrestClinHospAppService
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.responses.ApiResponse
@@ -12,14 +13,14 @@ import java.util.*
 import javax.validation.Valid
 
 class PrestadorClinicaHospitalResource {
-/*
+
     @RestController
     @RequestMapping("/centrais")
     class CentralResource(private val prestClinHospAppService: PrestClinHospAppService) {
 
-        @Operation(summary = "Cria uma nova central e retorna o endereço do novo recurso")
+        @Operation(summary = "Cria uma nova clinica/hospital")
         @ApiResponses(value = [
-            ApiResponse(responseCode = "201", description = "central criada com sucesso")
+            ApiResponse(responseCode = "201", description = "Clinica/Hospital criada com sucesso")
         ])
         @PostMapping
         fun criar(@RequestBody @Valid prestClinHospDTO: PrestClinHospDTO): ResponseEntity<Void> {
@@ -38,13 +39,11 @@ class PrestadorClinicaHospitalResource {
             return ResponseEntity.ok(prestClinHospAppService.lista())
         }
 
-        @GetMapping("/{idCentral}")
+        @GetMapping("/{idPrestadorClinicaHospital}")
         fun buscaPorId(@PathVariable("idPrestadorClinicaHospital") idPrestadorClinicaHospital: UUID): ResponseEntity<PrestClinHospDTO> {
             return ResponseEntity.ok(prestClinHospAppService.buscaPorId(IdPrestadorClinicaHospital(idPrestadorClinicaHospital)))
         }
 
     }
-
- */
 
 }

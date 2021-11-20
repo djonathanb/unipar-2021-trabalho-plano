@@ -47,9 +47,9 @@ class PrestMedAppServiceImpl(
     private fun toSummaryDTO(prestadorMedico: PrestadorMedico) = PrestadorMedicoSummaryDTO(
         id = prestadorMedico.id,
         nome = prestadorMedico.nome,
-        especialidade = prestadorMedico.especialidade.nomeEspecialidade,
+        crm = prestadorMedico.crm,
         status = prestadorMedico.status,
-        crm = prestadorMedico.crm
+        nomeEspecialidade = prestadorMedico.especialidade.nomeEspecialidade
     )
 
     private fun toDetailsDTO(prestadorMedico: PrestadorMedico) = PrestadorMedicoDetailsDTO(

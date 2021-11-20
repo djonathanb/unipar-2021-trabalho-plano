@@ -1,7 +1,8 @@
 package br.unipar.plano.interfaces.rest.credenciamentos
 
-import br.unipar.plano.domain.centrais.model.IdCentral
 import br.unipar.plano.domain.credenciamentos.model.IdPrestadorClinicaHospital
+import br.unipar.plano.domain.credenciamentos.model.PrestadorMedico
+import br.unipar.plano.domain.credenciamentos.model.Status
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.NotNull
 import javax.validation.constraints.Size
@@ -12,12 +13,14 @@ private const val MAX_NAME_SIZE = 120
 data class PrestClinHospSummaryDTO(
     val id: IdPrestadorClinicaHospital,
     val nome: String,
-    val cidade: Int
+    val status: Status,
+    val cnpj: String,
+    var responsavel: PrestadorMedico
 )
 
 data class PrestClinHospDetailsDTO(
     val id: IdPrestadorClinicaHospital,
-    val centralData: PrestClinHospDTO
+    val prestClinHospData: PrestClinHospDTO
 )
 
 data class PrestClinHospDTO(
@@ -34,8 +37,16 @@ data class PrestClinHospDTO(
     val cnpj: String,
 
     @field:NotNull
-    val endereco: PrestClinHospEnderecoDTO
+    val endereco: PrestClinHospEnderecoDTO,
 
+    @field:NotNull
+    var responsavel: PrestadorMedico,
+
+    @field:NotNull
+    var status: String,
+
+    @field:NotNull
+    var servico: String
 )
 
 data class PrestClinHospEnderecoDTO(
