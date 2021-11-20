@@ -1,5 +1,6 @@
 package br.unipar.plano.interfaces.rest.credenciamentos
 
+import br.unipar.plano.domain.credenciamentos.model.Especialidade
 import br.unipar.plano.domain.credenciamentos.model.IdPrestadorMedico
 import br.unipar.plano.domain.credenciamentos.model.Status
 import javax.validation.constraints.NotBlank
@@ -12,7 +13,7 @@ data class PrestadorMedicoSummaryDTO(
     val crm: String,
     val status: Status,
     val nomeEspecialidade: String
-)
+    )
 
 data class PrestadorMedicoDetailsDTO(
     val id: IdPrestadorMedico,
