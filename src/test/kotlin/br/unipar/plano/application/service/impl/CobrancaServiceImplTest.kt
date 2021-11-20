@@ -47,6 +47,7 @@ class CobrancaServiceImplTest() {
         )
         assertEquals(cobranca.dataVencimento, LocalDate.of(2021, 10, 21))
         assertEquals(cobranca.status, StatusCobranca.ABERTO)
+        assertEquals(cobranca.dataEmissao, LocalDate.of(2021, 10, 11))
         assertNull(cobranca.dataCancelamento)
         verify(repository, times(1)).save(any())
     }
