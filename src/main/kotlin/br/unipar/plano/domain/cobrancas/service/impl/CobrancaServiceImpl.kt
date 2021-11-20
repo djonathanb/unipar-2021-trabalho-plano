@@ -1,0 +1,37 @@
+package br.unipar.plano.domain.cobrancas.service.impl
+
+import br.unipar.plano.domain.centrais.usecases.RegistrarCobrancaUseCase
+import br.unipar.plano.domain.cobrancas.model.Cobranca
+import br.unipar.plano.domain.cobrancas.model.Contrato
+import br.unipar.plano.domain.cobrancas.model.IdCobranca
+import br.unipar.plano.domain.cobrancas.service.CobrancaQueryService
+import br.unipar.plano.domain.cobrancas.service.CobrancaService
+import br.unipar.plano.domain.cobrancas.usecases.CancelarCobrancaUseCase
+import br.unipar.plano.interfaces.rest.cobrancas.CobrancaDetailsDTO
+import br.unipar.plano.interfaces.rest.cobrancas.CobrancaSummaryDTO
+import org.springframework.stereotype.Service
+import java.time.LocalDate
+
+@Service
+class CobrancaServiceImpl(
+    private val queryService: CobrancaQueryService,
+    private val registrarCobrancaUseCase: RegistrarCobrancaUseCase,
+    private val cancelarCobrancaUseCase: CancelarCobrancaUseCase,
+
+    ) : CobrancaService {
+    override fun registrarCobranca(contrato: Contrato, dataEmissao: LocalDate): Cobranca = registrarCobrancaUseCase.executa(contrato, dataEmissao)
+
+
+    override fun cancelarCobranca(idCobranca: IdCobranca): CobrancaDetailsDTO =
+        CobrancaDetailsDTO.toDTO(cancelarCobrancaUseCase.executa(idCobranca))
+
+
+    override fun buscaTodos(): List<CobrancaSummaryDTO> = queryService.lista().map(CobrancaSummaryDTO::toDTO);
+
+    override fun buscarPorId(id: IdCobranca): CobrancaDetailsDTO {
+        return CobrancaDetailsDTO.toDTO(queryService.buscaPorId(id))
+
+    }
+
+
+}
