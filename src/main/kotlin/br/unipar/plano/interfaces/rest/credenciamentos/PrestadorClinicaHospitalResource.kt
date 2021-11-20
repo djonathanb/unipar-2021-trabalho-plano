@@ -2,7 +2,7 @@ package br.unipar.plano.interfaces.rest.credenciamentos
 
 import br.unipar.plano.domain.credenciamentos.model.IdPrestadorClinicaHospital
 import br.unipar.plano.domain.credenciamentos.services.PrestClinHospAppService
-//import br.unipar.plano.domain.credenciamentos.services.PrestClinHospAppService
+import br.unipar.plano.domain.credenciamentos.services.PrestClinHospAppService
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.responses.ApiResponses
@@ -15,20 +15,20 @@ import javax.validation.Valid
 class PrestadorClinicaHospitalResource {
 
     @RestController
-    @RequestMapping("/centrais")
+    @RequestMapping("/prestadorClinicaHospital")
     class CentralResource(private val prestClinHospAppService: PrestClinHospAppService) {
 
-        @Operation(summary = "Cria uma nova clinica/hospital")
+        @Operation(summary = "Credencia clinica/hospital")
         @ApiResponses(value = [
             ApiResponse(responseCode = "201", description = "Clinica/Hospital criada com sucesso")
         ])
         @PostMapping
         fun criar(@RequestBody @Valid prestClinHospDTO: PrestClinHospDTO): ResponseEntity<Void> {
-            val idNovaCentral = prestClinHospAppService.cria(prestClinHospDTO)
+            val idNovaClinicaHospital = prestClinHospAppService.cria(prestClinHospDTO)
 
             val uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(idNovaCentral.id)
+                .buildAndExpand(idNovaClinicaHospital.id)
                 .toUri()
 
             return ResponseEntity.created(uri).build()

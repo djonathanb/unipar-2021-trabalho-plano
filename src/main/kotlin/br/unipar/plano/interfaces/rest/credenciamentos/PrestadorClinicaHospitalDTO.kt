@@ -1,7 +1,6 @@
 package br.unipar.plano.interfaces.rest.credenciamentos
 
 import br.unipar.plano.domain.credenciamentos.model.IdPrestadorClinicaHospital
-import br.unipar.plano.domain.credenciamentos.model.PrestadorMedico
 import br.unipar.plano.domain.credenciamentos.model.Status
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.NotNull
@@ -15,7 +14,7 @@ data class PrestClinHospSummaryDTO(
     val nome: String,
     val status: Status,
     val cnpj: String,
-    var responsavel: PrestadorMedico
+    var responsavel: String
 )
 
 data class PrestClinHospDetailsDTO(
@@ -36,28 +35,20 @@ data class PrestClinHospDTO(
     @field:NotBlank(message = "O nome deve ser informado")
     val cnpj: String,
 
-    @field:NotNull
-    val endereco: PrestClinHospEnderecoDTO,
 
     @field:NotNull
-    var responsavel: PrestadorMedico,
+    var responsavel: PrestMedDTO,
 
     @field:NotNull
-    var status: String,
+    var status: Status,
+
+    @field:NotNull
+    var servico: ServicoDTO
+)
+
+data class ServicoDTO(
 
     @field:NotNull
     var servico: String
-)
 
-data class PrestClinHospEnderecoDTO(
-
-    @field:NotNull
-    @field:Size(min = 1010000)
-    val cidade: Int,
-
-    val cep: String,
-    val bairro: String,
-    val logradouro: String,
-    val numero: Int,
-    val complemento: String
 )

@@ -1,6 +1,5 @@
 package br.unipar.plano.domain.credenciamentos.model
 
-import org.hibernate.validator.constraints.br.CNPJ
 import javax.persistence.*
 
 
@@ -22,8 +21,8 @@ class PrestadorClinicaHospital(
     @OneToOne(cascade = [CascadeType.ALL], orphanRemoval = true)
     val responsavel: PrestadorMedico,
 
-    @Column(nullable = false)
-    val servico: String
+    @OneToOne(cascade = [CascadeType.ALL], orphanRemoval = true)
+    val servico: Servico
 
 ) {
 
@@ -33,7 +32,7 @@ class PrestadorClinicaHospital(
         cnpj: String = this.cnpj,
         status: Status = this.status,
         responsavel: PrestadorMedico = this.responsavel,
-        servico: String = this.servico
+        servico: Servico = this.servico
     ) = copy(
         id = id,
         nome = nome,
@@ -49,7 +48,7 @@ class PrestadorClinicaHospital(
         cnpj: String = this.cnpj,
         status: Status = this.status,
         responsavel: PrestadorMedico = this.responsavel,
-        servico: String = this.servico
+        servico: Servico = this.servico
     ) = PrestadorClinicaHospital(
         id = id,
         nome = nome,

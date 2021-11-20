@@ -29,18 +29,23 @@ class PrestClinHospAppServiceImpl(
         id = id,
         nome = prestClinHospDTO.nome,
         cnpj = prestClinHospDTO.cnpj,
-        //status = prestClinHospDTO.status,
-        responsavel = prestClinHospDTO.responsavel,
-        servico = prestClinHospDTO.servico
+        status = prestClinHospDTO.status,
+        responsavel = PrestadorMedico(
+
+        ),
+        servico = Servico(
+            idPrestadorClinicaHospital = id,
+            servico = prestClinHospDTO.servico.servico
+        )
     )
 
     private fun toSummaryDTO(prestadorClinicaHospital: PrestadorClinicaHospital) = PrestClinHospSummaryDTO(
         id = prestadorClinicaHospital.id,
         nome = prestadorClinicaHospital.nome,
         cnpj = prestadorClinicaHospital.cnpj,
-        //status = prestadorClinicaHospital.status,
-        responsavel = prestadorClinicaHospital.responsavel
-        //servico = prestadorClinicaHospital.servico
+        status = prestadorClinicaHospital.status,
+        responsavel = prestadorClinicaHospital.responsavel.nome,
+        servico = prestadorClinicaHospital.servico.servico
     )
 
     private fun toDetailsDTO(prestadorClinicaHospital: PrestadorClinicaHospital) = PrestClinHospDetailsDTO(
@@ -51,10 +56,13 @@ class PrestClinHospAppServiceImpl(
     private fun toDTO(prestadorClinicaHospital: PrestadorClinicaHospital) = PrestClinHospDTO(
         nome = prestadorClinicaHospital.nome,
         cnpj = prestadorClinicaHospital.cnpj,
-        //status = prestadorClinicaHospital.status,
-        responsavel = prestadorClinicaHospital.responsavel,
-        //servico = prestadorClinicaHospital.servico,
-        //endereco = prestadorClinicaHospital.endereco
+        status = prestadorClinicaHospital.status,
+        responsavel = PrestMedDTO(
+            prestadorClinicaHospital.responsavel.nome
+        ),
+        servico = ServicoDTO(
+            servico = prestadorClinicaHospital.servico.servico
+        )
 
     )
 
