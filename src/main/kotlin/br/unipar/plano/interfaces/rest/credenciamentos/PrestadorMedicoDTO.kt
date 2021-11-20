@@ -1,23 +1,19 @@
 package br.unipar.plano.interfaces.rest.credenciamentos
 
+import br.unipar.plano.domain.credenciamentos.model.Especialidade
 import br.unipar.plano.domain.credenciamentos.model.IdPrestadorMedico
 import br.unipar.plano.domain.credenciamentos.model.Status
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.NotNull
-import javax.validation.constraints.Size
-
-private const val MIN_CRM_SIZE = 0
-private const val MAX_CRM_SIZE = 10
+import javax.validation.constraints.Pattern
 
 data class PrestadorMedicoSummaryDTO(
     val id: IdPrestadorMedico,
     val nome: String,
-    val status: Status,
     val crm: String,
-    val especialidade: String
-
+    val status: Status,
+    val nomeEspecialidade: String
     )
-
 
 data class PrestadorMedicoDetailsDTO(
     val id: IdPrestadorMedico,
@@ -33,14 +29,10 @@ data class PrestMedDTO(
     val status: Status,
 
     @field:NotBlank(message = "O CRM deve ser informado")
-    @field:Size(
-        min = MIN_CRM_SIZE,
-        max = MAX_CRM_SIZE,
-        message = "O CRM deve ter entre $MIN_CRM_SIZE e $MAX_CRM_SIZE caracteres"
-    )
+    @field:Pattern(regexp = "^[0-9]{5}+[/]+[A-Z]{2}$")
     val crm: String,
 
-    @field:NotBlank(message = "A especialidade deve ser informada")
+    @field:NotNull
     val especialidade: EspecialidadeDTO
 
 )

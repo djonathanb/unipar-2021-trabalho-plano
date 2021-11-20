@@ -1,6 +1,7 @@
 package br.unipar.plano.domain.credenciamentos.model
 
 import javax.persistence.*
+import javax.validation.constraints.Pattern
 
 @Entity
 class PrestadorMedico(
