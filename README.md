@@ -20,6 +20,17 @@ O presente projeto implementa uma API para a gestão operational de de uma opera
 - **Especialidade:** Especialidade de atuação dos Médicos de acordo com https://sistemas.cfm.org.br/normas/visualizar/resolucoes/BR/2018/2221
 - **Serviços:** Serviços prestados pelas Clínicas/Hospitais de acordo com as Areas de Atuação médicas descritas em https://sistemas.cfm.org.br/normas/visualizar/resolucoes/BR/2018/2221, acrescidos: Pronto Atendimento, Cirurgia Geral e Exame Laboratorial.
 
+## Arquitetura
+
+O sistema segue uma arquitetura em camadas com componentes de negócio isolados da infraestrutura, uma adaptação do ![Modelo Onion](https://jeffreypalermo.com/2008/07/the-onion-architecture-part-1/).
+A comunicação entre as camadas é feita através de interfaces que favorecem o baixo acomplamento e a testabilidade.
+
+![camadas](/docs/images/arq_camadas.png)
+
+Aqui há uma breve descrição dos componentes da arquitetura:
+
+![camadas](/docs/images/arq_componentes.png)
+
 ## Estórias
 
 ### E1.1 - Credenciamento de Prestador
