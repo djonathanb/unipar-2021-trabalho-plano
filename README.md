@@ -22,14 +22,14 @@ O presente projeto implementa uma API para a gestão operational de de uma opera
 
 ## Arquitetura
 
-O sistema segue uma arquitetura em camadas com componentes de negócio isolados da infraestrutura, uma adaptação do ![Modelo Onion](https://jeffreypalermo.com/2008/07/the-onion-architecture-part-1/).
+O sistema segue uma arquitetura em camadas com componentes de negócio isolados da infraestrutura, uma adaptação do [Modelo Onion](https://jeffreypalermo.com/2008/07/the-onion-architecture-part-1/).
 A comunicação entre as camadas é feita através de interfaces que favorecem o baixo acomplamento e a testabilidade.
 
-![camadas](/docs/images/arq_camadas.png)
+<img src="/docs/images/arq_camadas.png" width="80%">
 
 Aqui há uma breve descrição dos componentes da arquitetura:
 
-![camadas](/docs/images/arq_componentes.png)
+<img src="/docs/images/arq_componentes.png" width="80%">
 
 ## Estórias
 
