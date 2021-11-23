@@ -9,7 +9,7 @@ enum class StatusProcedimento {
 }
 
 @Entity
-class Central(
+class Procedimento(
 
         @field:EmbeddedId
         val id: IdProcedimento,
@@ -30,7 +30,7 @@ class Central(
         val valor: BigDecimal,
 
         @Enumerated(EnumType.STRING)
-        val status: StatusProcedimento = StatusProcedimento.CANCELADO,
+        val status: StatusProcedimento = StatusProcedimento.PENDENTE,
 
         @Column(nullable = false)
         val dataCancelamento: LocalDate,
@@ -48,27 +48,53 @@ class Central(
 
     fun with(
             id: IdProcedimento = this.id,
-            nome: String = this.nome,
-            cnpj: String = this.cnpj,
-            endereco: Endereco = this.endereco
+            dataEmissao: LocalDate = this.dataEmissao,
+            contrato: Contrato = this.contrato,
+            prestador: Prestador = this.prestador,
+            carteirinha: Carteirinha = this.carteirinha,
+            valor: BigDecimal = this.valor,
+            status: StatusProcedimento = this.status,
+            dataCancelamento: LocalDate = this.dataCancelamento,
+            dataProcedimento: LocalDate = this.dataProcedimento,
+            servico: Servico = this.servico,
+            especialidade: Especialidade = this.especialidade
     ) = copy(
             id = id,
-            nome = nome,
-            cnpj = cnpj,
-            endereco = endereco
+            dataEmissao = dataEmissao,
+            contrato = contrato,
+            prestador = prestador,
+            carteirinha = carteirinha,
+            valor = valor,
+            status = status,
+            dataCancelamento = dataCancelamento,
+            dataProcedimento = dataProcedimento,
+            servico = servico,
+            especialidade = especialidade
     )
 
     private fun copy(
             id: IdProcedimento = this.id,
-            nome: String = this.nome,
-            cnpj: String = this.cnpj,
-            endereco: Endereco = this.endereco,
-            status: StatusProcedimento = this.status
+            dataEmissao: LocalDate = this.dataEmissao,
+            contrato: Contrato = this.contrato,
+            prestador: Prestador = this.prestador,
+            carteirinha: Carteirinha = this.carteirinha,
+            valor: BigDecimal = this.valor,
+            status: StatusProcedimento = this.status,
+            dataCancelamento: LocalDate = this.dataCancelamento,
+            dataProcedimento: LocalDate = this.dataProcedimento,
+            servico: Servico = this.servico,
+            especialidade: Especialidade = this.especialidade
     ) = Central(
             id = id,
-            nome = nome,
-            cnpj = cnpj,
-            endereco = endereco,
-            status = status
+            dataEmissao = dataEmissao,
+            contrato = contrato,
+            prestador = prestador,
+            carteirinha = carteirinha,
+            valor = valor,
+            status = status,
+            dataCancelamento = dataCancelamento,
+            dataProcedimento = dataProcedimento,
+            servico = servico,
+            especialidade = especialidade
     )
 }
