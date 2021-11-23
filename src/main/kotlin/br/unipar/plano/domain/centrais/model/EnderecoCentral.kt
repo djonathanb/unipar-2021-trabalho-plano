@@ -1,16 +1,14 @@
-package br.unipar.plano.domain.transportes.model
+package br.unipar.plano.domain.centrais.model
 
-import br.unipar.plano.domain.centrais.model.IdTransporte
 import br.unipar.plano.domain.enderecos.model.Endereco
-import javax.persistence.Column
 import javax.persistence.EmbeddedId
 import javax.persistence.Entity
 
 @Entity
-class EnderecoTransporte(
+class EnderecoCentral(
 
     @field:EmbeddedId
-    val idTransporte: IdTransporte,
+    val idCentral: IdCentral,
 
     cidade: Int,
     cep: String,
@@ -27,3 +25,4 @@ class EnderecoTransporte(
     numero,
     complemento
 )
+

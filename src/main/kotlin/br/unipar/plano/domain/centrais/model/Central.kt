@@ -8,6 +8,7 @@ enum class StatusCentral {
 
 @Entity
 class Central(
+
     @field:EmbeddedId
     val id: IdCentral,
 
@@ -18,16 +19,23 @@ class Central(
     val cnpj: String,
 
     @OneToOne(cascade = [CascadeType.ALL], orphanRemoval = true)
-    val endereco: Endereco,
+    val endereco: EnderecoCentral,
 
     @Enumerated(EnumType.STRING)
     val status: StatusCentral = StatusCentral.CRIADA
 
 ) {
 
+    fun credencia(): Central {
+        if (status == StatusCentral.CREDENCIADA) {
+            throw IllegalStateException("Não é possível credenciar uma Central com status $status")
+        }
+        return copy(status = StatusCentral.CREDENCIADA)
+    }
+
     fun descredencia(): Central {
         if (status != StatusCentral.CREDENCIADA) {
-            throw Exception("Não é possível descredenciar uma Central com status $status")
+            throw IllegalStateException("Não é possível descredenciar uma Central com status $status")
         }
         return copy(status = StatusCentral.DESCREDENCIADA)
     }
@@ -36,7 +44,7 @@ class Central(
         id: IdCentral = this.id,
         nome: String = this.nome,
         cnpj: String = this.cnpj,
-        endereco: Endereco = this.endereco
+        endereco: EnderecoCentral = this.endereco
     ) = copy(
         id = id,
         nome = nome,
@@ -48,7 +56,7 @@ class Central(
         id: IdCentral = this.id,
         nome: String = this.nome,
         cnpj: String = this.cnpj,
-        endereco: Endereco = this.endereco,
+        endereco: EnderecoCentral = this.endereco,
         status: StatusCentral = this.status
     ) = Central(
         id = id,

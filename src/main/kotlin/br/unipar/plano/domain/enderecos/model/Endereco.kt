@@ -1,14 +1,10 @@
-package br.unipar.plano.domain.centrais.model
+package br.unipar.plano.domain.enderecos.model
 
 import javax.persistence.Column
-import javax.persistence.EmbeddedId
-import javax.persistence.Entity
+import javax.persistence.MappedSuperclass
 
-@Entity
-class Endereco(
-
-    @field:EmbeddedId
-    val idCentral: IdCentral,
+@MappedSuperclass
+open class Endereco(
 
     @Column(nullable = false)
     val cidade: Int,

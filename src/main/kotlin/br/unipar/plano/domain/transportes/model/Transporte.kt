@@ -22,7 +22,7 @@ class Transporte(
     @OneToOne(cascade = [CascadeType.ALL], orphanRemoval = true)
     val carteirinha: Carteirinha,
 
-    @Temporal(TemporalType.TIMESTAMP)
+    @Column
     val dataSolicitacao: LocalDate = LocalDate.now(),
 
     @Enumerated(EnumType.STRING)
@@ -31,7 +31,7 @@ class Transporte(
     @OneToOne(cascade = [CascadeType.ALL], orphanRemoval = true)
     val enderecoOrigem: EnderecoTransporte,
 
-    @OneToOne(cascade = [CascadeType.ALL], orphanRemoval = true)
+    @OneToOne(cascade = [CascadeType.DETACH], orphanRemoval = true)
     val enderecoDestino: EnderecoTransporte,
 
     @Enumerated(EnumType.STRING)
@@ -40,10 +40,17 @@ class Transporte(
 ) {
 
     fun cancela(): Transporte {
-        if (status != StatusTransporte.CANCELADO) {
+        if (status == StatusTransporte.CANCELADO) {
             throw Exception("Não é possível cancelar um Transporte com status $status")
         }
         return copy(status = StatusTransporte.CANCELADO)
+    }
+
+    fun autoriza(): Transporte {
+        if (status != StatusTransporte.PENDENTE) {
+            throw Exception("Não é possível aprovar um Transporte com status $status")
+        }
+        return copy(status = StatusTransporte.APROVADO)
     }
 
     fun with(
@@ -81,5 +88,4 @@ class Transporte(
         enderecoDestino = enderecoDestino,
         tipoTransporte = tipoTransporte
     )
-
 }

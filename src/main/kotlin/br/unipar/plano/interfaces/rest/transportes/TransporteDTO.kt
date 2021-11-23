@@ -21,7 +21,7 @@ data class TransporteDetailsDTO(
 
 data class TransporteDTO(
 
-    @field:NotBlank(message = "A carteirinha deve ser informada")
+    @field:NotNull
     val carteirinha: Carteirinha,
 
     @field:NotNull
@@ -29,8 +29,6 @@ data class TransporteDTO(
 
     @field:NotNull
     val enderecoDestino: EnderecoTransporteDTO,
-
-    val dataSolicitacao: LocalDate,
 
     val tipoTransporte: TipoTransporte,
 

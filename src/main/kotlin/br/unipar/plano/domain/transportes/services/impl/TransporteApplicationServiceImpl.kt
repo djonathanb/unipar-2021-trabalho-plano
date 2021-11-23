@@ -2,14 +2,12 @@ package br.unipar.plano.domain.centrais.services.impl
 
 import br.unipar.plano.domain.carteirinhas.model.Carteirinha
 import br.unipar.plano.domain.centrais.model.Transporte
-import br.unipar.plano.domain.centrais.model.Endereco
 import br.unipar.plano.domain.centrais.model.IdTransporte
 import br.unipar.plano.domain.centrais.services.TransporteApplicationService
 import br.unipar.plano.domain.centrais.services.TransporteQueryService
 import br.unipar.plano.domain.centrais.usecases.CriaTransporteUseCase
 import br.unipar.plano.domain.transportes.model.EnderecoTransporte
 
-import br.unipar.plano.interfaces.rest.centrais.EnderecoDTO
 import br.unipar.plano.interfaces.rest.transportes.EnderecoTransporteDTO
 import br.unipar.plano.interfaces.rest.transportes.TransporteDTO
 import br.unipar.plano.interfaces.rest.transportes.TransporteDetailsDTO
@@ -84,7 +82,6 @@ class TransporteApplicationServiceImpl(
             numero = transporte.enderecoDestino.numero,
             complemento = transporte.enderecoDestino.complemento
         ),
-        dataSolicitacao = transporte.dataSolicitacao,
         tipoTransporte = transporte.tipoTransporte,
     )
 
