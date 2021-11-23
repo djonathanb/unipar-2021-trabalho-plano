@@ -8,6 +8,7 @@ enum class StatusCentral {
 
 @Entity
 class Central(
+
     @field:EmbeddedId
     val id: IdCentral,
 
@@ -25,9 +26,16 @@ class Central(
 
 ) {
 
+    fun credencia(): Central {
+        if (status == StatusCentral.CREDENCIADA) {
+            throw IllegalStateException("Não é possível credenciar uma Central com status $status")
+        }
+        return copy(status = StatusCentral.CREDENCIADA)
+    }
+
     fun descredencia(): Central {
         if (status != StatusCentral.CREDENCIADA) {
-            throw Exception("Não é possível descredenciar uma Central com status $status")
+            throw IllegalStateException("Não é possível descredenciar uma Central com status $status")
         }
         return copy(status = StatusCentral.DESCREDENCIADA)
     }

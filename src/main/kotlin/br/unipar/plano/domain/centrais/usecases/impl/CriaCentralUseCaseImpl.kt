@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service
 class CriaCentralUseCaseImpl(private val centralRepository: CentralRepository) : CriaCentralUseCase {
 
     override fun executa(central: Central): Central {
+        if (centralRepository.existsById(central.id)) {
+            throw IllegalStateException("Outra Central com id ${central.id} já foi cadastrada")
+        }
         return centralRepository.save(central)
     }
 
