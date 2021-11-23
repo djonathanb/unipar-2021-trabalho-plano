@@ -1,11 +1,11 @@
 package br.unipar.plano.domain.credenciamentos.services.impl
 
 import br.unipar.plano.domain.credenciamentos.model.*
-import br.unipar.plano.domain.credenciamentos.services.PrestClinHospAppService
-import br.unipar.plano.domain.credenciamentos.services.PrestClinHospQueryService
 import br.unipar.plano.domain.credenciamentos.usecases.CriaPrestClinHospUseCase
 import br.unipar.plano.interfaces.rest.credenciamentos.*
 import org.springframework.stereotype.Service
+
+/*
 
 @Service
 class PrestClinHospAppServiceImpl(
@@ -14,7 +14,7 @@ class PrestClinHospAppServiceImpl(
 ) : PrestClinHospAppService {
 
     override fun cria(prestClinHospDTO: PrestClinHospDTO): IdPrestadorClinicaHospital {
-        val clinicaHospital = toModel(IdPrestadorClinicaHospital(),prestClinHospDTO)
+        val clinicaHospital = toModel(IdPrestadorClinicaHospital(), prestClinHospDTO)
         val novoClinHosp = criaPrestClinHospUseCase.executa()
         return novoClinHosp.id
     }
@@ -23,7 +23,8 @@ class PrestClinHospAppServiceImpl(
         toSummaryDTO(it)
     }
 
-    override fun buscaPorId(idPrestadorClinicaHospital: IdPrestadorClinicaHospital): PrestClinHospDetailsDTO = toDetailsDTO(prestClinHospQueryService.buscaPorId(IdPrestadorClinicaHospital()))
+    override fun buscaPorId(idPrestadorClinicaHospital: IdPrestadorClinicaHospital): PrestClinHospDetailsDTO =
+        toDetailsDTO(prestClinHospQueryService.buscaPorId(IdPrestadorClinicaHospital()))
 
     private fun toModel(id: IdPrestadorClinicaHospital, prestClinHospDTO: PrestClinHospDTO) = PrestadorClinicaHospital(
         id = id,
@@ -31,8 +32,15 @@ class PrestClinHospAppServiceImpl(
         cnpj = prestClinHospDTO.cnpj,
         status = prestClinHospDTO.status,
         responsavel = PrestadorMedico(
+            nome = prestClinHospDTO.responsavel.nome,
+            crm = prestClinHospDTO.responsavel.crm,
+            especialidade = Especialidade(
 
-        ),
+                nomeEspecialidade = prestClinHospDTO.responsavel.especialidade.nomeEspecialidade
+            ),
+            status = prestClinHospDTO.responsavel.status,
+
+            ),
         servico = Servico(
             idPrestadorClinicaHospital = id,
             servico = prestClinHospDTO.servico.servico
@@ -67,5 +75,5 @@ class PrestClinHospAppServiceImpl(
     )
 
 
-
 }
+ */

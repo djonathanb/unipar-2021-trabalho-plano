@@ -8,7 +8,7 @@ import javax.persistence.Entity
 class Especialidade (
 
     @field:EmbeddedId
-    val idPrestadorMedico: IdPrestadorMedico,
+    val id: IdEspecialidade,
 
     @Column(nullable = false)
     val nomeEspecialidade: String

@@ -1,8 +1,6 @@
 package br.unipar.plano.interfaces.rest.credenciamentos
 
 import br.unipar.plano.domain.credenciamentos.model.IdPrestadorClinicaHospital
-import br.unipar.plano.domain.credenciamentos.services.PrestClinHospAppService
-import br.unipar.plano.domain.credenciamentos.services.PrestClinHospAppService
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.responses.ApiResponses
@@ -12,6 +10,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder
 import java.util.*
 import javax.validation.Valid
 
+/*
 class PrestadorClinicaHospitalResource {
 
     @RestController
@@ -47,3 +46,4 @@ class PrestadorClinicaHospitalResource {
     }
 
 }
+*/

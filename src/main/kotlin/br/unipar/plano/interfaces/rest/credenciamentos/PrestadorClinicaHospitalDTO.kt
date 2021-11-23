@@ -6,6 +6,7 @@ import javax.validation.constraints.NotBlank
 import javax.validation.constraints.NotNull
 import javax.validation.constraints.Size
 
+/*
 private const val MIN_NAME_SIZE = 10
 private const val MAX_NAME_SIZE = 120
 
@@ -35,7 +36,6 @@ data class PrestClinHospDTO(
     @field:NotBlank(message = "O nome deve ser informado")
     val cnpj: String,
 
-
     @field:NotNull
     var responsavel: PrestMedDTO,
 
@@ -52,3 +52,4 @@ data class ServicoDTO(
     var servico: String
 
 )
+ */
