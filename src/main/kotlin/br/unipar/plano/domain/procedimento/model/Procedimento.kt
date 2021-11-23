@@ -84,7 +84,7 @@ class Procedimento(
             dataProcedimento: LocalDate = this.dataProcedimento,
             servico: Servico = this.servico,
             especialidade: Especialidade = this.especialidade
-    ) = Central(
+    ) = Procedimento(
             id = id,
             dataEmissao = dataEmissao,
             contrato = contrato,
