@@ -10,3 +10,6 @@ class Prestador(
         val id: IdPrestador
         
 );
+
+/* Classe criada simplesmente com a finalidade de facilitar o desenvolvimento
+ * Visto que a implementação da mesma depende de outra equipe */

@@ -10,3 +10,6 @@ class Carteirinha(
         val id: IdCarteirinha
 
 );
+
+/* Classe criada simplesmente com a finalidade de facilitar o desenvolvimento
+ * Visto que a implementação da mesma depende de outra equipe */
