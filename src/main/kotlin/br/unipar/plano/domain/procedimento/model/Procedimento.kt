@@ -1,5 +1,8 @@
 package br.unipar.plano.domain.procedimento.model
 
+import br.unipar.plano.domain.carteirinha.model.Carteirinha
+import br.unipar.plano.domain.contrato.model.Contrato
+import br.unipar.plano.domain.prestador.model.Prestador
 import java.math.BigDecimal
 import java.time.LocalDate
 import javax.persistence.*
