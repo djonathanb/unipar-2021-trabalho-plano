@@ -1,7 +1,7 @@
 package br.unipar.plano.interfaces.rest.credenciamentos
 
 import br.unipar.plano.domain.credenciamentos.model.IdPrestadorMedico
-// import br.unipar.plano.domain.credenciamentos.services.PrestMedAppService
+import br.unipar.plano.domain.credenciamentos.services.PrestMedAppService
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.responses.ApiResponses
@@ -11,7 +11,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder
 import java.util.*
 import javax.validation.Valid
 
-/*
 @RestController
 @RequestMapping("/prestadorMedico")
 class PrestadorMedicoResource(private val prestMedAppService: PrestMedAppService) {
@@ -43,6 +42,3 @@ class PrestadorMedicoResource(private val prestMedAppService: PrestMedAppService
     }
 
 }
-
-
- */

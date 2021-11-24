@@ -4,12 +4,11 @@ import br.unipar.plano.domain.centrais.model.Central
 import br.unipar.plano.domain.centrais.model.IdCentral
 import br.unipar.plano.domain.credenciamentos.model.IdPrestadorMedico
 import br.unipar.plano.domain.credenciamentos.model.PrestadorMedico
-//import br.unipar.plano.interfaces.rest.credenciamentos.PrestMedDTO
+import br.unipar.plano.interfaces.rest.credenciamentos.PrestMedDTO
 
-/*
+
 interface PrestMedQueryService {
     fun lista(): List<PrestadorMedico>
     fun buscaPorId(idPrestadorMedico: IdPrestadorMedico): PrestadorMedico
 }
 
- */

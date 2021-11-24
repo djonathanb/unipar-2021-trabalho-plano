@@ -6,13 +6,12 @@ import javax.validation.constraints.NotBlank
 import javax.validation.constraints.NotNull
 import javax.validation.constraints.Pattern
 
-/*
 data class PrestadorMedicoSummaryDTO(
     val id: IdPrestadorMedico,
     val nome: String,
     val crm: String,
     val status: Status,
-    val nomeEspecialidade: String
+    //val nomeEspecialidade: List<EspDTO>
     )
 
 data class PrestadorMedicoDetailsDTO(
@@ -32,7 +31,6 @@ data class PrestMedDTO(
     @field:Pattern(regexp = "^[0-9]{5}+[/]+[A-Z]{2}$")
     val crm: String,
 
+    //val especialidades: List<EspDTO>
+
 )
-
-
- */

@@ -1,18 +1,19 @@
 package br.unipar.plano.domain.credenciamentos.services.impl
 
 import br.unipar.plano.domain.credenciamentos.model.Especialidade
+import br.unipar.plano.domain.credenciamentos.model.IdEspecialidade
 import br.unipar.plano.domain.credenciamentos.model.IdPrestadorMedico
 import br.unipar.plano.domain.credenciamentos.model.PrestadorMedico
-/*import br.unipar.plano.domain.credenciamentos.services.PrestMedAppService
+import br.unipar.plano.domain.credenciamentos.services.PrestMedAppService
 import br.unipar.plano.domain.credenciamentos.services.PrestMedQueryService
 import br.unipar.plano.domain.credenciamentos.usecases.CriaPrestMedicoUseCase
-import br.unipar.plano.interfaces.rest.credenciamentos.EspecialidadeDTO
+import br.unipar.plano.interfaces.rest.credenciamentos.EspDTO
 import br.unipar.plano.interfaces.rest.credenciamentos.PrestMedDTO
 import br.unipar.plano.interfaces.rest.credenciamentos.PrestadorMedicoDetailsDTO
 import br.unipar.plano.interfaces.rest.credenciamentos.PrestadorMedicoSummaryDTO
 import org.springframework.stereotype.Service
-/*
-/*
+
+
 @Service
 class PrestMedAppServiceImpl(
     private val prestMedQueryService: PrestMedQueryService,
@@ -37,10 +38,7 @@ class PrestMedAppServiceImpl(
         id = id,
         nome = prestadorMedicoDTO.nome,
         crm = prestadorMedicoDTO.crm,
-        especialidade = Especialidade(
-            idPrestadorMedico = id,
-            nomeEspecialidade = prestadorMedicoDTO.especialidade.nomeEspecialidade
-        ),
+        //especialidades = listOf(prestadorMedicoDTO.especialidade),
         status = prestadorMedicoDTO.status
     )
 
@@ -49,7 +47,7 @@ class PrestMedAppServiceImpl(
         nome = prestadorMedico.nome,
         crm = prestadorMedico.crm,
         status = prestadorMedico.status,
-        nomeEspecialidade = prestadorMedico.especialidade.nomeEspecialidade
+       // especialidades = listOf(prestadorMedico.especialidade)
     )
 
     private fun toDetailsDTO(prestadorMedico: PrestadorMedico) = PrestadorMedicoDetailsDTO(
@@ -60,12 +58,8 @@ class PrestMedAppServiceImpl(
     private fun toDTO(prestadorMedico: PrestadorMedico) = PrestMedDTO(
         nome = prestadorMedico.nome,
         crm = prestadorMedico.crm,
-        especialidade = EspecialidadeDTO(
-            nomeEspecialidade = prestadorMedico.especialidade.nomeEspecialidade
-        ),
+        //especialidades = listOf(prestadorMedico.especialidade),
         status = prestadorMedico.status
     )
 
 }
-
- */
