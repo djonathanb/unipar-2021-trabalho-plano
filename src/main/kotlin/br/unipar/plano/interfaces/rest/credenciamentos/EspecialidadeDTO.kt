@@ -18,8 +18,6 @@ import javax.validation.constraints.Pattern
     )
 
     data class EspDTO(
-
         @field:NotBlank(message = "O nome deve ser informado")
         val nomeEspecialidade: String
-
     )

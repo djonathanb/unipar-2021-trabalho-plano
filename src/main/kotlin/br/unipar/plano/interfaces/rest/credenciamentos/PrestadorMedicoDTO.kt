@@ -6,6 +6,7 @@ import javax.validation.constraints.NotBlank
 import javax.validation.constraints.NotNull
 import javax.validation.constraints.Pattern
 
+/*
 data class PrestadorMedicoSummaryDTO(
     val id: IdPrestadorMedico,
     val nome: String,
@@ -31,12 +32,7 @@ data class PrestMedDTO(
     @field:Pattern(regexp = "^[0-9]{5}+[/]+[A-Z]{2}$")
     val crm: String,
 
-    @field:NotNull
-    val especialidade: EspecialidadeDTO
-
 )
 
-data class EspecialidadeDTO(
-    @field:NotNull
-    val nomeEspecialidade: String
-)
+
+ */

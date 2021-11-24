@@ -2,8 +2,9 @@ package br.unipar.plano.domain.credenciamentos.services.impl
 
 import br.unipar.plano.domain.credenciamentos.model.*
 import br.unipar.plano.domain.credenciamentos.services.EspecialidadeQueryService
-import br.unipar.plano.domain.credenciamentos.services.PrestMedQueryService
+import org.springframework.stereotype.Service
 
+@Service
 class EspecialidadeAppQueryImpl (private val especialidadeRepository: EspecialidadeRepository): EspecialidadeQueryService {
 
     override fun lista(): List<Especialidade> = especialidadeRepository.findAll()
@@ -12,3 +13,4 @@ class EspecialidadeAppQueryImpl (private val especialidadeRepository: Especialid
         Exception("Prestador médico com id ${idEspecialidade} não encontrado")
     }
 }
+

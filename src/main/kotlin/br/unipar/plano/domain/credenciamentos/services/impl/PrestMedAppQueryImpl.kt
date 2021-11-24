@@ -3,9 +3,9 @@ package br.unipar.plano.domain.credenciamentos.services.impl
 import br.unipar.plano.domain.credenciamentos.model.IdPrestadorMedico
 import br.unipar.plano.domain.credenciamentos.model.PrestadorMedico
 import br.unipar.plano.domain.credenciamentos.model.PrestadorMedicoRepository
-import br.unipar.plano.domain.credenciamentos.services.PrestMedQueryService
+//import br.unipar.plano.domain.credenciamentos.services.PrestMedQueryService
 import org.springframework.stereotype.Service
-
+/*
 @Service
 class PrestMedAppQueryImpl (private val prestadorMedicoRepository: PrestadorMedicoRepository): PrestMedQueryService {
 
@@ -15,3 +15,5 @@ class PrestMedAppQueryImpl (private val prestadorMedicoRepository: PrestadorMedi
         Exception("Prestador médico com id ${idPrestadorMedico} não encontrado")
     }
 }
+
+ */

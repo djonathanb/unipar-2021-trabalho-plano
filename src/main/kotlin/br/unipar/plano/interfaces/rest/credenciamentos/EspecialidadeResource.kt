@@ -1,9 +1,7 @@
 package br.unipar.plano.interfaces.rest.credenciamentos
 
 import br.unipar.plano.domain.credenciamentos.model.IdEspecialidade
-import br.unipar.plano.domain.credenciamentos.model.IdPrestadorMedico
 import br.unipar.plano.domain.credenciamentos.services.EspecialidadeAppService
-import br.unipar.plano.domain.credenciamentos.services.PrestMedAppService
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.responses.ApiResponses
@@ -17,13 +15,13 @@ import javax.validation.Valid
 @RequestMapping("/especialidade")
 class EspecialidadeResource (private val especialidadeAppService: EspecialidadeAppService) {
 
-        @Operation(summary = "Cria um prestador medico")
+        @Operation(summary = "Cria uma especialidade")
         @ApiResponses(value = [
-            ApiResponse(responseCode = "201", description = "Prestador medico criado com sucesso")
+            ApiResponse(responseCode = "201", description = "Especialidade criada com sucesso")
         ])
         @PostMapping
-        fun criar(@RequestBody @Valid especialidadeDTO: EspecialidadeDTO): ResponseEntity<Void> {
-            val idNovaEspecialidade  = especialidadeAppService.cria(especialidadeDTO)
+        fun criar(@RequestBody @Valid espDTO: EspDTO): ResponseEntity<Void> {
+            val idNovaEspecialidade  = especialidadeAppService.cria(espDTO)
 
             val uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")

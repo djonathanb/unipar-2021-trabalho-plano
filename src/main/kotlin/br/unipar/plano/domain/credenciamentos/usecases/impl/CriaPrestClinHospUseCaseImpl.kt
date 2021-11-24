@@ -5,6 +5,7 @@ import br.unipar.plano.domain.credenciamentos.model.PrestadorClinicaHospitalRepo
 import br.unipar.plano.domain.credenciamentos.usecases.CriaPrestClinHospUseCase
 import org.springframework.stereotype.Service
 
+
 @Service
 class CriaPrestClinHospUseCaseImpl(private val prestadorClinicaHospitalRepository: PrestadorClinicaHospitalRepository) : CriaPrestClinHospUseCase {
 
@@ -13,4 +14,5 @@ class CriaPrestClinHospUseCaseImpl(private val prestadorClinicaHospitalRepositor
     }
 
 }
+
 

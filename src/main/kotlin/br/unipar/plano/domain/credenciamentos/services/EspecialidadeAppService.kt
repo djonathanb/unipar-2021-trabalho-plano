@@ -1,14 +1,10 @@
 package br.unipar.plano.domain.credenciamentos.services
 
 import br.unipar.plano.domain.credenciamentos.model.IdEspecialidade
-import br.unipar.plano.interfaces.rest.credenciamentos.EspecialidadeDTO
-import br.unipar.plano.interfaces.rest.credenciamentos.EspecialidadeDetailsDTO
-import br.unipar.plano.interfaces.rest.credenciamentos.EspecialidadeSummaryDTO
-import br.unipar.plano.interfaces.rest.credenciamentos.PrestadorMedicoDetailsDTO
-
+import br.unipar.plano.interfaces.rest.credenciamentos.*
 
 interface EspecialidadeAppService {
-    fun cria(especialidadeDTO: EspecialidadeDTO): IdEspecialidade
+    fun cria(espDTO: EspDTO): IdEspecialidade
     fun lista(): List<EspecialidadeSummaryDTO>
     fun buscaPorId(idEspecialidade: IdEspecialidade): EspecialidadeDetailsDTO
 }

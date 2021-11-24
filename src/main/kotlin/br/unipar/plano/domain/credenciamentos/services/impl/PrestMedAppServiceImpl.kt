@@ -3,7 +3,7 @@ package br.unipar.plano.domain.credenciamentos.services.impl
 import br.unipar.plano.domain.credenciamentos.model.Especialidade
 import br.unipar.plano.domain.credenciamentos.model.IdPrestadorMedico
 import br.unipar.plano.domain.credenciamentos.model.PrestadorMedico
-import br.unipar.plano.domain.credenciamentos.services.PrestMedAppService
+/*import br.unipar.plano.domain.credenciamentos.services.PrestMedAppService
 import br.unipar.plano.domain.credenciamentos.services.PrestMedQueryService
 import br.unipar.plano.domain.credenciamentos.usecases.CriaPrestMedicoUseCase
 import br.unipar.plano.interfaces.rest.credenciamentos.EspecialidadeDTO
@@ -11,8 +11,8 @@ import br.unipar.plano.interfaces.rest.credenciamentos.PrestMedDTO
 import br.unipar.plano.interfaces.rest.credenciamentos.PrestadorMedicoDetailsDTO
 import br.unipar.plano.interfaces.rest.credenciamentos.PrestadorMedicoSummaryDTO
 import org.springframework.stereotype.Service
-
-
+/*
+/*
 @Service
 class PrestMedAppServiceImpl(
     private val prestMedQueryService: PrestMedQueryService,
@@ -67,3 +67,5 @@ class PrestMedAppServiceImpl(
     )
 
 }
+
+ */
