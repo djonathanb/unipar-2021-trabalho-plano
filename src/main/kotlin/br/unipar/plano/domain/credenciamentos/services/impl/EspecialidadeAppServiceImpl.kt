@@ -47,5 +47,4 @@ class EspecialidadeAppServiceImpl (
         nomeEspecialidade =  especialidade.nomeEspecialidade
     )
 
-
         }
