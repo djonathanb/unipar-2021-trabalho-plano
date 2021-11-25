@@ -1,7 +1,9 @@
 package br.unipar.plano.domain.contratos.services
 
-import br.unipar.plano.domain.centrais.model.Contrato
-import br.unipar.plano.domain.centrais.model.IdContrato
+
+import br.unipar.plano.domain.contratos.model.Contrato
+import br.unipar.plano.domain.contratos.model.IdContrato
+
 
 interface ContratoQueryService {
 

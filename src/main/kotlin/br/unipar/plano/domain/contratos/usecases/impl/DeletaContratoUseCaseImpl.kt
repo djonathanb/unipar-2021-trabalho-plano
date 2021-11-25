@@ -1,7 +1,8 @@
 package br.unipar.plano.domain.contratos.usecases.impl
 
-import br.unipar.plano.domain.centrais.model.ContratoRepository
-import br.unipar.plano.domain.centrais.model.IdContrato
+
+import br.unipar.plano.domain.contratos.model.ContratoRepository
+import br.unipar.plano.domain.contratos.model.IdContrato
 import br.unipar.plano.domain.contratos.usecases.DeletaContratosUseCase
 import org.springframework.stereotype.Service
 

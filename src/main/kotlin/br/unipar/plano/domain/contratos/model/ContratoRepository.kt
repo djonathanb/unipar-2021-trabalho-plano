@@ -1,4 +1,5 @@
-package br.unipar.plano.domain.centrais.model
+package br.unipar.plano.domain.contratos.model
+
 
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository

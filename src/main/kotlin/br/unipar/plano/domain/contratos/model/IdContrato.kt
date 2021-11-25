@@ -1,4 +1,4 @@
-package br.unipar.plano.domain.centrais.model
+package br.unipar.plano.domain.contratos.model
 
 import com.fasterxml.jackson.annotation.JsonValue
 import java.io.Serializable

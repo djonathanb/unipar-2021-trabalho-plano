@@ -1,10 +1,9 @@
 package br.unipar.plano.interfaces.rest.contratos
 
-import br.unipar.plano.domain.centrais.model.IdCentral
-import br.unipar.plano.domain.centrais.services.CentralApplicationService
-import br.unipar.plano.interfaces.rest.centrais.CentralDTO
-import br.unipar.plano.interfaces.rest.centrais.CentralDetailsDTO
-import br.unipar.plano.interfaces.rest.centrais.CentralSummaryDTO
+
+
+import br.unipar.plano.domain.contratos.model.IdContrato
+import br.unipar.plano.domain.contratos.services.ContratoApplicationService
 import io.swagger.v3.oas.annotations.Operation
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -17,10 +16,10 @@ import javax.validation.Valid
 @RequestMapping("/contratos")
 class ContratoResource(private val contratoApplicationService: ContratoApplicationService) {
 
-    @Operation(summary = "Cria uma nova central e retorna o endereço do novo recurso")
+    @Operation(summary = "Cria uma novo contrato e retorna o endereço do novo recurso")
     @PostMapping
-    fun criar(@RequestBody @Valid centralDTO: CentralDTO): ResponseEntity<Void> {
-        val idNovaCentral = centralApplicationService.cria(centralDTO)
+    fun criar(@RequestBody @Valid contratoDTO: ContratoDTO): ResponseEntity<Void> {
+        val idNovaCentral = contratoApplicationService.cria(contratoDTO)
 
         val uri = ServletUriComponentsBuilder.fromCurrentRequest()
             .path("/{id}")
@@ -31,41 +30,41 @@ class ContratoResource(private val contratoApplicationService: ContratoApplicati
     }
 
     @Operation(summary = "Atualiza uma central a partir do seu id e novo estado")
-    @PutMapping("/{idCentral}")
+    @PutMapping("/{idContrato}")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
-    fun atualizar(@PathVariable("idCentral") idCentral: UUID, @RequestBody @Valid centralDTO: CentralDTO) {
-        centralApplicationService.atualiza(idCentral = IdCentral(idCentral), centralDTO = centralDTO)
+    fun atualizar(@PathVariable("idContrato") idContrato: UUID, @RequestBody @Valid contratoDTO: ContratoDTO) {
+        contratoApplicationService.atualiza(idContrato = IdContrato(idContrato), contratoDTO = contratoDTO)
     }
 
     @Operation(summary = "Deleta uma central a partir do seu id")
-    @DeleteMapping("/{idCentral}")
+    @DeleteMapping("/{idContrato}")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
-    fun deleta(@PathVariable("idCentral") idCentral: UUID) {
-        centralApplicationService.deleta(idCentral = IdCentral(idCentral))
+    fun deleta(@PathVariable("idContrato") idContrato: UUID) {
+        contratoApplicationService.deleta(idContrato = IdContrato(idContrato))
     }
 
-    @PostMapping("/{idCentral}/credenciamento")
+    /*@PostMapping("/{idCentral}/credenciamento")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     fun credenciar(@PathVariable("idCentral") idCentral: UUID) {
-        centralApplicationService.credenciar(IdCentral(idCentral))
-    }
+        contratoApplicationService.credenciar(IdCentral(idCentral))
+    }*/
 
-    @DeleteMapping("/{idCentral}/credenciamento")
+    /*@DeleteMapping("/{idCentral}/credenciamento")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     fun descredenciar(@PathVariable("idCentral") idCentral: UUID) {
-        centralApplicationService.descredenciar(IdCentral(idCentral))
-    }
+        contratoApplicationService.descredenciar(IdCentral(idCentral))
+    }*/
 
-    @Operation(summary = "Retorna a lista de centrais cadastradas")
+    @Operation(summary = "Retorna a lista de contratos cadastrados")
     @GetMapping
-    fun lista(): ResponseEntity<List<CentralSummaryDTO>> {
-        return ResponseEntity.ok(centralApplicationService.lista())
+    fun lista(): ResponseEntity<List<ContratoSummaryDTO>> {
+        return ResponseEntity.ok(contratoApplicationService.lista())
     }
 
-    @Operation(summary = "Busca os detalhes de uma central por id")
-    @GetMapping("/{idCentral}")
-    fun buscaPorId(@PathVariable("idCentral") idCentral: UUID): ResponseEntity<CentralDetailsDTO> {
-        return ResponseEntity.ok(centralApplicationService.buscaPorId(IdCentral(idCentral)))
+    @Operation(summary = "Busca os detalhes de um contrato por id")
+    @GetMapping("/{idContrato}")
+    fun buscaPorId(@PathVariable("idContrato") idContrato: UUID ): ResponseEntity<ContratoDetailsDTO> {
+        return ResponseEntity.ok(contratoApplicationService.buscaPorId(IdContrato(idContrato)))
     }
 
 }
