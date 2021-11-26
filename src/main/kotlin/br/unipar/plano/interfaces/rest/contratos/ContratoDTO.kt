@@ -6,8 +6,6 @@ import br.unipar.plano.domain.contratos.model.StatusContrato
 import java.time.LocalDate
 import javax.validation.constraints.NotBlank
 
-
-
 data class ContratoSummaryDTO(
     val id: IdContrato,
     val idTitular: Int,

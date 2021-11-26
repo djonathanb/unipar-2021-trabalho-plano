@@ -18,5 +18,4 @@ class ContratoQueryServiceImpl(private val contratoRepository: ContratoRepositor
         ContratoNotFoundException(idContrato)
     }
 
-
 }

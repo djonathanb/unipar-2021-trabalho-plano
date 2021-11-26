@@ -1,5 +1,6 @@
 package br.unipar.plano.domain.contratos.services.impl
 
+import br.unipar.plano.domain.contratos.model.Contrato
 import br.unipar.plano.domain.contratos.model.IdContrato
 import br.unipar.plano.domain.contratos.services.ContratoApplicationService
 import br.unipar.plano.domain.contratos.services.ContratoQueryService
@@ -44,4 +45,5 @@ class ContratoApplicationServiceImpl(
         }
     }
 
+    override fun buscaPorPlano(idPlano: Int) = contratoQueryService.lista().filter {it.idPlano.equals(idPlano)}.map(ContratoDetailsDTO::toDTO)
 }
