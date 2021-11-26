@@ -1,12 +1,12 @@
 package br.unipar.plano.domain.contratos.services
 
 
-import br.unipar.plano.domain.contratos.model.Contrato
+
 import br.unipar.plano.domain.contratos.model.IdContrato
 import br.unipar.plano.interfaces.rest.contratos.ContratoDTO
 import br.unipar.plano.interfaces.rest.contratos.ContratoDetailsDTO
 import br.unipar.plano.interfaces.rest.contratos.ContratoSummaryDTO
-
+import java.util.*
 
 
 interface ContratoApplicationService {
@@ -16,5 +16,5 @@ interface ContratoApplicationService {
     fun buscaPorId(idContrato: IdContrato): ContratoDetailsDTO
     fun deleta(idContrato: IdContrato)
     fun atualiza(idContrato: IdContrato, contratoDTO: ContratoDTO)
-    fun buscaPorPlano(idPlano: Int): List<ContratoDetailsDTO>
+    fun buscaPorPlano(idPlano: UUID): List<ContratoDetailsDTO>
 }

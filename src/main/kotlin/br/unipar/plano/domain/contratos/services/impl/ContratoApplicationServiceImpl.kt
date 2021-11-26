@@ -9,6 +9,7 @@ import br.unipar.plano.interfaces.rest.contratos.ContratoDTO
 import br.unipar.plano.interfaces.rest.contratos.ContratoDetailsDTO
 import br.unipar.plano.interfaces.rest.contratos.ContratoSummaryDTO
 import org.springframework.stereotype.Service
+import java.util.*
 
 
 @Service
@@ -45,5 +46,5 @@ class ContratoApplicationServiceImpl(
         }
     }
 
-    override fun buscaPorPlano(idPlano: Int) = contratoQueryService.lista().filter {it.idPlano.equals(idPlano)}.map(ContratoDetailsDTO::toDTO)
+    override fun buscaPorPlano(idPlano: UUID) = contratoQueryService.lista().filter {it.idPlano.equals(idPlano)}.map(ContratoDetailsDTO::toDTO)
 }

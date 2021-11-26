@@ -70,7 +70,7 @@ class ContratoResource(private val contratoApplicationService: ContratoApplicati
 
     @Operation(summary = "Busca Todos os contratos a partir do Id de um Plano")
     @GetMapping("/buscaplano/{idPlano}")
-    fun buscaPorPlano(@PathVariable("idPlano") idPlano: Int): ResponseEntity<List<ContratoDetailsDTO>> {
+    fun buscaPorPlano(@PathVariable("idPlano") idPlano: UUID): ResponseEntity<List<ContratoDetailsDTO>> {
         return ResponseEntity.ok(contratoApplicationService.buscaPorPlano(idPlano))
     }
 

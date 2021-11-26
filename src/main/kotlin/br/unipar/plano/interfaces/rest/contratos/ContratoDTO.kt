@@ -4,12 +4,13 @@ import br.unipar.plano.domain.contratos.model.Contrato
 import br.unipar.plano.domain.contratos.model.IdContrato
 import br.unipar.plano.domain.contratos.model.StatusContrato
 import java.time.LocalDate
+import java.util.*
 import javax.validation.constraints.NotBlank
 
 data class ContratoSummaryDTO(
     val id: IdContrato,
-    val idTitular: Int,
-    val idPlano: Int,
+    val idTitular: UUID,
+    val idPlano: UUID,
     val dataContratacao: LocalDate,
     val dataContratoFinal : LocalDate
 ) {
@@ -56,10 +57,10 @@ data class ContratoDTO(
     val dataContratoFinal: LocalDate,
 
     @NotBlank(message = "ID Plano não informado")
-    val idPlano: Int,
+    val idPlano: UUID,
 
     @NotBlank(message = "ID Pessoa não informado")
-    val idTitular: Int
+    val idTitular: UUID
 
 ) {
 
