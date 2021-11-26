@@ -11,6 +11,7 @@ import br.unipar.plano.domain.carteirinha.usecases.VerificaCarteirinhaUseCase
 import br.unipar.plano.domain.carteirinha.usecases.impl.CriaCarteirinhaUseCaseImpl
 import br.unipar.plano.domain.centrais.model.IdCentral
 import br.unipar.plano.domain.usuario.IdUsuario
+import br.unipar.plano.interfaces.rest.carteirinha.CarteirinhaDTO
 import org.springframework.stereotype.Service
 import java.util.*
 
@@ -21,16 +22,16 @@ class CarteirinhaApplicationServiceImpl(
         private val criaCarteirinhaUseCase: CriaCarteirinhaUseCase,
         private val carteirinhaRepository: CarteirinhaRepository
         ): CarteirinhaApplicationService {
-    override fun criar(idUsuario: IdUsuario): IdCarteirinha {
-        val carteirinha = toModel(idUsuario)
+    override fun criar(dto: CarteirinhaDTO): String {
+        val carteirinha = toModel(dto)
         val novaCarteirinha = criaCarteirinhaUseCase.cria(carteirinha = carteirinha)
         return novaCarteirinha.numeroCarteirinha
     }
 
-    override fun validaCarteirinha(idCarteirinha: IdCarteirinha): Carteirinha {
+    override fun validaCarteirinha(dto: CarteirinhaDTO): Carteirinha {
         var carteirinha : Carteirinha? = null;
         try {
-             carteirinha = carteirinhaQueryService.buscaPorId(idCarteirinha)
+             carteirinha = carteirinhaQueryService.buscaPorId(dto.numeroCarteirinha)
         } catch (ex: Exception) {
             throw ex;
         }
@@ -41,14 +42,14 @@ class CarteirinhaApplicationServiceImpl(
         throw Exception("Carteirinha Inválida:\n Status: ${carteirinha.status}")
     }
 
-    override fun registraExtravio(idUsuario: IdUsuario, motivo: String): Carteirinha {
+    override fun registraExtravio(idUsuario: Int, motivo: String): Carteirinha {
         throw Exception()
     }
 
-    override fun registraEntrega(idCarteirinha: IdCarteirinha): Carteirinha {
+    override fun registraEntrega(dto: CarteirinhaDTO): Carteirinha {
         var carteirinha : Carteirinha? = null;
         try {
-            carteirinha = carteirinhaQueryService.buscaPorId(idCarteirinha)
+            carteirinha = carteirinhaQueryService.buscaPorId(dto.numeroCarteirinha)
         } catch (ex: Exception) {
             throw ex;
         }
@@ -57,9 +58,9 @@ class CarteirinhaApplicationServiceImpl(
 
     }
 
-    fun toModel(idUsuario: IdUsuario): Carteirinha = Carteirinha(
-            numeroCarteirinha = IdCarteirinha(),
-            idUsuario = idUsuario,
+    fun toModel(carteirinhaDTO: CarteirinhaDTO): Carteirinha = Carteirinha(
+            numeroCarteirinha = carteirinhaDTO.numeroCarteirinha,
+            idUsuario = carteirinhaDTO.idUsuario,
             dataEmissao = Date(),
             dataVencimento = calcularVencimento(),
             dataEntrega = null,

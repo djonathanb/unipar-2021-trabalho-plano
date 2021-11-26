@@ -8,5 +8,5 @@ import org.springframework.stereotype.Service
 @Service
 interface CarteirinhaQueryService {
     //fun criar(idUsuario: IdUsuario): IdCarteirinha
-    fun buscaPorId(idCarteirinha: IdCarteirinha): Carteirinha
+    fun buscaPorId(idCarteirinha: String): Carteirinha
 }

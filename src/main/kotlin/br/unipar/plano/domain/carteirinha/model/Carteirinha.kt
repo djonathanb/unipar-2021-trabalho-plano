@@ -1,16 +1,17 @@
 package br.unipar.plano.domain.carteirinha.model
 
 import br.unipar.plano.domain.usuario.IdUsuario
+import org.intellij.lang.annotations.RegExp
 import java.util.*
 import javax.persistence.*
 
 @Entity
 class Carteirinha(
-        @field:EmbeddedId
-        val numeroCarteirinha: IdCarteirinha,
+        @field:Id
+        val numeroCarteirinha: String,
 
         @Column(nullable = false)
-        val idUsuario: IdUsuario,
+        val idUsuario: Int,
 
         @Column(nullable = false)
         val dataEmissao: Date,
@@ -29,6 +30,9 @@ class Carteirinha(
         if (status != StatusCarteirinha.ENTREGA_PENDENTE)
             throw Exception("Não é possível entregar uma carteirinha que não esteja pendente")
 
+        if (Date() <= dataEmissao)
+            throw Exception("Não é possível registrar a carteirinha com data de entrega menor que data de emissão")
+
         return copy(status = StatusCarteirinha.VALIDA, dataEntrega = Date());
     }
 
@@ -43,8 +47,8 @@ class Carteirinha(
     }
 
     private fun copy(
-            numeroCarteirinha: IdCarteirinha = this.numeroCarteirinha,
-            idUsuario: IdUsuario = this.idUsuario,
+            numeroCarteirinha: String = this.numeroCarteirinha,
+            idUsuario: Int = this.idUsuario,
             dataEmissao: Date = this.dataEmissao,
             dataVencimento: Date = this.dataVencimento,
             dataEntrega: Date? = this.dataEntrega,

@@ -9,6 +9,7 @@ import br.unipar.plano.interfaces.rest.centrais.CentralDTO
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.responses.ApiResponses
+import org.springframework.boot.context.properties.bind.Bindable.setOf
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -29,21 +30,24 @@ class CarteirinhaResource(private val carteirinhaApplicationService: Carteirinha
         ApiResponse(responseCode = "201", description = "Carteirinha criada com sucesso!")
     ])
     @PostMapping
-    fun criarCarteirinha(@RequestBody @Valid idUsuario: IdUsuario): ResponseEntity<Void> {
-        val idNovaCarteirinha = carteirinhaApplicationService.criar(idUsuario)
+    fun criarCarteirinha(@RequestBody @Valid dto: CarteirinhaDTO): ResponseEntity<Void> {
+
+        val idNovaCarteirinha = carteirinhaApplicationService.criar(dto)
 
         val uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(idNovaCarteirinha.idCarteirinha)
+                .buildAndExpand(idNovaCarteirinha)
                 .toUri()
 
         return ResponseEntity.created(uri).build()
     }
 
+
+
     @PostMapping("/validate")
-    fun verificarValidade(@RequestBody @Valid idCarteirinha: IdCarteirinha) : ResponseEntity<Any> {
+    fun verificarValidade(@RequestBody @Valid dto: CarteirinhaDTO) : ResponseEntity<Any> {
         try {
-            val carteirinha = carteirinhaApplicationService.validaCarteirinha(idCarteirinha)
+            val carteirinha = carteirinhaApplicationService.validaCarteirinha(dto)
 
             return ResponseEntity.ok(carteirinha)
         } catch (ex: Exception) {
@@ -52,16 +56,16 @@ class CarteirinhaResource(private val carteirinhaApplicationService: Carteirinha
     }
 
     @PostMapping("/register")
-    fun registrarEntrega(@RequestBody @Valid idCarteirinha: IdCarteirinha): ResponseEntity<Any> {
+    fun registrarEntrega(@RequestBody @Valid dto: CarteirinhaDTO): ResponseEntity<Any> {
         try {
-            val carteirinha = carteirinhaApplicationService.registraEntrega(idCarteirinha)
+            val carteirinha = carteirinhaApplicationService.registraEntrega(dto)
             return ResponseEntity.ok(carteirinha)
         } catch (ex: Exception) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.message)
         }
     }
 
-    fun registrarExtravio(idUsuario: IdUsuario): Boolean {
+    fun registrarExtravio(idUsuario: Int): Boolean {
         return true;
     }
 }

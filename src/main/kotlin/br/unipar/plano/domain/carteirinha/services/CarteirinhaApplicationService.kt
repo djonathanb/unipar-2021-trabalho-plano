@@ -3,11 +3,12 @@ package br.unipar.plano.domain.carteirinha.services
 import br.unipar.plano.domain.carteirinha.model.Carteirinha
 import br.unipar.plano.domain.carteirinha.model.IdCarteirinha
 import br.unipar.plano.domain.usuario.IdUsuario
+import br.unipar.plano.interfaces.rest.carteirinha.CarteirinhaDTO
 
 interface CarteirinhaApplicationService {
-    fun criar(idUsuario: IdUsuario): IdCarteirinha;
-    fun validaCarteirinha(idCarteirinha: IdCarteirinha): Carteirinha
-    fun registraExtravio(idUsuario: IdUsuario, motivo: String): Carteirinha
-    fun registraEntrega(idCarteirinha: IdCarteirinha): Carteirinha
+    fun criar(dto: CarteirinhaDTO): String;
+    fun validaCarteirinha(dto: CarteirinhaDTO): Carteirinha
+    fun registraExtravio(idUsuario: Int, motivo: String): Carteirinha
+    fun registraEntrega(dto: CarteirinhaDTO): Carteirinha
 
 }
