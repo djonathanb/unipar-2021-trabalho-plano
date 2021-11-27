@@ -6,7 +6,8 @@ import br.unipar.plano.domain.carteirinha.model.StatusCarteirinha
 import br.unipar.plano.domain.carteirinha.services.CarteirinhaApplicationService
 import br.unipar.plano.domain.carteirinha.services.CarteirinhaQueryService
 import br.unipar.plano.domain.carteirinha.usecases.CriaCarteirinhaUseCase
-import br.unipar.plano.domain.carteirinha.usecases.VerificaCarteirinhaUseCase
+import br.unipar.plano.domain.carteirinha.usecases.RegistraCarteirinhaUseCase
+import br.unipar.plano.domain.carteirinha.usecases.ValidaCarteirinhaUseCase
 import br.unipar.plano.interfaces.rest.carteirinha.CarteirinhaDTO
 import org.springframework.stereotype.Service
 import java.util.*
@@ -15,55 +16,47 @@ import java.util.regex.Pattern
 @Service
 class CarteirinhaApplicationServiceImpl(
         private val carteirinhaQueryService: CarteirinhaQueryService,
-        private val verificaCarteirinhaUseCase: VerificaCarteirinhaUseCase,
+        private val validaCarteirinhaUseCase: ValidaCarteirinhaUseCase,
+        private val registraEntregaUseCase: RegistraCarteirinhaUseCase,
         private val criaCarteirinhaUseCase: CriaCarteirinhaUseCase,
         private val carteirinhaRepository: CarteirinhaRepository
         ): CarteirinhaApplicationService {
     override fun criar(dto: CarteirinhaDTO): String {
-        val carteirinha = toModel(dto)
-        val novaCarteirinha = criaCarteirinhaUseCase.cria(carteirinha = carteirinha)
-        return novaCarteirinha.numeroCarteirinha
+        try {
+            validaRegex(dto.numeroCarteirinha)
+
+            val carteirinha = toModel(dto)
+            val novaCarteirinha = criaCarteirinhaUseCase.cria(carteirinha = carteirinha)
+            return novaCarteirinha.numeroCarteirinha
+        } catch (error: Exception) {
+            throw error
+        }
     }
 
     override fun validaCarteirinha(dto: CarteirinhaDTO): Carteirinha {
-        var carteirinha : Carteirinha? = null;
-        try {
-            if (!validaRegex(dto.numeroCarteirinha))
-                throw Exception("Número de carteirinha não segue padrão determinado! Ex: UF9999999-99")
-             carteirinha = carteirinhaQueryService.buscaPorId(dto.numeroCarteirinha)
-        } catch (ex: Exception) {
-            throw ex;
-        }
-
-        if (carteirinha.validate())
-            return carteirinha
-
-        throw Exception("Carteirinha Inválida:\n Status: ${carteirinha.status}")
+        validaRegex(dto.numeroCarteirinha)
+        return validaCarteirinhaUseCase.validar(toModel(dto))
     }
 
     override fun registraExtravio(idUsuario: Int, motivo: String): Carteirinha {
+        //validaRegex(dto.numeroCarteirinha)
         throw Exception()
     }
 
     override fun registraEntrega(dto: CarteirinhaDTO): Carteirinha {
-        var carteirinha : Carteirinha? = null;
-        try {
-            carteirinha = carteirinhaQueryService.buscaPorId(dto.numeroCarteirinha)
-        } catch (ex: Exception) {
-            throw ex;
-        }
-        carteirinha = carteirinha.registrarEntrega()
-        return carteirinhaRepository.save(carteirinha)
+        validaRegex(dto.numeroCarteirinha)
+        val carteirinha = registraEntregaUseCase.registra(toModel(dto, status = StatusCarteirinha.VALIDA))
+        return carteirinha;
 
     }
 
-    fun toModel(carteirinhaDTO: CarteirinhaDTO): Carteirinha = Carteirinha(
+    fun toModel(carteirinhaDTO: CarteirinhaDTO, status: StatusCarteirinha = StatusCarteirinha.ENTREGA_PENDENTE): Carteirinha = Carteirinha(
             numeroCarteirinha = carteirinhaDTO.numeroCarteirinha,
             idUsuario = carteirinhaDTO.idUsuario,
             dataEmissao = Date(),
             dataVencimento = calcularVencimento(),
             dataEntrega = null,
-            status = StatusCarteirinha.ENTREGA_PENDENTE
+            status = status
     )
 
     fun calcularVencimento(): Date {
@@ -73,7 +66,10 @@ class CarteirinhaApplicationServiceImpl(
     }
 
     fun validaRegex(value: String): Boolean {
-        return Pattern.compile("[A-Z]{2}[0-9]{7}[-][0-9]{2}").matcher(value).matches()
+        if (!Pattern.compile("[A-Z]{2}[0-9]{7}[-][0-9]{2}").matcher(value).matches())
+            throw Exception("Número de carteirinha não segue padrão determinado! Ex: UF9999999-99")
+
+        return true;
     }
 
 }

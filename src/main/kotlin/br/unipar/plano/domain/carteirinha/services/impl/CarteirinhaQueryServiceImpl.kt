@@ -11,4 +11,14 @@ class CarteirinhaQueryServiceImpl(private val carteirinhaRepository: Carteirinha
         Exception("Carteirinha com o id ${idCarteirinha} não encontrada!")
     }
 
+    override fun save(carteirinha: Carteirinha): Carteirinha {
+        return carteirinhaRepository.save(carteirinha);
+    }
+
+    override fun findByIdUsuario(idUsuario: Int): Carteirinha {
+        return carteirinhaRepository.findByIdUsuario(idUsuario).orElseThrow{
+            Exception("Nenhuma carteirinha Válida encontrada para o Usuário $idUsuario")
+        };
+    }
+
 }

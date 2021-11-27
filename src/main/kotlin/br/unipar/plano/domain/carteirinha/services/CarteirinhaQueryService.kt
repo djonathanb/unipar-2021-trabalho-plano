@@ -6,4 +6,6 @@ import org.springframework.stereotype.Service
 @Service
 interface CarteirinhaQueryService {
     fun buscaPorId(idCarteirinha: String): Carteirinha
+    fun save(carteirinha: Carteirinha): Carteirinha
+    fun findByIdUsuario(idUsuario: Int): Carteirinha
 }

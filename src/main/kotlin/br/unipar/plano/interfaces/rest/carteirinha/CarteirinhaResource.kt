@@ -19,16 +19,23 @@ class CarteirinhaResource(private val carteirinhaApplicationService: Carteirinha
         ApiResponse(responseCode = "201", description = "Carteirinha criada com sucesso!")
     ])
     @PostMapping
-    fun criarCarteirinha(@RequestBody @Valid dto: CarteirinhaDTO): ResponseEntity<Void> {
+    fun criarCarteirinha(@RequestBody @Valid dto: CarteirinhaDTO): ResponseEntity<Any> {
 
-        val idNovaCarteirinha = carteirinhaApplicationService.criar(dto)
+        try {
 
-        val uri = ServletUriComponentsBuilder.fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(idNovaCarteirinha)
-                .toUri()
+            val idNovaCarteirinha = carteirinhaApplicationService.criar(dto)
 
-        return ResponseEntity.created(uri).build()
+            val uri = ServletUriComponentsBuilder.fromCurrentRequest()
+                    .path("/{id}")
+                    .buildAndExpand(idNovaCarteirinha)
+                    .toUri()
+
+            return ResponseEntity.created(uri).build()
+
+        } catch (error: Exception) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error.message)
+        }
+
     }
 
     @PostMapping("/validate")
