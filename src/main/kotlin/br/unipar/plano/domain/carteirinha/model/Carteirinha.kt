@@ -1,7 +1,5 @@
 package br.unipar.plano.domain.carteirinha.model
 
-import br.unipar.plano.domain.usuario.IdUsuario
-import org.intellij.lang.annotations.RegExp
 import java.util.*
 import javax.persistence.*
 
@@ -36,9 +34,7 @@ class Carteirinha(
         return copy(status = StatusCarteirinha.VALIDA, dataEntrega = Date());
     }
 
-    fun registrarExtravio(motivo: String): Carteirinha {
-        val m = MotivoExtravio(dataExtravio = Date(), numeroCarteirinha = this.numeroCarteirinha, motivoExtravio = motivo);
-
+    fun registrarExtravio(): Carteirinha {
         return copy(status = StatusCarteirinha.EXTRAVIADA);
     }
 

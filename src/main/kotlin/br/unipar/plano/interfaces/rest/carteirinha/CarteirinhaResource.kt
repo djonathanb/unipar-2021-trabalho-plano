@@ -59,7 +59,13 @@ class CarteirinhaResource(private val carteirinhaApplicationService: Carteirinha
         }
     }
 
-    fun registrarExtravio(idUsuario: Int): Boolean {
-        return true
+    @PostMapping("/registermisplacement")
+    fun registrarExtravio(@RequestBody @Valid motivoDTO: MotivoDTO): ResponseEntity<Any> {
+        try {
+            val motivoExtravio = carteirinhaApplicationService.registraExtravio(motivoDTO)
+            return ResponseEntity.ok(motivoExtravio)
+        } catch (ex: Exception) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.message)
+        }
     }
 }

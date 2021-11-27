@@ -2,13 +2,13 @@ package br.unipar.plano.domain.carteirinha.services.impl
 
 import br.unipar.plano.domain.carteirinha.model.Carteirinha
 import br.unipar.plano.domain.carteirinha.model.CarteirinhaRepository
+import br.unipar.plano.domain.carteirinha.model.MotivoExtravio
 import br.unipar.plano.domain.carteirinha.model.StatusCarteirinha
 import br.unipar.plano.domain.carteirinha.services.CarteirinhaApplicationService
 import br.unipar.plano.domain.carteirinha.services.CarteirinhaQueryService
-import br.unipar.plano.domain.carteirinha.usecases.CriaCarteirinhaUseCase
-import br.unipar.plano.domain.carteirinha.usecases.RegistraCarteirinhaUseCase
-import br.unipar.plano.domain.carteirinha.usecases.ValidaCarteirinhaUseCase
+import br.unipar.plano.domain.carteirinha.usecases.*
 import br.unipar.plano.interfaces.rest.carteirinha.CarteirinhaDTO
+import br.unipar.plano.interfaces.rest.carteirinha.MotivoDTO
 import org.springframework.stereotype.Service
 import java.util.*
 import java.util.regex.Pattern
@@ -19,7 +19,9 @@ class CarteirinhaApplicationServiceImpl(
         private val validaCarteirinhaUseCase: ValidaCarteirinhaUseCase,
         private val registraEntregaUseCase: RegistraCarteirinhaUseCase,
         private val criaCarteirinhaUseCase: CriaCarteirinhaUseCase,
-        private val carteirinhaRepository: CarteirinhaRepository
+        private val carteirinhaRepository: CarteirinhaRepository,
+        private val registraExtravioUseCase: RegistraExtravioUseCase,
+        private val registraMotivoExtravioUseCase: RegistraMotivoExtravioUseCase
         ): CarteirinhaApplicationService {
     override fun criar(dto: CarteirinhaDTO): String {
         try {
@@ -38,9 +40,24 @@ class CarteirinhaApplicationServiceImpl(
         return validaCarteirinhaUseCase.validar(toModel(dto))
     }
 
-    override fun registraExtravio(idUsuario: Int, motivo: String): Carteirinha {
-        //validaRegex(dto.numeroCarteirinha)
-        throw Exception()
+    override fun registraExtravio(dto: MotivoDTO): MotivoExtravio {
+
+        var carteirinha: Carteirinha? = null;
+
+        try {
+            carteirinha = carteirinhaQueryService.findByIdUsuario(dto.idUsuario);
+
+            carteirinha = registraExtravioUseCase.RegistraExtravio(carteirinha)
+
+            var motivoExtravio = toModelMotivo(dto, carteirinha)
+
+            motivoExtravio = registraMotivoExtravioUseCase.RegistraMotivoExtravio(motivoExtravio)
+
+            return motivoExtravio
+        } catch (ex: Exception) {
+            throw ex;
+        }
+
     }
 
     override fun registraEntrega(dto: CarteirinhaDTO): Carteirinha {
@@ -57,6 +74,12 @@ class CarteirinhaApplicationServiceImpl(
             dataVencimento = calcularVencimento(),
             dataEntrega = null,
             status = status
+    )
+
+    fun toModelMotivo(motivoDTO: MotivoDTO, carteirinha: Carteirinha): MotivoExtravio = MotivoExtravio(
+            numeroCarteirinha = carteirinha.numeroCarteirinha,
+            motivoExtravio = motivoDTO.motivo,
+            dataExtravio = Date()
     )
 
     fun calcularVencimento(): Date {

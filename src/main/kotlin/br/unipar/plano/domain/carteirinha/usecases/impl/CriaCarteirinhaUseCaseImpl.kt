@@ -12,7 +12,7 @@ class CriaCarteirinhaUseCaseImpl(private val carteirinhaRepository: CarteirinhaR
         var carteirinhaResult = carteirinhaRepository.findByIdUsuario(carteirinha.idUsuario)
 
         if (carteirinhaResult.isPresent)
-            throw Exception("Usuário ${carteirinha.idUsuario} já poussui uma carteirinha válida: ${carteirinhaResult.get().numeroCarteirinha}")
+            throw Exception("Usuário ${carteirinha.idUsuario} já possui uma carteirinha válida: ${carteirinhaResult.get().numeroCarteirinha}")
 
         carteirinhaResult = carteirinhaRepository.findById(carteirinha.numeroCarteirinha)
 
