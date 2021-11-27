@@ -1,6 +1,7 @@
 package br.unipar.plano.domain.carteirinhas.model
 
-import javax.persistence.*
+import javax.persistence.EmbeddedId
+import javax.persistence.Entity
 
 @Entity
 class Carteirinha(

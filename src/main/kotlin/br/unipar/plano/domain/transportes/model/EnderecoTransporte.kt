@@ -2,7 +2,6 @@ package br.unipar.plano.domain.transportes.model
 
 import br.unipar.plano.domain.centrais.model.IdTransporte
 import br.unipar.plano.domain.enderecos.model.Endereco
-import javax.persistence.Column
 import javax.persistence.EmbeddedId
 import javax.persistence.Entity
 

@@ -3,9 +3,6 @@ package br.unipar.plano.interfaces.rest.transportes
 import br.unipar.plano.domain.carteirinhas.model.Carteirinha
 import br.unipar.plano.domain.centrais.model.IdTransporte
 import br.unipar.plano.domain.centrais.model.TipoTransporte
-import br.unipar.plano.interfaces.rest.centrais.EnderecoDTO
-import java.time.LocalDate
-import javax.validation.constraints.NotBlank
 import javax.validation.constraints.NotNull
 import javax.validation.constraints.Size
 

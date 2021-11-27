@@ -1,6 +1,8 @@
 package br.unipar.plano.domain.centrais.services.impl
 
-import br.unipar.plano.domain.centrais.model.*
+import br.unipar.plano.domain.centrais.model.IdTransporte
+import br.unipar.plano.domain.centrais.model.Transporte
+import br.unipar.plano.domain.centrais.model.TransporteRepository
 import br.unipar.plano.domain.centrais.services.TransporteQueryService
 import org.springframework.stereotype.Service
 
