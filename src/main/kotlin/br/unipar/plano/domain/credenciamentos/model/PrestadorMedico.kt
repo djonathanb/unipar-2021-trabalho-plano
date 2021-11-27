@@ -1,7 +1,6 @@
 package br.unipar.plano.domain.credenciamentos.model
 
 import javax.persistence.*
-import javax.validation.constraints.Pattern
 
 @Entity
 class PrestadorMedico(
@@ -18,12 +17,9 @@ class PrestadorMedico(
     @Column(nullable = false)
     val crm: String,
 
-    /*
     @Column(nullable = true)
     @OneToMany(cascade = [CascadeType.ALL])
-    val especialidades: List<Especialidade>?
-
-     */
+    val especialidades: List<Especialidade>
 
 ) {
 
@@ -32,13 +28,13 @@ class PrestadorMedico(
         nome: String = this.nome,
         status: Status = this.status,
         crm: String = this.crm,
-       // especialidades: List<Especialidade>? = this.especialidades
+       especialidades: List<Especialidade> = this.especialidades
     ) = copy(
         id = id,
         nome = nome,
         status = status,
         crm = crm,
-       // especialidades = especialidades
+       especialidades = especialidades
     )
 
     private fun copy(
@@ -46,13 +42,13 @@ class PrestadorMedico(
         nome: String = this.nome,
         status: Status = this.status,
         crm: String = this.crm,
-       // especialidades: List<Especialidade>? = this.especialidades
+       especialidades: List<Especialidade> = this.especialidades
     ) = PrestadorMedico(
         id = id,
         nome = nome,
         status = status,
         crm = crm,
-       // especialidades = especialidades
+        especialidades = especialidades
     )
 
 }

@@ -1,5 +1,4 @@
 package br.unipar.plano.interfaces.rest.credenciamentos
-
 import br.unipar.plano.domain.credenciamentos.model.IdPrestadorMedico
 import br.unipar.plano.domain.credenciamentos.model.Status
 import javax.validation.constraints.NotBlank
@@ -10,8 +9,7 @@ data class PrestadorMedicoSummaryDTO(
     val id: IdPrestadorMedico,
     val nome: String,
     val crm: String,
-    val status: Status,
-    //val nomeEspecialidade: List<EspDTO>
+    val especialidades: List<SummaryEspDTO>
     )
 
 data class PrestadorMedicoDetailsDTO(
@@ -31,6 +29,16 @@ data class PrestMedDTO(
     @field:Pattern(regexp = "^[0-9]{5}+[/]+[A-Z]{2}$")
     val crm: String,
 
-    //val especialidades: List<EspDTO>
+    @field:NotNull
+    val especialidades: List<EspDTO>
 
+)
+
+data class EspDTO(
+    @field:NotBlank(message = "O nome deve ser informado")
+    val nomeEspecialidade: String
+)
+
+data class SummaryEspDTO(
+    val nomeEspecialidade: String
 )

@@ -1,16 +1,12 @@
 package br.unipar.plano.domain.credenciamentos.services.impl
 
 import br.unipar.plano.domain.credenciamentos.model.Especialidade
-import br.unipar.plano.domain.credenciamentos.model.IdEspecialidade
 import br.unipar.plano.domain.credenciamentos.model.IdPrestadorMedico
 import br.unipar.plano.domain.credenciamentos.model.PrestadorMedico
 import br.unipar.plano.domain.credenciamentos.services.PrestMedAppService
 import br.unipar.plano.domain.credenciamentos.services.PrestMedQueryService
 import br.unipar.plano.domain.credenciamentos.usecases.CriaPrestMedicoUseCase
-import br.unipar.plano.interfaces.rest.credenciamentos.EspDTO
-import br.unipar.plano.interfaces.rest.credenciamentos.PrestMedDTO
-import br.unipar.plano.interfaces.rest.credenciamentos.PrestadorMedicoDetailsDTO
-import br.unipar.plano.interfaces.rest.credenciamentos.PrestadorMedicoSummaryDTO
+import br.unipar.plano.interfaces.rest.credenciamentos.*
 import org.springframework.stereotype.Service
 
 
@@ -38,7 +34,7 @@ class PrestMedAppServiceImpl(
         id = id,
         nome = prestadorMedicoDTO.nome,
         crm = prestadorMedicoDTO.crm,
-        //especialidades = listOf(prestadorMedicoDTO.especialidade),
+        especialidades = prestadorMedicoDTO.especialidades.map {especialidade -> Especialidade(id = IdPrestadorMedico() ,nomeEspecialidade = especialidade.nomeEspecialidade) },
         status = prestadorMedicoDTO.status
     )
 
@@ -46,8 +42,7 @@ class PrestMedAppServiceImpl(
         id = prestadorMedico.id,
         nome = prestadorMedico.nome,
         crm = prestadorMedico.crm,
-        status = prestadorMedico.status,
-       // especialidades = listOf(prestadorMedico.especialidade)
+        especialidades = prestadorMedico.especialidades.map { especialidade -> SummaryEspDTO(nomeEspecialidade = especialidade.nomeEspecialidade) }
     )
 
     private fun toDetailsDTO(prestadorMedico: PrestadorMedico) = PrestadorMedicoDetailsDTO(
@@ -58,7 +53,7 @@ class PrestMedAppServiceImpl(
     private fun toDTO(prestadorMedico: PrestadorMedico) = PrestMedDTO(
         nome = prestadorMedico.nome,
         crm = prestadorMedico.crm,
-        //especialidades = listOf(prestadorMedico.especialidade),
+        especialidades = prestadorMedico.especialidades.map{especialidade -> EspDTO(nomeEspecialidade = especialidade.nomeEspecialidade) },
         status = prestadorMedico.status
     )
 
