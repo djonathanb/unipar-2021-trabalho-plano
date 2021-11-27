@@ -1,9 +1,9 @@
 package br.unipar.plano.domain.centrais.services
 
 import br.unipar.plano.domain.centrais.model.IdCentral
-import br.unipar.plano.interfaces.rest.centrais.CentralDTO
-import br.unipar.plano.interfaces.rest.centrais.CentralDetailsDTO
-import br.unipar.plano.interfaces.rest.centrais.CentralSummaryDTO
+import br.unipar.plano.interfaces.dto.CentralDTO
+import br.unipar.plano.interfaces.dto.CentralDetailsDTO
+import br.unipar.plano.interfaces.dto.CentralSummaryDTO
 
 interface CentralApplicationService {
 
