@@ -2,18 +2,15 @@ package br.unipar.plano.domain.carteirinha.services.impl
 
 import br.unipar.plano.domain.carteirinha.model.Carteirinha
 import br.unipar.plano.domain.carteirinha.model.CarteirinhaRepository
-import br.unipar.plano.domain.carteirinha.model.IdCarteirinha
 import br.unipar.plano.domain.carteirinha.model.StatusCarteirinha
 import br.unipar.plano.domain.carteirinha.services.CarteirinhaApplicationService
 import br.unipar.plano.domain.carteirinha.services.CarteirinhaQueryService
 import br.unipar.plano.domain.carteirinha.usecases.CriaCarteirinhaUseCase
 import br.unipar.plano.domain.carteirinha.usecases.VerificaCarteirinhaUseCase
-import br.unipar.plano.domain.carteirinha.usecases.impl.CriaCarteirinhaUseCaseImpl
-import br.unipar.plano.domain.centrais.model.IdCentral
-import br.unipar.plano.domain.usuario.IdUsuario
 import br.unipar.plano.interfaces.rest.carteirinha.CarteirinhaDTO
 import org.springframework.stereotype.Service
 import java.util.*
+import java.util.regex.Pattern
 
 @Service
 class CarteirinhaApplicationServiceImpl(
@@ -29,8 +26,11 @@ class CarteirinhaApplicationServiceImpl(
     }
 
     override fun validaCarteirinha(dto: CarteirinhaDTO): Carteirinha {
+        validaRegex(dto.numeroCarteirinha)
         var carteirinha : Carteirinha? = null;
         try {
+            if (!validaRegex(dto.numeroCarteirinha))
+                throw Exception("Número de carteirinha não segue padrão determinado! Ex: UF9999999-99")
              carteirinha = carteirinhaQueryService.buscaPorId(dto.numeroCarteirinha)
         } catch (ex: Exception) {
             throw ex;
@@ -71,6 +71,10 @@ class CarteirinhaApplicationServiceImpl(
         var date = Calendar.getInstance()
         date.add(Calendar.YEAR, 3)
         return date.time
+    }
+
+    fun validaRegex(value: String): Boolean {
+        return Pattern.compile("[A-Z]{2}[0-9]{7}[-][0-9]{2}").matcher(value).matches()
     }
 
 }
