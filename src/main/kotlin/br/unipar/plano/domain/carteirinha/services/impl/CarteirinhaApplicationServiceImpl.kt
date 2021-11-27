@@ -26,7 +26,6 @@ class CarteirinhaApplicationServiceImpl(
     }
 
     override fun validaCarteirinha(dto: CarteirinhaDTO): Carteirinha {
-        validaRegex(dto.numeroCarteirinha)
         var carteirinha : Carteirinha? = null;
         try {
             if (!validaRegex(dto.numeroCarteirinha))
@@ -68,7 +67,7 @@ class CarteirinhaApplicationServiceImpl(
     )
 
     fun calcularVencimento(): Date {
-        var date = Calendar.getInstance()
+        val date = Calendar.getInstance()
         date.add(Calendar.YEAR, 3)
         return date.time
     }

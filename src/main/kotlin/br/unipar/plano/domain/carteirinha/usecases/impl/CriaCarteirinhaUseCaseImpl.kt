@@ -2,9 +2,7 @@ package br.unipar.plano.domain.carteirinha.usecases.impl
 
 import br.unipar.plano.domain.carteirinha.model.Carteirinha
 import br.unipar.plano.domain.carteirinha.model.CarteirinhaRepository
-import br.unipar.plano.domain.carteirinha.model.IdCarteirinha
 import br.unipar.plano.domain.carteirinha.usecases.CriaCarteirinhaUseCase
-import br.unipar.plano.domain.usuario.IdUsuario
 import org.springframework.stereotype.Service
 
 @Service

@@ -1,8 +1,6 @@
 package br.unipar.plano.domain.carteirinha.services
 
 import br.unipar.plano.domain.carteirinha.model.Carteirinha
-import br.unipar.plano.domain.carteirinha.model.IdCarteirinha
-import br.unipar.plano.domain.usuario.IdUsuario
 import br.unipar.plano.interfaces.rest.carteirinha.CarteirinhaDTO
 
 interface CarteirinhaApplicationService {
