@@ -1,7 +1,6 @@
 package br.unipar.plano.domain.reembolso.repository
 
 import br.unipar.plano.domain.reembolso.model.Carteirinha
-import br.unipar.plano.domain.reembolso.model.IdUsuario
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 import org.springframework.stereotype.Repository

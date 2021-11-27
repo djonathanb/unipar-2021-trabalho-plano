@@ -1,7 +1,7 @@
 package br.unipar.plano.domain.reembolso.model
 
 import java.math.BigDecimal
-import java.util.*
+import java.time.LocalDate
 import javax.persistence.*
 
 enum class StatusReembolso {
@@ -23,7 +23,7 @@ class Reembolso(
         val valor: BigDecimal,
 
         @Column
-        val data: Date,
+        val data: LocalDate,
 
         @OneToOne(cascade = [CascadeType.ALL])
         val usuario: Usuario
@@ -47,7 +47,7 @@ class Reembolso(
                 id: IdReembolso = this.id,
                 estadoSolicitacao: String = this.estadoSolicitacao,
                 valor: BigDecimal = this.valor,
-                data: Date = this.data,
+                data: LocalDate = this.data,
                 usuario: Usuario = this.usuario
         ) = copy(
                 id = id,
@@ -61,7 +61,7 @@ class Reembolso(
                 id: IdReembolso = this.id,
                 estadoSolicitacao: String = this.estadoSolicitacao,
                 valor: BigDecimal = this.valor,
-                data: Date = this.data,
+                data: LocalDate = this.data,
                 usuario: Usuario = this.usuario,
                 status: StatusReembolso = this.status
         ) = Reembolso(

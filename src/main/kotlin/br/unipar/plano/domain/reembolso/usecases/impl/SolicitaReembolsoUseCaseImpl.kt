@@ -10,6 +10,7 @@ import br.unipar.plano.domain.reembolso.usecases.exceptions.CarteirinhaInvalidaE
 import br.unipar.plano.domain.reembolso.usecases.exceptions.SolicitacaoException
 import org.springframework.stereotype.Service
 import java.math.BigDecimal
+import java.time.LocalDate
 
 @Service
 class SolicitaReembolsoUseCaseImpl(
@@ -31,11 +32,11 @@ class SolicitaReembolsoUseCaseImpl(
             throw AreaAbrangenciaInvalidaException("A solicitação deve ser feita para um estado fora da Área de Abrangência do plano")
         }
 
-        val year = 2021
-        val totalSolicitacoesRealizadas = reembolsoRepository.totalSolicitacoesAno(idUsuario, year)
+        val dataSolicitacao = LocalDate.of(2021, 1, 1)
+        val totalSolicitacoesRealizadas = reembolsoRepository.totalSolicitacoesAno(idUsuario, dataSolicitacao)
 
         val valorReembolso = reembolso.valor
-        val valorTotalSolicitacoesRealizadas = reembolsoRepository.valorTotalSolicitacoesRealizadas(idUsuario, year) + valorReembolso
+        val valorTotalSolicitacoesRealizadas = reembolsoRepository.valorTotalSolicitacoesAno(idUsuario, dataSolicitacao) + valorReembolso
 
         if(totalSolicitacoesRealizadas > 4 && valorTotalSolicitacoesRealizadas
                         .compareTo(BigDecimal("5000")) > 0 ) {

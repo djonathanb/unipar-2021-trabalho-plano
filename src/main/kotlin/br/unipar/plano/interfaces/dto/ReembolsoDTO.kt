@@ -2,7 +2,7 @@ package br.unipar.plano.interfaces.dto
 
 import br.unipar.plano.domain.reembolso.model.*
 import java.math.BigDecimal
-import java.util.*
+import java.time.LocalDate
 import javax.persistence.EnumType
 import javax.persistence.Enumerated
 import javax.validation.constraints.NotBlank
@@ -13,7 +13,7 @@ data class ReembolsoSummaryDTO(
         val estadoSolicitacao: String,
         val status: StatusReembolso,
         val valor: BigDecimal,
-        val data: Date,
+        val data: LocalDate,
         val usuario: Usuario
 ) {
 
@@ -37,7 +37,7 @@ data class ReembolsoDetailsDTO(
         val estadoSolicitacao: String,
         val status: StatusReembolso,
         val valor: BigDecimal,
-        val data: Date,
+        val data: LocalDate,
         val usuario: Usuario
 ) {
 
@@ -67,7 +67,7 @@ data class ReembolsoDTO(
         val valor: BigDecimal,
 
         @field:NotNull
-        val data: Date,
+        val data: LocalDate,
 
         @field:NotNull
         val usuario: Usuario
