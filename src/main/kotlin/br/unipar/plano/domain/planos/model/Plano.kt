@@ -36,6 +36,42 @@ class Plano(
 
         ) {
 
+    fun with(
+            id: IdPlano = this.id,
+            nome: String = this.nome,
+            abrangencia: TipoAbrangencia = this.abrangencia,
+            acomodacao: TipoAcomodacao = this.acomodacao,
+            obstetricia: Boolean = this.obstetricia,
+            transporteaereo: Boolean = this.transporteaereo,
+            valorbase: Double = this.valorbase
+    ) = copy(
+            id = id,
+            nome = nome,
+            abrangencia = abrangencia,
+            acomodacao = acomodacao,
+            obstetricia = obstetricia,
+            transporteaereo = transporteaereo,
+            valorbase = valorbase
+    )
+
+    private fun copy(
+            id: IdPlano = this.id,
+            nome: String = this.nome,
+            abrangencia: TipoAbrangencia = this.abrangencia,
+            acomodacao: TipoAcomodacao = this.acomodacao,
+            obstetricia: Boolean = this.obstetricia,
+            transporteaereo: Boolean = this.transporteaereo,
+            valorbase: Double = this.valorbase
+    ) = Plano(
+            id = id,
+            nome = nome,
+            abrangencia = abrangencia,
+            acomodacao = acomodacao,
+            obstetricia = obstetricia,
+            transporteaereo = transporteaereo,
+            valorbase = valorbase
+    )
+
 
 
 
