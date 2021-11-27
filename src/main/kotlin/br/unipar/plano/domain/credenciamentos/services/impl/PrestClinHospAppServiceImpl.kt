@@ -1,11 +1,13 @@
 package br.unipar.plano.domain.credenciamentos.services.impl
 
 import br.unipar.plano.domain.credenciamentos.model.*
+import br.unipar.plano.domain.credenciamentos.services.PrestClinHospAppService
+import br.unipar.plano.domain.credenciamentos.services.PrestClinHospQueryService
 import br.unipar.plano.domain.credenciamentos.usecases.CriaPrestClinHospUseCase
 import br.unipar.plano.interfaces.rest.credenciamentos.*
 import org.springframework.stereotype.Service
 
-/*
+
 
 @Service
 class PrestClinHospAppServiceImpl(
@@ -15,7 +17,7 @@ class PrestClinHospAppServiceImpl(
 
     override fun cria(prestClinHospDTO: PrestClinHospDTO): IdPrestadorClinicaHospital {
         val clinicaHospital = toModel(IdPrestadorClinicaHospital(), prestClinHospDTO)
-        val novoClinHosp = criaPrestClinHospUseCase.executa()
+        val novoClinHosp = criaPrestClinHospUseCase.executa(clinicaHospital)
         return novoClinHosp.id
     }
 
@@ -31,20 +33,7 @@ class PrestClinHospAppServiceImpl(
         nome = prestClinHospDTO.nome,
         cnpj = prestClinHospDTO.cnpj,
         status = prestClinHospDTO.status,
-        responsavel = PrestadorMedico(
-            nome = prestClinHospDTO.responsavel.nome,
-            crm = prestClinHospDTO.responsavel.crm,
-            especialidade = Especialidade(
-
-                nomeEspecialidade = prestClinHospDTO.responsavel.especialidade.nomeEspecialidade
-            ),
-            status = prestClinHospDTO.responsavel.status,
-
-            ),
-        servico = Servico(
-            idPrestadorClinicaHospital = id,
-            servico = prestClinHospDTO.servico.servico
-        )
+        servico = prestClinHospDTO.servicos.map { servico -> Servico(id = IdPrestadorClinicaHospital(), servico = servico.servico)}
     )
 
     private fun toSummaryDTO(prestadorClinicaHospital: PrestadorClinicaHospital) = PrestClinHospSummaryDTO(
@@ -52,8 +41,7 @@ class PrestClinHospAppServiceImpl(
         nome = prestadorClinicaHospital.nome,
         cnpj = prestadorClinicaHospital.cnpj,
         status = prestadorClinicaHospital.status,
-        responsavel = prestadorClinicaHospital.responsavel.nome,
-        servico = prestadorClinicaHospital.servico.servico
+        servicos =  prestadorClinicaHospital.servico.map{ servico -> ServicoSummaryDTO(servico = servico.servico) }
     )
 
     private fun toDetailsDTO(prestadorClinicaHospital: PrestadorClinicaHospital) = PrestClinHospDetailsDTO(
@@ -65,15 +53,8 @@ class PrestClinHospAppServiceImpl(
         nome = prestadorClinicaHospital.nome,
         cnpj = prestadorClinicaHospital.cnpj,
         status = prestadorClinicaHospital.status,
-        responsavel = PrestMedDTO(
-            prestadorClinicaHospital.responsavel.nome
-        ),
-        servico = ServicoDTO(
-            servico = prestadorClinicaHospital.servico.servico
-        )
-
+        servicos = prestadorClinicaHospital.servico.map{ servico -> ServicoDTO(servico = servico.servico) }
     )
 
 
 }
- */

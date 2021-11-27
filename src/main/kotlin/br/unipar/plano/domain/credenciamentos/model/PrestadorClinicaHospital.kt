@@ -18,11 +18,11 @@ class PrestadorClinicaHospital(
     @Enumerated(EnumType.STRING)
     val status: Status,
 
-    @OneToOne(cascade = [CascadeType.ALL], orphanRemoval = true)
-    val responsavel: PrestadorMedico,
+  //  @OneToOne(cascade = [CascadeType.ALL], orphanRemoval = true)
+  //  val responsavel: PrestadorMedico,
 
-    @OneToOne(cascade = [CascadeType.ALL], orphanRemoval = true)
-    val servico: Servico
+    @OneToMany(cascade = [CascadeType.ALL], orphanRemoval = true)
+    val servico: List<Servico>
 
 ) {
 
@@ -31,14 +31,14 @@ class PrestadorClinicaHospital(
         nome: String = this.nome,
         cnpj: String = this.cnpj,
         status: Status = this.status,
-        responsavel: PrestadorMedico = this.responsavel,
-        servico: Servico = this.servico
+        //responsavel: ListPrestadorMedico = this.responsavel,
+        servico: List<Servico> = this.servico
     ) = copy(
         id = id,
         nome = nome,
         cnpj = cnpj,
         status = status,
-        responsavel = responsavel,
+       // responsavel = responsavel,
         servico = servico
     )
 
@@ -47,14 +47,14 @@ class PrestadorClinicaHospital(
         nome: String = this.nome,
         cnpj: String = this.cnpj,
         status: Status = this.status,
-        responsavel: PrestadorMedico = this.responsavel,
-        servico: Servico = this.servico
+       // responsavel: PrestadorMedico = this.responsavel,
+        servico: List<Servico> = this.servico
     ) = PrestadorClinicaHospital(
         id = id,
         nome = nome,
         cnpj = cnpj,
         status = status,
-        responsavel = responsavel,
+       // responsavel = responsavel,
         servico = servico
     )
 }
