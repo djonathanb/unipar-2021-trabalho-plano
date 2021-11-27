@@ -5,9 +5,11 @@ import br.unipar.plano.domain.cobrancas.model.Cobranca
 import br.unipar.plano.domain.cobrancas.model.Contrato
 import br.unipar.plano.domain.cobrancas.model.IdCobranca
 import br.unipar.plano.domain.cobrancas.service.impl.CobrancaNotFoundException
+import br.unipar.plano.domain.cobrancas.valueobjects.StatusCobranca
 import br.unipar.plano.interfaces.rest.cobrancas.CobrancaDetailsDTO
 import br.unipar.plano.interfaces.rest.cobrancas.CobrancaSummaryDTO
 import java.time.LocalDate
+import java.util.*
 
 interface CobrancaService {
     @Throws(NegocioException::class)
@@ -20,4 +22,7 @@ interface CobrancaService {
 
     @Throws(CobrancaNotFoundException::class)
     fun buscarPorId(id: IdCobranca): CobrancaDetailsDTO
+
+    @Throws(CobrancaNotFoundException::class)
+    fun buscarPorContratoAndStatus(contrato: Contrato, status: Optional<StatusCobranca>): List<CobrancaDetailsDTO>
 }

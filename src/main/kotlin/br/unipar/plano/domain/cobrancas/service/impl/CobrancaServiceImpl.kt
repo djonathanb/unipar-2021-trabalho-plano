@@ -7,10 +7,12 @@ import br.unipar.plano.domain.cobrancas.model.IdCobranca
 import br.unipar.plano.domain.cobrancas.service.CobrancaQueryService
 import br.unipar.plano.domain.cobrancas.service.CobrancaService
 import br.unipar.plano.domain.cobrancas.usecases.CancelarCobrancaUseCase
+import br.unipar.plano.domain.cobrancas.valueobjects.StatusCobranca
 import br.unipar.plano.interfaces.rest.cobrancas.CobrancaDetailsDTO
 import br.unipar.plano.interfaces.rest.cobrancas.CobrancaSummaryDTO
 import org.springframework.stereotype.Service
 import java.time.LocalDate
+import java.util.*
 
 @Service
 class CobrancaServiceImpl(
@@ -31,6 +33,11 @@ class CobrancaServiceImpl(
     override fun buscarPorId(id: IdCobranca): CobrancaDetailsDTO {
         return CobrancaDetailsDTO.toDTO(queryService.buscaPorId(id))
 
+    }
+
+    //TODO: Criar teste
+    override fun buscarPorContratoAndStatus(contrato: Contrato, status: Optional<StatusCobranca>): List<CobrancaDetailsDTO> {
+        return queryService.buscarPorContratoAndStatus(contrato, status).map(CobrancaDetailsDTO::toDTO)
     }
 
 
