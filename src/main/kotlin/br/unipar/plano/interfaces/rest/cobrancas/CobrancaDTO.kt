@@ -153,8 +153,6 @@ data class CirurgiaDTO(
 data class UsuarioDTO(
     val id: UUID,
     val plano: PlanoDTO,
-
-
     val dataNascimento: LocalDate
 ) {
     fun toModel() = Usuario(

@@ -1,7 +1,6 @@
 package br.unipar.plano.domain.cobrancas.service
 
 import br.unipar.plano.application.exceptions.NegocioException
-import br.unipar.plano.domain.cobrancas.model.Cobranca
 import br.unipar.plano.domain.cobrancas.model.Contrato
 import br.unipar.plano.domain.cobrancas.model.IdCobranca
 import br.unipar.plano.domain.cobrancas.service.impl.CobrancaNotFoundException
@@ -13,7 +12,7 @@ import java.util.*
 
 interface CobrancaService {
     @Throws(NegocioException::class)
-    fun registrarCobranca(contrato: Contrato, dataEmissao: LocalDate): Cobranca
+    fun registrarCobranca(contrato: Contrato, dataEmissao: LocalDate): IdCobranca
 
     @Throws(CobrancaNotFoundException::class)
     fun cancelarCobranca(idCobranca: IdCobranca): CobrancaDetailsDTO

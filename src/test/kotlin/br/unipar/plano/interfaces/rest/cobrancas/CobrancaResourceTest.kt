@@ -49,7 +49,7 @@ class CobrancaResourceTest {
                 any(),
                 any()
             )
-        ).thenReturn(cobranca)
+        ).thenReturn(idCobranca)
 
         val endpoint = BASE_PATH
         val conteudoJson = objectMapper.writeValueAsString(registrarCobrancaDTO)

@@ -1,7 +1,6 @@
 package br.unipar.plano.domain.cobrancas.service.impl
 
 import br.unipar.plano.domain.centrais.usecases.RegistrarCobrancaUseCase
-import br.unipar.plano.domain.cobrancas.model.Cobranca
 import br.unipar.plano.domain.cobrancas.model.Contrato
 import br.unipar.plano.domain.cobrancas.model.IdCobranca
 import br.unipar.plano.domain.cobrancas.service.CobrancaQueryService
@@ -21,8 +20,8 @@ class CobrancaServiceImpl(
     private val cancelarCobrancaUseCase: CancelarCobrancaUseCase,
 
     ) : CobrancaService {
-    override fun registrarCobranca(contrato: Contrato, dataEmissao: LocalDate): Cobranca =
-        registrarCobrancaUseCase.executa(contrato, dataEmissao)
+    override fun registrarCobranca(contrato: Contrato, dataEmissao: LocalDate): IdCobranca =
+        registrarCobrancaUseCase.executa(contrato, dataEmissao).id
 
 
     override fun cancelarCobranca(idCobranca: IdCobranca): CobrancaDetailsDTO =
