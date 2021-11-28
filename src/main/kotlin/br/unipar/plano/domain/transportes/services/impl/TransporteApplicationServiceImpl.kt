@@ -1,12 +1,14 @@
 package br.unipar.plano.domain.centrais.services.impl
 
 import br.unipar.plano.domain.carteirinhas.model.Carteirinha
+import br.unipar.plano.domain.carteirinhas.model.IdCarteirinha
 import br.unipar.plano.domain.centrais.model.IdTransporte
 import br.unipar.plano.domain.centrais.model.Transporte
 import br.unipar.plano.domain.centrais.services.TransporteApplicationService
 import br.unipar.plano.domain.centrais.services.TransporteQueryService
 import br.unipar.plano.domain.centrais.usecases.CriaTransporteUseCase
 import br.unipar.plano.domain.transportes.model.EnderecoTransporte
+import br.unipar.plano.interfaces.rest.carteirinhas.CarteirinhaSummaryDTO
 import br.unipar.plano.interfaces.rest.transportes.EnderecoTransporteDTO
 import br.unipar.plano.interfaces.rest.transportes.TransporteDTO
 import br.unipar.plano.interfaces.rest.transportes.TransporteDetailsDTO
@@ -34,7 +36,7 @@ class TransporteApplicationServiceImpl(
 
     private fun toModel(id: IdTransporte, transporteDTO: TransporteDTO) = Transporte(
         id = id,
-        carteirinha = transporteDTO.carteirinha,
+        carteirinha = Carteirinha(id = transporteDTO.carteirinha.id),
         enderecoOrigem = EnderecoTransporte(
             idTransporte = id,
             cidade = transporteDTO.enderecoOrigem.cidade,
@@ -62,7 +64,7 @@ class TransporteApplicationServiceImpl(
     )
 
     private fun toDTO(transporte: Transporte) = TransporteDTO(
-        carteirinha = Carteirinha(
+        carteirinha = CarteirinhaSummaryDTO(
             id = transporte.carteirinha.id,
         ),
         enderecoOrigem = EnderecoTransporteDTO(
@@ -86,9 +88,8 @@ class TransporteApplicationServiceImpl(
 
     private fun toSummaryDTO(transporte: Transporte) = TransporteSummaryDTO(
         id = transporte.id,
-        carteirinha = Carteirinha(
+        carteirinha = CarteirinhaSummaryDTO(
             id = transporte.carteirinha.id,
         ),
     )
-
 }

@@ -41,14 +41,14 @@ class Transporte(
 
     fun cancela(): Transporte {
         if (status == StatusTransporte.CANCELADO) {
-            throw Exception("Não é possível cancelar um Transporte com status $status")
+            throw IllegalStateException("Não é possível cancelar um Transporte com status $status")
         }
         return copy(status = StatusTransporte.CANCELADO)
     }
 
     fun autoriza(): Transporte {
         if (status != StatusTransporte.PENDENTE) {
-            throw Exception("Não é possível aprovar um Transporte com status $status")
+            throw IllegalStateException("Não é possível aprovar um Transporte com status $status")
         }
         return copy(status = StatusTransporte.APROVADO)
     }

@@ -1,6 +1,7 @@
 package br.unipar.plano.domain.centrais.model.factories
 
 import br.unipar.plano.domain.carteirinhas.model.Carteirinha
+import br.unipar.plano.domain.carteirinhas.model.IdCarteirinha
 import br.unipar.plano.domain.centrais.model.*
 import br.unipar.plano.domain.transportes.model.EnderecoTransporte
 
@@ -10,6 +11,12 @@ fun idTransporte(static: Boolean = true) = if (static) {
     IdTransporte()
 }
 
+fun idCarteirinha(static: Boolean = true) = if (static) {
+    TRANSPORTE_CARTEIRINHA_ID
+} else {
+    IdCarteirinha()
+}
+
 fun transporte(
     idTransporte: IdTransporte = idTransporte(),
     enderecoOrigem: EnderecoTransporte = enderecoOrigem(idTransporte = idTransporte),
@@ -17,10 +24,16 @@ fun transporte(
     tipoTransporte: TipoTransporte = TRANSPORTE_TIPO_TRANSPORTE,
 ) = Transporte(
     id = idTransporte,
-    carteirinha = TRANSPORTE_CARTEIRA,
+    carteirinha = carteirinha(idCarteirinha()),
     enderecoOrigem = enderecoOrigem,
     enderecoDestino = enderecoDestino,
     tipoTransporte =  tipoTransporte
+)
+
+fun carteirinha(
+    idCarteirinha: IdCarteirinha = idCarteirinha(),
+) = Carteirinha(
+    id = idCarteirinha,
 )
 
 fun enderecoOrigem(

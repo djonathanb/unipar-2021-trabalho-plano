@@ -7,7 +7,7 @@ import br.unipar.plano.domain.centrais.model.*
 import java.util.*
 
 val TRANSPORTE_ID = IdTransporte(UUID.fromString("017f7c2e-55ae-4ed7-847b-f7337a599e0f"))
-val TRANSPORTE_CARTEIRA = Carteirinha(id = IdCarteirinha(UUID.fromString("a59f85f2-037b-4a2e-a101-17cfa96ffca4")))
+val TRANSPORTE_CARTEIRINHA_ID = IdCarteirinha(UUID.fromString("a59f85f2-037b-4a2e-a101-17cfa96ffca4"))
 val TRANSPORTE_STATUS = StatusTransporte.PENDENTE
 val TRANSPORTE_TIPO_TRANSPORTE = TipoTransporte.UTI_MOVEL
 
