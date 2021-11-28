@@ -44,7 +44,6 @@ class CriaTransporteUseCaseImplTest {
         assertThrows<IllegalStateException> {
             criaTransporteUseCase.executa(transporte())
         }
-
         verify(transporteRepository, never()).save(any())
     }
 
