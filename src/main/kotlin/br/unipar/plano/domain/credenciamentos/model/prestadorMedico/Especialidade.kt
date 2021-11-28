@@ -1,4 +1,4 @@
-package br.unipar.plano.domain.credenciamentos.model.outros
+package br.unipar.plano.domain.credenciamentos.model.prestadorMedico
 
 import br.unipar.plano.domain.credenciamentos.model.prestadorMedico.IdPrestadorMedico
 import javax.persistence.Column

@@ -1,7 +1,7 @@
 package br.unipar.plano.interfaces.rest.credenciamentos.clinicaHospital
 
 import br.unipar.plano.domain.credenciamentos.model.clinicaHospital.IdPrestadorClinicaHospital
-import br.unipar.plano.domain.credenciamentos.model.outros.Status
+import br.unipar.plano.domain.credenciamentos.model.status.Status
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.NotNull
 

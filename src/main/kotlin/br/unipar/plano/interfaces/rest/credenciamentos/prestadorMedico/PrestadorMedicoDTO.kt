@@ -1,15 +1,12 @@
 package br.unipar.plano.interfaces.rest.credenciamentos.prestadorMedico
 
-import br.unipar.plano.domain.centrais.model.Endereco
-import br.unipar.plano.domain.centrais.model.IdCentral
-import br.unipar.plano.domain.credenciamentos.model.outros.Especialidade
+import br.unipar.plano.domain.credenciamentos.model.prestadorMedico.Especialidade
 import br.unipar.plano.domain.credenciamentos.model.prestadorMedico.IdPrestadorMedico
 import br.unipar.plano.domain.credenciamentos.model.prestadorMedico.PrestadorMedico
 import br.unipar.plano.domain.credenciamentos.model.prestadorMedico.StatusMedico
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.NotNull
 import javax.validation.constraints.Pattern
-import javax.validation.constraints.Size
 
 private const val MIN_NAME_SIZE = 10
 private const val MAX_NAME_SIZE = 120

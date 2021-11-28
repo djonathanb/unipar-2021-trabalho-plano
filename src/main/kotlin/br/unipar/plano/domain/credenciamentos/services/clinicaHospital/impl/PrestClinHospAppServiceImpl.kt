@@ -1,8 +1,8 @@
-package br.unipar.plano.domain.credenciamentos.services.impl.clinicaHospital
+package br.unipar.plano.domain.credenciamentos.services.clinicaHospital.impl
 
 import br.unipar.plano.domain.credenciamentos.model.clinicaHospital.IdPrestadorClinicaHospital
 import br.unipar.plano.domain.credenciamentos.model.clinicaHospital.PrestadorClinicaHospital
-import br.unipar.plano.domain.credenciamentos.model.outros.Servico
+import br.unipar.plano.domain.credenciamentos.model.clinicaHospital.Servico
 import br.unipar.plano.domain.credenciamentos.services.clinicaHospital.PrestClinHospAppService
 import br.unipar.plano.domain.credenciamentos.services.clinicaHospital.PrestClinHospQueryService
 import br.unipar.plano.domain.credenciamentos.usecases.clinicaHospital.CriaPrestClinHospUseCase

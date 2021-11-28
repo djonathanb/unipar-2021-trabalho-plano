@@ -1,4 +1,4 @@
-package br.unipar.plano.domain.credenciamentos.usecases.impl.prestadorMedico
+package br.unipar.plano.domain.credenciamentos.usecases.prestadorMedico.impl
 
 import br.unipar.plano.domain.credenciamentos.model.prestadorMedico.IdPrestadorMedico
 import br.unipar.plano.domain.credenciamentos.model.prestadorMedico.PrestadorMedico

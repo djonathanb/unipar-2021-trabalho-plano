@@ -1,6 +1,5 @@
 package br.unipar.plano.domain.credenciamentos.model.prestadorMedico
 
-import br.unipar.plano.domain.credenciamentos.model.outros.Especialidade
 import javax.persistence.*
 
 enum class StatusMedico {

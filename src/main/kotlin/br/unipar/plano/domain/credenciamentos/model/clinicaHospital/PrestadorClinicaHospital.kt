@@ -1,7 +1,6 @@
 package br.unipar.plano.domain.credenciamentos.model.clinicaHospital
 
-import br.unipar.plano.domain.credenciamentos.model.outros.Servico
-import br.unipar.plano.domain.credenciamentos.model.outros.Status
+import br.unipar.plano.domain.credenciamentos.model.status.Status
 import javax.persistence.*
 
 
