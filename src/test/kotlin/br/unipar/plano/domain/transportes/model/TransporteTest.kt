@@ -1,6 +1,8 @@
-package br.unipar.plano.domain.centrais.model
+package br.unipar.plano.domain.transportes.model
 
-import br.unipar.plano.domain.centrais.model.factories.*
+import br.unipar.plano.domain.centrais.model.StatusTransporte
+import br.unipar.plano.domain.centrais.model.TipoTransporte
+import br.unipar.plano.domain.centrais.model.factories.transporte
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotSame
 import org.junit.jupiter.api.Test
@@ -8,85 +10,75 @@ import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments
 import org.junit.jupiter.params.provider.MethodSource
+import java.time.LocalDate
 
 class TransporteTest {
 
     @Test
-    fun `deve criar com status igual a CRIADA`() {
-        val central = central()
-        assertEquals(StatusCentral.CRIADA, central.status)
+    fun `deve criar Transporte com status igual a CRIADA`() {
+        val transporte = transporte()
+        assertEquals(StatusTransporte.PENDENTE, transporte.status)
     }
 
     @Test
     fun `deve permitir a alteracao de informacoes basicas da central`() {
-        val novoNome = "00.000.000/0001-00"
-        val novoCnpj = "00.000.000/0001-00"
-        val novaCidade = 1010100
+        val novaDataSolicitacao= LocalDate.of(2021,10,1)
+        val novoTipoTransporte = TipoTransporte.UTI_MOVEL
 
-        val central = central()
-        val novoEstadoCentral = central.with(
-            nome = novoNome,
-            cnpj = novoCnpj,
-            endereco = endereco(
-                cidade = novaCidade
-            )
+        val transporte = transporte()
+        val novoTransporte = transporte.with(
+            dataSolicitacao = novaDataSolicitacao,
+            tipoTransporte =novoTipoTransporte
         )
 
-        assertNotSame(central, novoEstadoCentral)
-        assertEquals(CENTRAL_CO_ID, novoEstadoCentral.id)
-        assertEquals(CENTRAL_CO_STATUS, novoEstadoCentral.status)
-        assertEquals(CENTRAL_CO_ENDERECO_LOGRADOURO, novoEstadoCentral.endereco.logradouro)
-        assertEquals(novoCnpj, novoEstadoCentral.cnpj)
-        assertEquals(novaCidade, novoEstadoCentral.endereco.cidade)
+
+        assertNotSame(transporte, novoTransporte)
+        assertEquals(LocalDate.of(2021,11,1), novoTransporte.dataSolicitacao)
+        assertEquals(TipoTransporte.AEREO, novoTransporte.tipoTransporte)
     }
 
     @Test
-    fun `deve alterar o status da central quando credenciar`() {
-        val central = central()
-        val novoEstadoCentral = central.credencia()
+    fun `deve alterar o status do transpórte quando Aprovar`() {
+        val transporte = transporte()
+        val novoEstadotransporte = transporte.cancela()
 
-        assertEquals(StatusCentral.CRIADA, central.status)
-        assertEquals(StatusCentral.CREDENCIADA, novoEstadoCentral.status)
+        assertEquals(StatusTransporte.PENDENTE, transporte.status)
+        assertEquals(StatusTransporte.APROVADO, novoEstadotransporte.status)
     }
 
     @Test
-    fun `nao deve permitir recredenciar uma central ja credenciada`() {
-        val mensagemEsperada = "Não é possível credenciar uma Central com status CREDENCIADA"
+    fun `nao deve permitir a aprovação do transporte se estiver pendente `() {
+        val mensagemEsperada = "Não é possível aprovar um Transporte com status PENDENTE"
 
-        val central = central().credencia()
-
+        val transporte = transporte()
+        assertEquals(StatusTransporte.PENDENTE, transporte.status)
         val message = assertThrows<IllegalStateException> {
-            central.credencia()
+            transporte.autoriza()
         }.message
 
         assertEquals(mensagemEsperada, message)
     }
 
     @Test
-    fun `deve alterar o status da central quando descredenciar`() {
-        val central = central().credencia()
-        val novoEstadoCentral = central.descredencia()
+    fun `nao deve permitir o cancelamento do transporte se estiver cancelado `() {
+        val mensagemEsperada = "Não é possível cancelar um Transporte com status CANCELADO"
 
-        assertEquals(StatusCentral.CREDENCIADA, central.status)
-        assertEquals(StatusCentral.DESCREDENCIADA, novoEstadoCentral.status)
-    }
-
-    @ParameterizedTest
-    @MethodSource("descredenciamentoStatusInvalidoSource")
-    fun `nao deve permitir descredenciar uma central nao credenciada`(central: Central, mensagemEsperada: String) {
+        val transporte = transporte()
+        assertEquals(StatusTransporte.CANCELADO, transporte.status)
         val message = assertThrows<IllegalStateException> {
-            central.descredencia()
+            transporte.cancela()
         }.message
 
         assertEquals(mensagemEsperada, message)
     }
+
 
     companion object {
 
         @JvmStatic
         fun descredenciamentoStatusInvalidoSource() = listOf(
-            Arguments.of(central(), "Não é possível descredenciar uma Central com status CRIADA"),
-            Arguments.of(central().credencia().descredencia(), "Não é possível descredenciar uma Central com status DESCREDENCIADA")
+            Arguments.of(transporte(), "Não é possível cancelar um Transporte com status CANCELADO"),
+            Arguments.of(transporte().autoriza().cancela(), "Não é possível aprovar um Transporte com status PENDENTE")
         )
 
     }

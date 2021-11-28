@@ -7,7 +7,7 @@ import br.unipar.plano.interfaces.rest.centrais.CentralDTO
 import br.unipar.plano.interfaces.rest.centrais.CentralDetailsDTO
 import br.unipar.plano.interfaces.rest.centrais.CentralSummaryDTO
 import br.unipar.plano.interfaces.rest.centrais.EnderecoDTO
-
+/*
 fun centralDTO(
     nome: String = CENTRAL_CO_NOME,
     cnpj: String = CENTRAL_CO_CNPJ,
@@ -55,3 +55,4 @@ fun centralDetailsDTO(
     status = status,
     centralData = centralData
 )
+*/

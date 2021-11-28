@@ -1,6 +1,5 @@
 package br.unipar.plano.domain.centrais.model.factories
 
-import br.unipar.plano.application.factories.CARTEIRINHA_TESTE_ID
 import br.unipar.plano.application.factories.CIDADE_CASCAVEL_ID
 import br.unipar.plano.application.factories.CIDADE_TOLEDO_ID
 import br.unipar.plano.domain.carteirinhas.model.IdCarteirinha

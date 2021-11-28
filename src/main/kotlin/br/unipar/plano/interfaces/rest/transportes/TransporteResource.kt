@@ -31,6 +31,31 @@ class TransporteResource(private val transporteApplicationService: TransporteApp
         return ResponseEntity.created(uri).build()
     }
 
+    @PostMapping("/cancela")
+    fun cancelar(@RequestBody @Valid transporteDTO: TransporteDTO): ResponseEntity<Void> {
+        val idNovaTransporte = transporteApplicationService.cancela(transporteDTO)
+
+        val uri = ServletUriComponentsBuilder.fromCurrentRequest()
+            .path("/{id}")
+            .buildAndExpand(idNovaTransporte.id)
+            .toUri()
+
+        return ResponseEntity.created(uri).build()
+    }
+
+    @PostMapping("/aprova")
+    fun aprova(@RequestBody @Valid transporteDTO: TransporteDTO): ResponseEntity<Void> {
+        val idNovaTransporte = transporteApplicationService.aprova(transporteDTO)
+
+        val uri = ServletUriComponentsBuilder.fromCurrentRequest()
+            .path("/{id}")
+            .buildAndExpand(idNovaTransporte.id)
+            .toUri()
+
+        return ResponseEntity.created(uri).build()
+    }
+
+
     @GetMapping
     fun lista(): ResponseEntity<List<TransporteSummaryDTO>> {
         return ResponseEntity.ok(transporteApplicationService.lista())

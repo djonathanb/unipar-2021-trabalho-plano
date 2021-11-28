@@ -1,11 +1,15 @@
-package br.unipar.plano.domain.centrais.usecases.impl
+package br.unipar.plano.domain.transportes.usecases.impl
 
-import br.unipar.plano.domain.centrais.model.Central
-import br.unipar.plano.domain.centrais.model.CentralRepository
-import br.unipar.plano.domain.centrais.model.StatusCentral
-import br.unipar.plano.domain.centrais.model.factories.CENTRAL_CO_ID
-import br.unipar.plano.domain.centrais.model.factories.central
-import br.unipar.plano.domain.centrais.model.factories.idCentral
+import br.unipar.plano.domain.centrais.model.IdTransporte
+import br.unipar.plano.domain.centrais.model.StatusTransporte
+import br.unipar.plano.domain.centrais.model.Transporte
+import br.unipar.plano.domain.centrais.model.TransporteRepository
+import br.unipar.plano.domain.centrais.model.factories.TRANSPORTE_CO_ID
+import br.unipar.plano.domain.centrais.model.factories.transporte
+import br.unipar.plano.domain.centrais.usecases.AprovaTransporteUseCase
+import br.unipar.plano.domain.centrais.usecases.impl.AprovaTransporteUseCaseImpl
+import br.unipar.plano.domain.centrais.usecases.impl.CentralNotFoundException
+import br.unipar.plano.domain.centrais.usecases.impl.TransporteNotFoundException
 import com.nhaarman.mockitokotlin2.*
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
@@ -13,38 +17,39 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import java.util.*
 
-private val ID_CENTRAL_INEXISTENTE = idCentral(false)
+private val ID_TRANSPORTE_INEXISTENTE = IdTransporte(UUID.fromString("7c4ac13b-3d9d-4419-ac92-ef88540669f0"))
 
 class AprovaTransporteUseCaseImplTest {
 
-    private val centralRepository = mock<CentralRepository>()
-    private val credenciaCentralUseCase = CredenciaCentralUseCaseImpl(centralRepository)
+    private val transporteRepository = mock<TransporteRepository>()
+    private val aprovaTransporteUseCase = AprovaTransporteUseCaseImpl(transporteRepository)
 
-    private val argumentCaptor = argumentCaptor<Central>()
+    private val argumentCaptor = argumentCaptor<Transporte>()
 
     @BeforeEach
     fun setUp() {
-        whenever(centralRepository.findById(eq(CENTRAL_CO_ID))).thenReturn(Optional.of(central()))
-        whenever(centralRepository.findById(eq(ID_CENTRAL_INEXISTENTE))).thenReturn(Optional.empty())
+        whenever(transporteRepository.findById(eq(TRANSPORTE_CO_ID))).thenReturn(Optional.of(transporte()))
+        whenever(transporteRepository.findById(eq(ID_TRANSPORTE_INEXISTENTE))).thenReturn(Optional.empty())
     }
 
     @Test
-    fun `deve credenciar a central informada`() {
-        credenciaCentralUseCase.executa(CENTRAL_CO_ID)
+    fun `deve aprovar o Transporte informado`() {
+        aprovaTransporteUseCase.executa(transporte())
 
-        verify(centralRepository).save(argumentCaptor.capture())
-        val centralSalva = argumentCaptor.firstValue
+        verify(transporteRepository).save(argumentCaptor.capture())
+        val transporteSalvo = argumentCaptor.firstValue
 
-        assertEquals(StatusCentral.CREDENCIADA, centralSalva.status)
+        assertEquals(StatusTransporte.APROVADO, transporteSalvo.status)
     }
 
     @Test
     fun `deve disparar uma excecao se a central nao existir`() {
-        assertThrows<CentralNotFoundException> {
-            credenciaCentralUseCase.executa(ID_CENTRAL_INEXISTENTE)
+        assertThrows<TransporteNotFoundException> {
+
+            aprovaTransporteUseCase.executa(transporte())
         }
 
-        verify(centralRepository, never()).save(any())
+        verify(transporteRepository, never()).save(any())
     }
 
 }

@@ -1,14 +1,5 @@
-package br.unipar.plano.domain.centrais.usecases.impl
 
-import br.unipar.plano.domain.centrais.model.Transporte
-import br.unipar.plano.domain.centrais.model.TransporteRepository
-import br.unipar.plano.domain.centrais.usecases.AprovaTransporteUseCase
-import org.springframework.stereotype.Service
+import br.unipar.plano.application.exceptions.NotFoundException
+import br.unipar.plano.domain.centrais.model.IdTransporte
 
-@Service
-class AprovaTransporteUseCaseImpl2(private val transporteRepository: TransporteRepository) : AprovaTransporteUseCase {
-    override fun executa(transporte: Transporte): Transporte {
-        return transporteRepository.save(transporte)
-    }
-
-}
+class TransporteNotFoundException(idTransporte: IdTransporte) : NotFoundException("Central com id ${idTransporte.id} não encontrada")

@@ -16,7 +16,7 @@ fun transporte(
     status: StatusTransporte = StatusTransporte.PENDENTE,
     enderecoOrigem: EnderecoTransporte  = enderecoTransporteOrigem(),
     enderecoDestino: EnderecoTransporte = enderecoTransporteDestino(),
-    tipoTransporte: TipoTransporte
+    tipoTransporte: TipoTransporte = TipoTransporte.AMBULANCIA
 ) = Transporte(
     id= id,
     carteirinha= carteirinha,
