@@ -24,7 +24,7 @@ class PreNatal(
     @Temporal(TemporalType.TIMESTAMP)
     val dataSolicitacao: LocalDate = LocalDate.now(),
 
-    @Value("tem_obstetricia")
+    @Column
     val temObstetricia: Boolean = false,
 
     @OneToMany(cascade = [CascadeType.ALL], orphanRemoval = true)
@@ -59,10 +59,7 @@ class PreNatal(
         }
         val consultasGratis: MutableList<Consulta> = ArrayList()
 
-        // Adiciona 9 consultas
-        for (i in 0..8) {
-            consultasGratis.add(Consulta(TipoConsulta.GINECOLOGICA))
-        }
+        // Fazer parte de dar 9 consultas e 1 cirurgia
 
 
         return copy(status = StatusAtendimento.AUTORIZADO, consultas = consultasGratis)

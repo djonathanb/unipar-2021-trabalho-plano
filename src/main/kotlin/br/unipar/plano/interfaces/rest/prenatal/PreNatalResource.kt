@@ -22,7 +22,6 @@ class PreNatalResource(private val solicitarPreNatalService: SolicitarPreNatalSe
     @ApiResponses(value = [
         ApiResponse(responseCode = "201", description = "transporte criado com sucesso")
     ])
-
     @PostMapping
     fun solicitar(@RequestBody @Valid preNatalDTO: PreNatalDTO): ResponseEntity<Void> {
         val idNovoPreNatal = solicitarPreNatalService.solicitar(preNatalDTO)
@@ -35,21 +34,40 @@ class PreNatalResource(private val solicitarPreNatalService: SolicitarPreNatalSe
         return ResponseEntity.created(uri).build()
     }
 
+    @Operation(summary = "Retorna uma lista completa com todos os pre-natais")
+    @ApiResponses(value = [
+        ApiResponse(responseCode = "200", description = "Pre natais listados")
+    ])
     @GetMapping
     fun listar(): ResponseEntity<List<PreNatalSummaryDTO>> {
         return ResponseEntity.ok(solicitarPreNatalService.listar())
     }
 
+    @Operation(summary = "Busca informações de um pre-natal através do ID passado no URL")
+    @ApiResponses(value = [
+        ApiResponse(responseCode = "200", description = "Pre-natal encontrado"),
+        ApiResponse(responseCode = "404", description = "Pre-natal não encontrado")
+    ])
     @GetMapping("/{idPreNatal}")
     fun buscarPorId(@PathVariable("idPreNatal") idPreNatal: UUID): ResponseEntity<PreNatalDetailsDTO> {
         return ResponseEntity.ok(solicitarPreNatalService.buscarPorId(IdPreNatal(idPreNatal)))
     }
 
+    @Operation(summary = "Autoriza um pre-natal através do ID passado no URL")
+    @ApiResponses(value = [
+        ApiResponse(responseCode = "200", description = "Pre-natal encontrado"),
+        ApiResponse(responseCode = "404", description = "Pre-natal não encontrado")
+    ])
     @GetMapping("/{idPreNatal}")
     fun autorizar(@PathVariable("idPreNatal") idPreNatal: UUID): ResponseEntity<PreNatalDetailsDTO> {
         return ResponseEntity.ok(solicitarPreNatalService.autorizar(IdPreNatal(idPreNatal)))
     }
 
+    @Operation(summary = "Cancela um pre-natal através do ID passado no URL")
+    @ApiResponses(value = [
+        ApiResponse(responseCode = "200", description = "Pre-natal encontrado"),
+        ApiResponse(responseCode = "404", description = "Pre-natal não encontrado")
+    ])
     @GetMapping("/{idPreNatal}")
     fun cancelar(@PathVariable("idPreNatal") idPreNatal: UUID): ResponseEntity<PreNatalDetailsDTO> {
         return ResponseEntity.ok(solicitarPreNatalService.cancelar(IdPreNatal(idPreNatal)))

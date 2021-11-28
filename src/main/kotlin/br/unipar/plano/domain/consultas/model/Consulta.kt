@@ -9,10 +9,10 @@ enum class TipoConsulta {
 
 @Entity
 class Consulta(
-    //@field:EmbeddedId
-    //val id: IdConsulta,
+    @field:EmbeddedId
+    val id: IdConsulta,
 
-    @Value("tipo-consulta")
+    @Column
     val tipoConsulta: TipoConsulta,
 
     ) {

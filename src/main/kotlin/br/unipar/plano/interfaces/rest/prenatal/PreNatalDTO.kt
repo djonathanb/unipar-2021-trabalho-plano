@@ -5,6 +5,7 @@ import br.unipar.plano.domain.prenatal.model.IdPreNatal
 import br.unipar.plano.domain.prenatal.model.StatusAtendimento
 import java.time.LocalDate
 import javax.validation.constraints.NotBlank
+import javax.validation.constraints.NotNull
 
 data class PreNatalSummaryDTO(
     val id: IdPreNatal,
@@ -21,10 +22,13 @@ data class PreNatalDTO(
     @field:NotBlank(message = "A carteirinha deve ser informada")
     val carteirinha: Carteirinha,
 
+    @field:NotBlank(message = "A data da solicitação deve ser informada")
     val dataSolicitacao: LocalDate,
 
+    @field:NotNull(message = "Campo não pode ser nulo")
     val temObstetricia: Boolean,
 
+    @field:NotBlank(message = "Status de atendimento deve ser informado")
     val status: StatusAtendimento,
 
     )
