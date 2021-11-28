@@ -46,7 +46,7 @@ class CobrancaResourceImpl(private val service: CobrancaService) : CobrancaResou
     override fun registrarCobranca(@Valid @RequestBody dto: RegistrarCobrancaDTO): ResponseEntity<Void> {
         val cobranca = service.registrarCobranca(dto.contrato.toModel(), dto.dataEmissao)
         val uri = ServletUriComponentsBuilder.fromCurrentRequest()
-            .path("/{id}").buildAndExpand(cobranca.id.id).toUri()
+            .path("/{id}").buildAndExpand(cobranca.id).toUri()
         return ResponseEntity.created(uri).build()
     }
 
