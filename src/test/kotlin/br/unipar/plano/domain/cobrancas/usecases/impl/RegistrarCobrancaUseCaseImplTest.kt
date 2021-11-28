@@ -16,7 +16,6 @@ import java.math.BigDecimal
 import java.math.RoundingMode
 import java.time.LocalDate
 import java.time.temporal.ChronoUnit
-import java.util.*
 
 class RegistrarCobrancaUseCaseImplTest {
 
@@ -55,7 +54,8 @@ class RegistrarCobrancaUseCaseImplTest {
 
     @Test
     fun `nao deve gerar cobranca com data futura`() {
-        Mockito.`when`(repository.existsInMonthByContratoAndByDateAndByStatusNotEquals(any(), any(), any())).thenReturn(Optional.of(false))
+        Mockito.`when`(repository.existsInMonthByContratoAndDateAndStatusNotEquals(any(), any(), any()))
+            .thenReturn(false)
         val contrato = contrato()
         assertThrows(NegocioException::class.java) {
             registrarCobrancaUseCaseImpl.executa(contrato, LocalDate.now().plusDays(1L))

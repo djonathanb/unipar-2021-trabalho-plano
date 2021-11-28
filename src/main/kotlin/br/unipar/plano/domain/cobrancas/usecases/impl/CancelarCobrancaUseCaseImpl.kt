@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service
 class CancelarCobrancaUseCaseImpl(private val queryService: CobrancaQueryService, private val repository: CobrancaRepository) : CancelarCobrancaUseCase {
     override fun executa(idCobranca: IdCobranca): Cobranca {
         val cobrancaBanco = queryService.buscaPorId(idCobranca)
-        cobrancaBanco.cancelar()
-        return repository.save(cobrancaBanco)
+        return repository.save(cobrancaBanco.cancelar())
     }
 }

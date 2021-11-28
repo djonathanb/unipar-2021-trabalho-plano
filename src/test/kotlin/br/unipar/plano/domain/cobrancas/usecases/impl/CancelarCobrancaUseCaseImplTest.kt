@@ -4,13 +4,10 @@ import br.unipar.plano.domain.cobrancas.model.Cobranca
 import br.unipar.plano.domain.cobrancas.model.factories.cobranca
 import br.unipar.plano.domain.cobrancas.repository.CobrancaRepository
 import br.unipar.plano.domain.cobrancas.service.CobrancaQueryService
-import br.unipar.plano.domain.cobrancas.service.impl.CobrancaNotFoundException
 import br.unipar.plano.domain.cobrancas.valueobjects.StatusCobranca
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertNotNull
+import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.assertThrows
 import org.mockito.Mockito
 import org.mockito.kotlin.any
 import org.mockito.kotlin.doAnswer
@@ -30,13 +27,13 @@ class CancelarCobrancaUseCaseImplTest {
 
     @Test
     fun `deve cancelar a cobranca`() {
-
-        var cobranca = cobranca(dataCancelamento = null, valorTotal = null);
+        val cobranca = cobranca(dataCancelamento = null)
         Mockito.`when`(queryService.buscaPorId(any())).thenReturn(cobranca)
-        cobranca = cancelarCobrancaUseCaseImpl.executa(cobranca.id)
-        assertEquals(cobranca.status, StatusCobranca.CANCELADO)
-        assertNotNull(cobranca.dataCancelamento)
-        assertEquals(cobranca.dataCancelamento, LocalDate.now())
+        val cobrancaCancelada = cancelarCobrancaUseCaseImpl.executa(cobranca.id)
+        assertEquals(cobrancaCancelada.status, StatusCobranca.CANCELADO)
+        assertNotNull(cobrancaCancelada.dataCancelamento)
+        assertEquals(cobrancaCancelada.dataCancelamento, LocalDate.now())
+        assertNotEquals(cobrancaCancelada, cobranca)
     }
 
 }

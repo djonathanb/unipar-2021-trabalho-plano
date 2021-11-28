@@ -21,22 +21,25 @@ class CobrancaServiceImpl(
     private val cancelarCobrancaUseCase: CancelarCobrancaUseCase,
 
     ) : CobrancaService {
-    override fun registrarCobranca(contrato: Contrato, dataEmissao: LocalDate): Cobranca = registrarCobrancaUseCase.executa(contrato, dataEmissao)
+    override fun registrarCobranca(contrato: Contrato, dataEmissao: LocalDate): Cobranca =
+        registrarCobrancaUseCase.executa(contrato, dataEmissao)
 
 
     override fun cancelarCobranca(idCobranca: IdCobranca): CobrancaDetailsDTO =
         CobrancaDetailsDTO.toDTO(cancelarCobrancaUseCase.executa(idCobranca))
 
 
-    override fun buscaTodos(): List<CobrancaSummaryDTO> = queryService.lista().map(CobrancaSummaryDTO::toDTO);
+    override fun buscaTodos(): List<CobrancaSummaryDTO> = queryService.lista().map(CobrancaSummaryDTO::toDTO)
 
     override fun buscarPorId(id: IdCobranca): CobrancaDetailsDTO {
         return CobrancaDetailsDTO.toDTO(queryService.buscaPorId(id))
 
     }
 
-    //TODO: Criar teste
-    override fun buscarPorContratoAndStatus(contrato: Contrato, status: Optional<List<StatusCobranca>>): List<CobrancaDetailsDTO> {
+    override fun buscarPorContratoAndStatus(
+        contrato: Contrato,
+        status: Optional<List<StatusCobranca>>
+    ): List<CobrancaDetailsDTO> {
         return queryService.buscarPorContratoAndStatus(contrato, status).map(CobrancaDetailsDTO::toDTO)
     }
 

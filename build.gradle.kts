@@ -36,6 +36,9 @@ dependencies {
     testImplementation("com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0")
     testImplementation("org.mockito.kotlin:mockito-kotlin:3.2.0")
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
+    // https://mvnrepository.com/artifact/com.fasterxml.jackson.datatype/jackson-datatype-jsr310
+    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.9.5")
+
 }
 
 tasks.withType<KotlinCompile> {

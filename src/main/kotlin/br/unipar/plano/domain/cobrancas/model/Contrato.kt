@@ -1,6 +1,7 @@
 package br.unipar.plano.domain.cobrancas.model
 
 import java.util.*
+import javax.persistence.CascadeType
 import javax.persistence.Entity
 import javax.persistence.Id
 import javax.persistence.OneToMany
@@ -9,10 +10,10 @@ import javax.persistence.OneToMany
 class Contrato(
     @Id
     val id: UUID,
-    @OneToMany
+    @OneToMany(cascade = [CascadeType.ALL])
     val procedimentos: Collection<Procedimento>,
-    @OneToMany
+    @OneToMany(cascade = [CascadeType.ALL])
     val cirurgias: Collection<Cirurgia>,
-    @OneToMany
+    @OneToMany(cascade = [CascadeType.ALL])
     val dependentes: Collection<Usuario>
 )

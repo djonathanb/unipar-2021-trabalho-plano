@@ -4,7 +4,6 @@ import br.unipar.plano.domain.cobrancas.valueobjects.StatusCobranca
 import java.math.BigDecimal
 import java.math.RoundingMode
 import java.time.LocalDate
-import java.util.*
 import javax.persistence.*
 
 
@@ -29,7 +28,7 @@ class Cobranca(
     val dataVencimento: LocalDate,
     @Column(nullable = false)
     var valorTotal: BigDecimal?,
-    @ManyToOne
+    @ManyToOne(cascade = [CascadeType.ALL])
     val contrato: Contrato
 ) {
     init {
@@ -46,8 +45,8 @@ class Cobranca(
             .setScale(2, RoundingMode.HALF_UP)
     }
 
-    fun cancelar() : Cobranca {
-        if (status != StatusCobranca.ABERTO || status != StatusCobranca.PAGO) {
+    fun cancelar(): Cobranca {
+        if (status != StatusCobranca.ABERTO && status != StatusCobranca.PAGO) {
             throw IllegalStateException("Não é possível cancelar uma Cobranca com status $status")
         }
         return copy(status = StatusCobranca.CANCELADO, dataCancelamento = LocalDate.now())

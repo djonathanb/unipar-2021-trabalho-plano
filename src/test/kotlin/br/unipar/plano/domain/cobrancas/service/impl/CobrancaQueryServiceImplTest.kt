@@ -10,10 +10,10 @@ import java.util.*
 
 internal class CobrancaQueryServiceImplTest {
     private var repository = mock<CobrancaRepository>()
-    private var cobrancaQueryServiceImpl = CobrancaQueryServiceImpl(repository);
+    private var cobrancaQueryServiceImpl = CobrancaQueryServiceImpl(repository)
 
     @Test
-    fun `deve retornar uma exceção de Cobranca não encontrada` (){
+    fun `deve retornar uma excecao de Cobranca nao encontrada`() {
         Mockito.`when`(repository.findById(any())).thenReturn(Optional.empty())
         org.junit.jupiter.api.assertThrows<CobrancaNotFoundException> {
             cobrancaQueryServiceImpl.buscaPorId(IdCobranca())

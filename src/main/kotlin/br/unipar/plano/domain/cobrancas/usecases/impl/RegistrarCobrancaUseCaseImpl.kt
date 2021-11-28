@@ -25,8 +25,14 @@ class RegistrarCobrancaUseCaseImpl(
 ) : RegistrarCobrancaUseCase {
 
     override fun executa(contrato: Contrato, dataEmissao: LocalDate): Cobranca {
-        if (verificaSeExisteCobrancaProContratoNoMes(contrato, dataEmissao).orElse(false)) {
-            throw NegocioException("Já existe cobrança em aberto para o contrato ${contrato.id} para o período ${dataEmissao.format(DateTimeFormatter.ISO_LOCAL_DATE)}.")
+        if (verificaSeExisteCobrancaProContratoNoMes(contrato, dataEmissao)) {
+            throw NegocioException(
+                "Já existe cobrança em aberto para o contrato ${contrato.id} para o período ${
+                    dataEmissao.format(
+                        DateTimeFormatter.ISO_LOCAL_DATE
+                    )
+                }."
+            )
         }
         if (dataEmissao.isAfter(LocalDate.now())) {
             throw NegocioException("Não é possível registrar uma Cobrança para uma data futura.")
@@ -47,7 +53,8 @@ class RegistrarCobrancaUseCaseImpl(
         return repository.save(cobranca)
     }
 
-    fun verificaSeExisteCobrancaProContratoNoMes(contrato: Contrato, dataEmissao: LocalDate) = repository.existsInMonthByContratoAndByDateAndByStatusNotEquals(contrato, dataEmissao, StatusCobranca.CANCELADO)
+    fun verificaSeExisteCobrancaProContratoNoMes(contrato: Contrato, dataEmissao: LocalDate) =
+        repository.existsInMonthByContratoAndDateAndStatusNotEquals(contrato, dataEmissao, StatusCobranca.CANCELADO)
 
     fun geraDataVencimento(dataEmissao: LocalDate) =
         dataEmissao.plusDays(diasVencimentoCobranca.toLong())
@@ -55,5 +62,6 @@ class RegistrarCobrancaUseCaseImpl(
     fun calculaValorBase(contrato: Contrato) =
         contrato.dependentes.map { it.plano.valorBase }.fold(BigDecimal.ZERO, BigDecimal::add)
 
-    fun calculaAdicionalIdades(contrato: Contrato) = BigDecimal.valueOf(contrato.dependentes.sumOf { it.idade() }.toDouble())
+    fun calculaAdicionalIdades(contrato: Contrato) =
+        BigDecimal.valueOf(contrato.dependentes.sumOf { it.idade() }.toDouble())
 }

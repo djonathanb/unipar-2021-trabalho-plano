@@ -7,7 +7,11 @@ import br.unipar.plano.domain.cobrancas.valueobjects.StatusCobranca
 import java.math.BigDecimal
 import java.time.LocalDate
 
-class CobrancaTestFactories
+fun idCobranca(static: Boolean = true) = if (static) {
+    COBRANCA_ID
+} else {
+    IdCobranca()
+}
 
 fun cobranca(
     id: IdCobranca = IdCobranca(),
@@ -17,8 +21,21 @@ fun cobranca(
     valorAdicionalIdade: BigDecimal = VALOR_ADICIONAL_IDADE,
     status: StatusCobranca = StatusCobranca.ABERTO,
     dataEmissao: LocalDate = DATA_EMISSAO_COBRANCA,
-    dataCancelamento: LocalDate?,
+    dataCancelamento: LocalDate? = null,
     dataVencimento: LocalDate = DATA_VENCIMENTO_COBRANCA,
-    valorTotal: BigDecimal?,
+    valorTotal: BigDecimal? = null,
     contrato: Contrato = contrato()
-) = Cobranca(id, valorContrato, valorAdicionalConsulta, valorAdicionalCirurgia, valorAdicionalIdade, status, dataEmissao, dataCancelamento, dataVencimento, valorTotal, contrato)
+) = Cobranca(
+    id,
+    valorContrato,
+    valorAdicionalConsulta,
+    valorAdicionalCirurgia,
+    valorAdicionalIdade,
+    status,
+    dataEmissao,
+    dataCancelamento,
+    dataVencimento,
+    valorTotal,
+    contrato
+)
+
