@@ -36,7 +36,7 @@ class CobrancaServiceImpl(
     }
 
     //TODO: Criar teste
-    override fun buscarPorContratoAndStatus(contrato: Contrato, status: Optional<StatusCobranca>): List<CobrancaDetailsDTO> {
+    override fun buscarPorContratoAndStatus(contrato: Contrato, status: Optional<List<StatusCobranca>>): List<CobrancaDetailsDTO> {
         return queryService.buscarPorContratoAndStatus(contrato, status).map(CobrancaDetailsDTO::toDTO)
     }
 

@@ -14,5 +14,5 @@ import java.util.*
 interface CobrancaRepository : JpaRepository<Cobranca, IdCobranca> {
     @Query(value = "select true from Cobranca c where c.contrato = :contrato and month(c.dataEmissao) = month(:emissao) and year(c.dataEmissao) = year(:emissao) and c.status != :status ")
     fun existsInMonthByContratoAndByDateAndByStatusNotEquals(@Param("contrato") contrato: Contrato, @Param("emissao") data: LocalDate, @Param("status") status: StatusCobranca): Optional<Boolean>
-    fun findAllByContratoAndStatusIn(contrato: Contrato, status: Optional<StatusCobranca>) : List<Cobranca>
+    fun findAllByContratoAndStatusIn(contrato: Contrato, status: Optional<List<StatusCobranca>>) : List<Cobranca>
 }

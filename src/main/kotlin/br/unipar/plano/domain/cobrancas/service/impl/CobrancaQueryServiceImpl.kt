@@ -18,7 +18,7 @@ class CobrancaQueryServiceImpl(private val repository: CobrancaRepository) : Cob
         CobrancaNotFoundException(idCobranca)
     }
 
-    override fun buscarPorContratoAndStatus(contrato: Contrato, status: Optional<StatusCobranca>): List<Cobranca> {
+    override fun buscarPorContratoAndStatus(contrato: Contrato, status: Optional<List<StatusCobranca>>): List<Cobranca> {
         return repository.findAllByContratoAndStatusIn(contrato, status);
     }
 

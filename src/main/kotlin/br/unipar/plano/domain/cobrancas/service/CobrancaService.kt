@@ -24,5 +24,5 @@ interface CobrancaService {
     fun buscarPorId(id: IdCobranca): CobrancaDetailsDTO
 
     @Throws(CobrancaNotFoundException::class)
-    fun buscarPorContratoAndStatus(contrato: Contrato, status: Optional<StatusCobranca>): List<CobrancaDetailsDTO>
+    fun buscarPorContratoAndStatus(contrato: Contrato, status: Optional<List<StatusCobranca>>): List<CobrancaDetailsDTO>
 }
