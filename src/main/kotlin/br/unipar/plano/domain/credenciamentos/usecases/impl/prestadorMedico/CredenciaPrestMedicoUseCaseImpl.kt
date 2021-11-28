@@ -6,8 +6,7 @@ import br.unipar.plano.domain.credenciamentos.usecases.prestadorMedico.Credencia
 import org.springframework.stereotype.Service
 
 @Service
-class CredenciaPrestMedicoUseCaseImpl(private val prestadorMedicoRepository: PrestadorMedicoRepository):
-    CredenciaPrestMedicoUseCase {
+class CredenciaPrestMedicoUseCaseImpl(private val prestadorMedicoRepository: PrestadorMedicoRepository): CredenciaPrestMedicoUseCase {
 
     override fun executa(idPrestadorMedico: IdPrestadorMedico) {
         val prestMedico = prestadorMedicoRepository.findById(idPrestadorMedico).orElseThrow { PrestMedicoNotFoundException(idPrestadorMedico) }
