@@ -8,7 +8,11 @@ import br.unipar.plano.interfaces.rest.centrais.CentralSummaryDTO
 interface CentralApplicationService {
 
     fun cria(centralDTO: CentralDTO): IdCentral
+    fun atualiza(idCentral: IdCentral, centralDTO: CentralDTO)
     fun lista(): List<CentralSummaryDTO>
     fun buscaPorId(idCentral: IdCentral): CentralDetailsDTO
+    fun credenciar(idCentral: IdCentral)
+    fun descredenciar(idCentral: IdCentral)
+    fun deleta(idCentral: IdCentral)
 
 }
