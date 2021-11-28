@@ -33,7 +33,7 @@ fun SolicitacaoProcedimentoTestHelper(
 )
 
 fun ProcedimentoTestHelper(
-    id: IdProcedimento = IdProcedimento(),
+//    id: IdProcedimento = IdProcedimento(),
     dataEmissao: LocalDate = LocalDate.now(),
     valor: BigDecimal = BigDecimal.TEN,
     dataCancelamento: LocalDate = LocalDate.now(),
@@ -46,7 +46,7 @@ fun ProcedimentoTestHelper(
     servico: Servico = Servico.ADMINISTRACAO_SAUDE
 
 ) = ProcedimentoDTO(
-    id = IdProcedimento(),
+//    id = id,
     dataEmissao = dataEmissao,
     valor = valor,
     dataCancelamento = dataCancelamento,

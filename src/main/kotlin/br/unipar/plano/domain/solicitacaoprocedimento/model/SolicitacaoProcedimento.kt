@@ -10,18 +10,16 @@ class SolicitacaoProcedimento(
     val id: IdSolicitacaoProcedimento,
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @Column(name = "id_procedimento")
+    @JoinColumn(name="id_procedimento")
     val procedimento: Procedimento,
 
-    @Column(nullable = false)
+    @Column(name = "statusSolicitacao", nullable = false)
     var statusSolicitacao: StatusSolicitacaoProcedimento = StatusSolicitacaoProcedimento.ABERTO,
 
-    @Column(name = "dataCriacao")
-    @Temporal(TemporalType.DATE)
+    @Column(name = "dataCriacao", nullable = false)
     val dataCriacao: LocalDate,
 
     @Column(name = "dataLiberacaoRejeicao")
-    @Temporal(TemporalType.DATE)
     var dataLiberacaoRejeicao: LocalDate,
 
     @Column(name = "descricao_rejeicao")

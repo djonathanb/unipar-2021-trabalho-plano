@@ -1,6 +1,7 @@
 package br.unipar.plano.interfaces.rest.solicitacaoprocedimento
 
 
+import br.unipar.plano.domain.procedimento.model.IdProcedimento
 import br.unipar.plano.domain.procedimento.model.Procedimento
 import br.unipar.plano.domain.solicitacaoprocedimento.model.IdSolicitacaoProcedimento
 import br.unipar.plano.domain.solicitacaoprocedimento.model.SolicitacaoProcedimento
@@ -56,7 +57,7 @@ data class SolicitacaoProcedimentoDTO(
     fun toModel(id: IdSolicitacaoProcedimento) = SolicitacaoProcedimento(
         id = id,
         procedimento = Procedimento(
-            id = this.procedimento.id,
+            id = IdProcedimento(),
             dataEmissao = this.procedimento.dataEmissao,
             contrato = this.procedimento.contrato,
             prestador = this.procedimento.prestador,
@@ -77,7 +78,7 @@ data class SolicitacaoProcedimentoDTO(
     companion object {
         fun toDTO(solicitacaoProcedimento: SolicitacaoProcedimento) = SolicitacaoProcedimentoDTO(
             procedimento = ProcedimentoDTO(
-                id = solicitacaoProcedimento.procedimento.id,
+//                id = solicitacaoProcedimento.procedimento.id,
                 dataEmissao = solicitacaoProcedimento.procedimento.dataEmissao,
                 contrato = solicitacaoProcedimento.procedimento.contrato,
                 prestador = solicitacaoProcedimento.procedimento.prestador,

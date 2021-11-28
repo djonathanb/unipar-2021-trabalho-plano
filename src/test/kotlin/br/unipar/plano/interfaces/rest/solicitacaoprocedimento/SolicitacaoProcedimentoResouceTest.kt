@@ -4,6 +4,7 @@ import br.unipar.plano.domain.solicitacaoprocedimento.model.IdSolicitacaoProcedi
 import br.unipar.plano.domain.solicitacaoprocedimento.service.SolicitacaoProcedimentoService
 import br.unipar.plano.interfaces.rest.solicitacaoprocedimento.factories.SolicitacaoProcedimentoTestHelper
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.eq
 import com.nhaarman.mockitokotlin2.verify
@@ -16,6 +17,7 @@ import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers
+
 
 private const val BASE_PATH = "/solicitacao-liberacao-procedimento"
 
@@ -37,7 +39,9 @@ class SolicitacaoProcedimentoResouceTest {
         Mockito.`when`(solicitacaoProcedimentoService.insert(any())).thenReturn(idNovaSolicitacao)
 
         val endpoint = BASE_PATH
-        val conteudoJson = ObjectMapper().writeValueAsString(solicitacaoDTO)
+        val mapper = ObjectMapper();
+        mapper.registerModule(JavaTimeModule())
+        val conteudoJson = mapper.writeValueAsString(solicitacaoDTO)
 
         val requisicao = MockMvcRequestBuilders.post(endpoint)
             .contentType(MediaType.APPLICATION_JSON)

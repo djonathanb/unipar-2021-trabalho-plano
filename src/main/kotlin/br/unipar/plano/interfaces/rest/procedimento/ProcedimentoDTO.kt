@@ -65,8 +65,6 @@ data class ProcedimentoDetailsDTO(
 
 data class ProcedimentoDTO(
 
-    val id: IdProcedimento,
-
     @field:NotBlank(message = "A Data de emissão deve ser informada")
     val dataEmissao: LocalDate,
 
@@ -115,7 +113,6 @@ data class ProcedimentoDTO(
     companion object {
 
         fun toDTO(procedimento: Procedimento) = ProcedimentoDTO(
-            id = procedimento.id,
             dataEmissao = procedimento.dataEmissao,
             valor       = procedimento.valor,
             dataCancelamento = procedimento.dataCancelamento,
