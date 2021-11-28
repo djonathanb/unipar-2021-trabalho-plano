@@ -38,6 +38,7 @@ class CarteirinhaResource(private val carteirinhaApplicationService: Carteirinha
 
     }
 
+    @Operation(summary = "Verifica se uma carteirinha é válida ou não")
     @PostMapping("/validate")
     fun verificarValidade(@RequestBody @Valid dto: CarteirinhaDTO) : ResponseEntity<Any> {
         try {
@@ -49,6 +50,7 @@ class CarteirinhaResource(private val carteirinhaApplicationService: Carteirinha
         }
     }
 
+    @Operation(summary = "Registra a entrega da carteirinha ao usuário")
     @PostMapping("/register")
     fun registrarEntrega(@RequestBody @Valid dto: CarteirinhaDTO): ResponseEntity<Any> {
         try {
@@ -59,6 +61,7 @@ class CarteirinhaResource(private val carteirinhaApplicationService: Carteirinha
         }
     }
 
+    @Operation(summary = "Registra o extravio e grava o motivo deste")
     @PostMapping("/registermisplacement")
     fun registrarExtravio(@RequestBody @Valid motivoDTO: MotivoDTO): ResponseEntity<Any> {
         try {
