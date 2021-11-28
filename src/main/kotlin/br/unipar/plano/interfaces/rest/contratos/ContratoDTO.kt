@@ -2,15 +2,16 @@ package br.unipar.plano.interfaces.rest.contratos
 
 import br.unipar.plano.domain.contratos.model.Contrato
 import br.unipar.plano.domain.contratos.model.IdContrato
+import br.unipar.plano.domain.contratos.model.Plano
 import br.unipar.plano.domain.contratos.model.StatusContrato
+import br.unipar.plano.domain.pessoas.model.Pessoa
 import java.time.LocalDate
-import java.util.*
 import javax.validation.constraints.NotBlank
 
 data class ContratoSummaryDTO(
     val id: IdContrato,
-    val idTitular: UUID,
-    val idPlano: UUID,
+    val idTitular: Pessoa,
+    val idPlano: Plano,
     val dataContratacao: LocalDate,
     val dataContratoFinal : LocalDate
 ) {
@@ -18,9 +19,9 @@ data class ContratoSummaryDTO(
     companion object {
 
         fun toDTO(contrato: Contrato) = ContratoSummaryDTO(
-            id = contrato.idContrato,
-            idTitular = contrato.idTitular,
-            idPlano = contrato.idPlano,
+            id = contrato.id,
+            idTitular = contrato.titular,
+            idPlano = contrato.plano,
             dataContratacao = contrato.dataContratacao,
             dataContratoFinal = contrato.dataContratoFinal
         )
@@ -38,7 +39,7 @@ data class ContratoDetailsDTO(
     companion object {
 
         fun toDTO(contrato: Contrato) = ContratoDetailsDTO(
-            id = contrato.idContrato,
+            id = contrato.id,
             status = contrato.status,
             contratoData = ContratoDTO.toDTO(contrato)
         )
@@ -48,8 +49,6 @@ data class ContratoDetailsDTO(
 }
 
 data class ContratoDTO(
-
-
     @NotBlank(message = "Data de contratação não informada")
     val dataContratacao: LocalDate,
 
@@ -57,19 +56,19 @@ data class ContratoDTO(
     val dataContratoFinal: LocalDate,
 
     @NotBlank(message = "ID Plano não informado")
-    val idPlano: UUID,
+    val idPlano: Plano,
 
     @NotBlank(message = "ID Pessoa não informado")
-    val idTitular: UUID
+    val idTitular: Pessoa
 
 ) {
 
     fun toModel(id: IdContrato) = Contrato(
-        idContrato = id,
+        id = id,
         dataContratacao = this.dataContratacao,
         dataContratoFinal = this.dataContratoFinal,
-        idPlano = this.idPlano,
-        idTitular = this.idTitular
+        plano = this.idPlano,
+        titular = this.idTitular
     )
 
     companion object {
@@ -77,8 +76,8 @@ data class ContratoDTO(
         fun toDTO(contrato: Contrato) = ContratoDTO(
             dataContratacao = contrato.dataContratacao,
             dataContratoFinal = contrato.dataContratoFinal,
-            idPlano = contrato.idPlano,
-            idTitular = contrato.idTitular
+            idPlano = contrato.plano,
+            idTitular = contrato.titular
         )
     }
 

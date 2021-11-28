@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service
 class CriaContratoUseCaseImpl (private val contratoRepository: ContratoRepository): CriaContratoUseCase {
 
     override fun cria(contrato: Contrato): Contrato {
-        if (contratoRepository.existsById(contrato.idContrato)) {
-            throw IllegalStateException("Já existe contrato cadastrado com a ID ${contrato.idContrato}")
+        if (contratoRepository.existsById(contrato.id)) {
+            throw IllegalStateException("Já existe contrato cadastrado com a ID ${contrato.id}")
         }
         return contratoRepository.save(contrato)
     }

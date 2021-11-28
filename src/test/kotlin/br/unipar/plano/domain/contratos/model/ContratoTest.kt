@@ -30,10 +30,10 @@ class ContratoTest {
         )
 
         Assertions.assertNotSame(contrato, novoEstadoContrato)
-        Assertions.assertEquals(CONTRATO_CO_ID, novoEstadoContrato.idContrato)
+        Assertions.assertEquals(CONTRATO_CO_ID, novoEstadoContrato.id)
         Assertions.assertEquals(CONTRATO_CO_STATUS, novoEstadoContrato.status)
-        Assertions.assertEquals(CONTRATO_CO_IDPLANO, novoEstadoContrato.idPlano)
-        Assertions.assertEquals(CONTRATO_CO_IDTITULAR, novoEstadoContrato.idTitular)
+        Assertions.assertEquals(CONTRATO_CO_IDPLANO, novoEstadoContrato.plano)
+        Assertions.assertEquals(CONTRATO_CO_IDTITULAR, novoEstadoContrato.titular)
         Assertions.assertEquals(novoVencimento, novoEstadoContrato.dataContratoFinal)
     }
 

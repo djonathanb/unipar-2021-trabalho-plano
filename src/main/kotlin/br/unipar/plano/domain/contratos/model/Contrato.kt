@@ -1,8 +1,7 @@
 package br.unipar.plano.domain.contratos.model
 
-
-import br.unipar.plano.domain.centrais.model.Central
-import br.unipar.plano.domain.centrais.model.StatusCentral
+import br.unipar.plano.domain.pessoas.model.Pessoa
+import org.hibernate.annotations.CascadeType
 import java.time.LocalDate
 import java.util.*
 import javax.persistence.*
@@ -15,7 +14,7 @@ enum class StatusContrato {
 class Contrato(
 
     @field:EmbeddedId
-    val idContrato: IdContrato,
+    val id: IdContrato,
 
     @Column(nullable = false)
     val dataContratacao: LocalDate,
@@ -23,19 +22,21 @@ class Contrato(
     @Column(nullable = false)
     val dataContratoFinal: LocalDate,
 
-    @Column(nullable = false)
-    val idPlano: UUID,
+    @Column(nullable = false, name = "id_plano")
+    @ManyToOne
+    val plano: Plano,
 
-    @Column(nullable = false)
-    val idTitular: UUID,
+    @Column(nullable = false, name = "id_titular")
+    @OneToOne
+    val titular: Pessoa,
 
     @Enumerated(EnumType.STRING)
     val status: StatusContrato = StatusContrato.ATIVO
 ) {
     fun with(
-        idContrato: IdContrato = this.idContrato,
+        idContrato: IdContrato = this.id,
         dataContratoFinal: LocalDate = this.dataContratoFinal,
-        idPlano: UUID = this.idPlano
+        idPlano: Plano = this.plano
     ) = copy(
         idContrato = idContrato,
         dataContratoFinal = dataContratoFinal,
@@ -43,18 +44,18 @@ class Contrato(
     )
 
     private fun copy(
-        idContrato: IdContrato = this.idContrato,
+        idContrato: IdContrato = this.id,
         dataContratacao: LocalDate = this.dataContratacao,
         dataContratoFinal: LocalDate = this.dataContratoFinal,
-        idPlano: UUID = this.idPlano,
-        idTitular: UUID = this.idTitular,
+        idPlano: Plano = this.plano,
+        idTitular: Pessoa = this.titular,
         status: StatusContrato = this.status
     ) = Contrato(
-        idContrato = idContrato,
+        id = idContrato,
         dataContratacao = dataContratacao,
         dataContratoFinal = dataContratoFinal,
-        idPlano = idPlano,
-        idTitular = idTitular,
+        plano = idPlano,
+        titular = idTitular,
         status = status
     )
 

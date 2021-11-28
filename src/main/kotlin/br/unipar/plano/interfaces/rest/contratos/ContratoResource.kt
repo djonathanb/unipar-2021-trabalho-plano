@@ -5,6 +5,8 @@ package br.unipar.plano.interfaces.rest.contratos
 import br.unipar.plano.domain.contratos.model.IdContrato
 import br.unipar.plano.domain.contratos.services.ContratoApplicationService
 import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.responses.ApiResponse
+import io.swagger.v3.oas.annotations.responses.ApiResponses
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -17,6 +19,7 @@ import javax.validation.Valid
 class ContratoResource(private val contratoApplicationService: ContratoApplicationService) {
 
     @Operation(summary = "Cria uma novo contrato e retorna o endereço do novo recurso")
+    @ApiResponses(ApiResponse(description = "", responseCode = "200"))// Para documentação do Swagger
     @PostMapping
     fun criar(@RequestBody @Valid contratoDTO: ContratoDTO): ResponseEntity<Void> {
         val idNovaCentral = contratoApplicationService.cria(contratoDTO)
@@ -66,7 +69,6 @@ class ContratoResource(private val contratoApplicationService: ContratoApplicati
     fun buscaPorId(@PathVariable("idContrato") idContrato: UUID ): ResponseEntity<ContratoDetailsDTO> {
         return ResponseEntity.ok(contratoApplicationService.buscaPorId(IdContrato(idContrato)))
     }
-
 
     @Operation(summary = "Busca Todos os contratos a partir do Id de um Plano")
     @GetMapping("/buscaplano/{idPlano}")

@@ -1,15 +1,18 @@
 package br.unipar.plano.domain.contratos.services.impl
 
-import br.unipar.plano.domain.contratos.model.Contrato
 import br.unipar.plano.domain.contratos.model.IdContrato
+import br.unipar.plano.domain.contratos.model.Plano
+import br.unipar.plano.domain.contratos.model.StatusContrato
 import br.unipar.plano.domain.contratos.services.ContratoApplicationService
 import br.unipar.plano.domain.contratos.services.ContratoQueryService
 import br.unipar.plano.domain.contratos.usecases.*
+import br.unipar.plano.domain.contratos.usecases.impl.ContratoJaExistenteException
 import br.unipar.plano.interfaces.rest.contratos.ContratoDTO
 import br.unipar.plano.interfaces.rest.contratos.ContratoDetailsDTO
 import br.unipar.plano.interfaces.rest.contratos.ContratoSummaryDTO
 import org.springframework.stereotype.Service
 import java.util.*
+import javax.validation.Valid
 
 
 @Service
@@ -20,10 +23,17 @@ class ContratoApplicationServiceImpl(
     private val atualizaContratoUseCase: AtualizaContratoUseCase
 ) : ContratoApplicationService {
 
-    override fun cria(contratoDTO: ContratoDTO): IdContrato {
+    override fun cria(@Valid contratoDTO: ContratoDTO): IdContrato {
         val contrato = contratoDTO.toModel(IdContrato())
+
+        val contratosAtivos = contratoQueryService.findByTitularAndStatus(contrato.titular, StatusContrato.ATIVO)
+
+        if (Objects.nonNull(contratosAtivos) && contratosAtivos.isNotEmpty()) {
+          throw ContratoJaExistenteException(contrato.titular)
+        }
+
         val novoContrato = criaContratoUseCase.cria(contrato)
-        return novoContrato.idContrato
+        return novoContrato.id
     }
 
     override fun deleta(idContrato: IdContrato) {
@@ -46,5 +56,5 @@ class ContratoApplicationServiceImpl(
         }
     }
 
-    override fun buscaPorPlano(idPlano: UUID) = contratoQueryService.lista().filter {it.idPlano.equals(idPlano)}.map(ContratoDetailsDTO::toDTO)
+    override fun buscaPorPlano(idPlano: Plano) = contratoQueryService.buscaPorPlano(idPlano).map(ContratoDetailsDTO::toDTO)
 }

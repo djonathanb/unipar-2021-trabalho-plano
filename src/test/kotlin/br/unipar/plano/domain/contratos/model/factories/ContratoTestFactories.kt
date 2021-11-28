@@ -18,10 +18,10 @@ fun contrato(
     idPlano: UUID = CONTRATO_CO_IDPLANO,
     idTitular : UUID = CONTRATO_CO_IDTITULAR,
 ) = Contrato(
-    idContrato = idContrato,
+    id = idContrato,
     dataContratacao = dataCadastro,
     dataContratoFinal = dataVencimento,
-    idPlano = idPlano,
-    idTitular = idTitular,
+    plano = idPlano,
+    titular = idTitular,
 )
 

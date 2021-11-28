@@ -1,11 +1,10 @@
 package br.unipar.plano.domain.contratos.services.impl
 
 
-import br.unipar.plano.domain.contratos.model.Contrato
-import br.unipar.plano.domain.contratos.model.ContratoRepository
-import br.unipar.plano.domain.contratos.model.IdContrato
+import br.unipar.plano.domain.contratos.model.*
 import br.unipar.plano.domain.contratos.services.ContratoQueryService
 import br.unipar.plano.domain.contratos.usecases.impl.ContratoNotFoundException
+import br.unipar.plano.domain.pessoas.model.Pessoa
 import org.springframework.stereotype.Service
 
 
@@ -16,6 +15,14 @@ class ContratoQueryServiceImpl(private val contratoRepository: ContratoRepositor
 
     override fun buscaPorId(idContrato: IdContrato): Contrato = contratoRepository.findById(idContrato).orElseThrow{
         ContratoNotFoundException(idContrato)
+    }
+
+    override fun buscaPorPlano(idPlano: Plano): List<Contrato> {
+        return contratoRepository.findByPlano(idPlano);
+    }
+
+    override fun findByTitularAndStatus(titular: Pessoa, statusContrato: StatusContrato): List<Contrato> {
+        return contratoRepository.findByTitularAndStatus(titular, statusContrato)
     }
 
 }
