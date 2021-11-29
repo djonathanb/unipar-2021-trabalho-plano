@@ -37,23 +37,21 @@ class PrestadorMedicoResource(private val prestMedAppService: PrestMedAppService
         return ResponseEntity.ok(prestMedAppService.buscaPorId(IdPrestadorMedico(idPrestadorMedico)))
     }
 
-
     @PostMapping("/{idPrestadorMedico}/credenciamento")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     fun credenciar(@PathVariable("idPrestadorMedico") idPrestadorMedico: UUID) {
         prestMedAppService.credenciar(IdPrestadorMedico(idPrestadorMedico))
     }
 
-    @DeleteMapping("/{idPrestadorMedico}/credenciamento")
+    @DeleteMapping("/{idPrestadorMedico}/descredenciamento")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     fun descredenciar(@PathVariable("idPrestadorMedico") idPrestadorMedico: UUID) {
         prestMedAppService.descredenciar(IdPrestadorMedico(idPrestadorMedico))
     }
 
-    @Operation(summary = "Retorna a lista de centrais cadastradas")
+    @Operation(summary = "Retorna a lista de medicos cadastrados")
     @GetMapping
     fun lista(): ResponseEntity<List<PrestadorMedicoSummaryDTO>> {
         return ResponseEntity.ok(prestMedAppService.lista())
     }
-
 }

@@ -34,15 +34,12 @@ data class PrestadorMedicoDetailsDTO(
     val status: StatusMedico,
     val prestMedData: PrestMedDTO
 ){
-
     companion object {
-
         fun toDTO(prestadorMedico: PrestadorMedico) = PrestadorMedicoDetailsDTO(
             id = prestadorMedico.id,
             status = prestadorMedico.status,
             prestMedData = PrestMedDTO.toDTO(prestadorMedico)
         )
-
     }
 
 }
@@ -91,18 +88,13 @@ data class EspecialidadeDTO(
     @field:NotNull
     val nomeEspecialidade: String
 ) {
-
     fun toModel(idPrestadorMedico: IdPrestadorMedico) = Especialidade(
         id = idPrestadorMedico,
         nomeEspecialidade = this.nomeEspecialidade
-
     )
-
     companion object {
-
         fun toDTO(especialidade: Especialidade) = EspecialidadeDTO(
             nomeEspecialidade = especialidade.nomeEspecialidade
         )
-
     }
 }

@@ -4,6 +4,7 @@ import br.unipar.plano.domain.credenciamentos.model.clinicaHospital.IdPrestadorC
 import br.unipar.plano.domain.credenciamentos.model.clinicaHospital.PrestadorClinicaHospital
 
 interface PrestClinHospQueryService {
+    fun cria()
     fun lista(): List<PrestadorClinicaHospital>
     fun buscaPorId(idPrestadorClinicaHospital: IdPrestadorClinicaHospital): PrestadorClinicaHospital
 }

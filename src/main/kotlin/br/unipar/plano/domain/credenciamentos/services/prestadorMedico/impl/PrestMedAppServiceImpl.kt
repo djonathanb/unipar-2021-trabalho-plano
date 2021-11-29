@@ -58,6 +58,18 @@ class PrestMedAppServiceImpl(
         return PrestadorMedicoDetailsDTO.toDTO(prestadorMedico)
     }
 
+}
+
+
+
+
+
+
+
+
+
+
+
 /*
 
     override fun lista(): List<PrestadorMedicoSummaryDTO> = prestMedQueryService.lista().map {
@@ -94,4 +106,3 @@ class PrestMedAppServiceImpl(
         status = prestadorMedico.status
     )
 */
-}

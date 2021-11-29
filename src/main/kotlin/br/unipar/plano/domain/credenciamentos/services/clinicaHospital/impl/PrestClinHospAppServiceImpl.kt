@@ -3,10 +3,12 @@ package br.unipar.plano.domain.credenciamentos.services.clinicaHospital.impl
 import br.unipar.plano.domain.credenciamentos.model.clinicaHospital.IdPrestadorClinicaHospital
 import br.unipar.plano.domain.credenciamentos.model.clinicaHospital.PrestadorClinicaHospital
 import br.unipar.plano.domain.credenciamentos.model.clinicaHospital.Servico
+import br.unipar.plano.domain.credenciamentos.model.prestadorMedico.IdPrestadorMedico
 import br.unipar.plano.domain.credenciamentos.services.clinicaHospital.PrestClinHospAppService
 import br.unipar.plano.domain.credenciamentos.services.clinicaHospital.PrestClinHospQueryService
 import br.unipar.plano.domain.credenciamentos.usecases.clinicaHospital.CriaPrestClinHospUseCase
 import br.unipar.plano.interfaces.rest.credenciamentos.clinicaHospital.*
+import br.unipar.plano.interfaces.rest.credenciamentos.prestadorMedico.PrestMedDTO
 import org.springframework.stereotype.Service
 
 
@@ -18,45 +20,36 @@ class PrestClinHospAppServiceImpl(
 ) : PrestClinHospAppService {
 
     override fun cria(prestClinHospDTO: PrestClinHospDTO): IdPrestadorClinicaHospital {
-        val clinicaHospital = toModel(IdPrestadorClinicaHospital(), prestClinHospDTO)
+        val clinicaHospital = prestClinHospDTO.toModel(IdPrestadorClinicaHospital(), prestClinHospDTO)
         val novoClinHosp = criaPrestClinHospUseCase.executa(clinicaHospital)
         return novoClinHosp.id
     }
 
-    override fun lista(): List<PrestClinHospSummaryDTO> = prestClinHospQueryService.lista().map {
-        toSummaryDTO(it)
+    override fun lista(): List<PrestClinHospSummaryDTO> = prestClinHospQueryService.lista().map(PrestClinHospSummaryDTO::toDTO)
+
+    override fun buscaPorId(idPrestadorClinicaHospital: IdPrestadorClinicaHospital): PrestClinHospDetailsDTO {
+        val prestadorClinicaHospital = prestClinHospQueryService.buscaPorId(idPrestadorClinicaHospital)
+        return PrestClinHospDetailsDTO.toDTO(prestadorClinicaHospital)
     }
 
-    override fun buscaPorId(idPrestadorClinicaHospital: IdPrestadorClinicaHospital): PrestClinHospDetailsDTO =
-        toDetailsDTO(prestClinHospQueryService.buscaPorId(IdPrestadorClinicaHospital()))
+    override fun atualiza(idPrestadorClinicaHospital: IdPrestadorClinicaHospital, prestClinHospDTO: PrestClinHospDTO) {
+        atualizaClinHospUseCase.executa(idPrestadorClinicaHospital) {
+            it.with(
+                nome = .nome
+            )
+        }
+    }
 
-    private fun toModel(id: IdPrestadorClinicaHospital, prestClinHospDTO: PrestClinHospDTO) = PrestadorClinicaHospital(
-        id = id,
-        nome = prestClinHospDTO.nome,
-        cnpj = prestClinHospDTO.cnpj,
-        status = prestClinHospDTO.status,
-        servico = prestClinHospDTO.servicos.map { servico -> Servico(id = IdPrestadorClinicaHospital(), servico = servico.servico) }
-    )
+    override fun deleta(idPrestadorClinicaHospital: IdPrestadorClinicaHospital) {
+        deletaPrestClinHospUseCase.executa(idPrestadorClinicaHospital)
+    }
 
-    private fun toSummaryDTO(prestadorClinicaHospital: PrestadorClinicaHospital) = PrestClinHospSummaryDTO(
-        id = prestadorClinicaHospital.id,
-        nome = prestadorClinicaHospital.nome,
-        cnpj = prestadorClinicaHospital.cnpj,
-        status = prestadorClinicaHospital.status,
-        servicos =  prestadorClinicaHospital.servico.map{ servico -> ServicoSummaryDTO(servico = servico.servico) }
-    )
+    override fun credenciar(idPrestadorClinicaHospital: IdPrestadorClinicaHospital) {
+        credenciaPrestClinHospUseCase.executa(idPrestadorClinicaHospital)
+    }
 
-    private fun toDetailsDTO(prestadorClinicaHospital: PrestadorClinicaHospital) = PrestClinHospDetailsDTO(
-        id = prestadorClinicaHospital.id,
-        prestClinHospData = toDTO(prestadorClinicaHospital)
-    )
-
-    private fun toDTO(prestadorClinicaHospital: PrestadorClinicaHospital) = PrestClinHospDTO(
-        nome = prestadorClinicaHospital.nome,
-        cnpj = prestadorClinicaHospital.cnpj,
-        status = prestadorClinicaHospital.status,
-        servicos = prestadorClinicaHospital.servico.map{ servico -> ServicoDTO(servico = servico.servico) }
-    )
-
+    override fun descredenciar(idPrestadorMedico: IdPrestadorMedico) {
+        descredenciaPresClinHospUseCase.executa(idPrestadorMedico)
+    }
 
 }

@@ -9,7 +9,11 @@ import br.unipar.plano.interfaces.rest.credenciamentos.clinicaHospital.PrestClin
 
 interface PrestClinHospAppService {
     fun cria(prestClinHospDTO: PrestClinHospDTO): IdPrestadorClinicaHospital
+    fun atualiza(idPrestadorClinicaHospital: IdPrestadorClinicaHospital, prestadorMedicoDTO: PrestClinHospDTO)
+    fun deleta(idPrestadorClinicaHospital: IdPrestadorClinicaHospital)
     fun lista(): List<PrestClinHospSummaryDTO>
     fun buscaPorId(idPrestadorClinicaHospital: IdPrestadorClinicaHospital): PrestClinHospDetailsDTO
+    fun credenciar(idPrestadorClinicaHospital: IdPrestadorClinicaHospital)
+    fun descredenciar(idPrestadorClinicaHospital: IdPrestadorClinicaHospital)
 }
 

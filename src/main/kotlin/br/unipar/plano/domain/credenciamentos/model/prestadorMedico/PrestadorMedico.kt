@@ -21,7 +21,6 @@ class PrestadorMedico(
     @Column(unique = true)
     val crm: String,
 
-
     //@OneToMany(cascade = [CascadeType.ALL])
     @OneToOne(cascade = [CascadeType.ALL], orphanRemoval = true)
     val especialidades: Especialidade
