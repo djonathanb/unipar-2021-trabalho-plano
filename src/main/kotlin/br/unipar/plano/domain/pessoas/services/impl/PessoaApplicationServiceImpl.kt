@@ -1,6 +1,7 @@
 package br.unipar.plano.domain.pessoas.services.impl
 
-import br.unipar.plano.domain.pessoas.model.IdDependente
+import br.unipar.plano.domain.dependentes.model.IdDependente
+import br.unipar.plano.domain.pessoas.model.IdPessoa
 import br.unipar.plano.domain.pessoas.services.PessoaApplicationService
 import br.unipar.plano.domain.pessoas.services.PessoaQueryService
 import br.unipar.plano.domain.pessoas.usecases.AtualizaPessoaUseCase
@@ -18,25 +19,25 @@ class PessoaApplicationServiceImpl(
     private val atualizaPessoaUseCase: AtualizaPessoaUseCase
 ) : PessoaApplicationService {
 
-    override fun cria(pessoaDTO: PessoaDTO): IdDependente {
-        val pessoa = pessoaDTO.toModel(IdDependente())
+    override fun cria(pessoaDTO: PessoaDTO): IdPessoa {
+        val pessoa = pessoaDTO.toModel((IdPessoa()))
         val novaPessoa = criaPessoaUseCase.cria(pessoa)
         return novaPessoa.idPessoa
     }
 
-    override fun deleta(idPessoa: IdDependente) {
+    override fun deleta(idPessoa: IdPessoa) {
         deletaPessoaUseCase.executa(idPessoa)
     }
 
     override fun lista() = pessoaQueryService.lista().map(PessoaDTO::toDTO)
 
-    override fun buscaPorId(idPessoa: IdDependente): PessoaDetailsDTO {
+    override fun buscaPorId(idPessoa: IdPessoa): PessoaDetailsDTO {
         val pessoa = pessoaQueryService.buscaPorId(idPessoa)
         return PessoaDetailsDTO.toDTO(pessoa)
     }
 
 
-    override fun atualiza(idPessoa: IdDependente, pessoaDTO: PessoaDTO) {
+    override fun atualiza(idPessoa: IdPessoa, pessoaDTO: PessoaDTO) {
         atualizaPessoaUseCase.executa(idPessoa) {
             it.with(
                 nome = pessoaDTO.nome,

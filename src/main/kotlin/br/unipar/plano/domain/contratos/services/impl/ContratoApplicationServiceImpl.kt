@@ -1,7 +1,7 @@
 package br.unipar.plano.domain.contratos.services.impl
 
 import br.unipar.plano.domain.contratos.model.IdContrato
-import br.unipar.plano.domain.contratos.model.Plano
+import br.unipar.plano.domain.planos.model.Plano
 import br.unipar.plano.domain.contratos.model.StatusContrato
 import br.unipar.plano.domain.contratos.services.ContratoApplicationService
 import br.unipar.plano.domain.contratos.services.ContratoQueryService
@@ -51,7 +51,7 @@ class ContratoApplicationServiceImpl(
         atualizaContratoUseCase.executa(idContrato) {
             it.with(
                 dataContratoFinal = contratoDTO.dataContratoFinal,
-                idPlano = contratoDTO.idPlano
+                plano = contratoDTO.idPlano
             )
         }
     }

@@ -3,6 +3,7 @@ package br.unipar.plano.interfaces.rest.contratos
 
 
 import br.unipar.plano.domain.contratos.model.IdContrato
+import br.unipar.plano.domain.planos.model.Plano
 import br.unipar.plano.domain.contratos.services.ContratoApplicationService
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.responses.ApiResponse
@@ -70,10 +71,10 @@ class ContratoResource(private val contratoApplicationService: ContratoApplicati
         return ResponseEntity.ok(contratoApplicationService.buscaPorId(IdContrato(idContrato)))
     }
 
-    @Operation(summary = "Busca Todos os contratos a partir do Id de um Plano")
-    @GetMapping("/buscaplano/{idPlano}")
-    fun buscaPorPlano(@PathVariable("idPlano") idPlano: UUID): ResponseEntity<List<ContratoDetailsDTO>> {
+    /*@Operation(summary = "Busca Todos os contratos a partir do Id de um Plano")
+    @GetMapping("/buscaporplano/{idPlano}")
+    fun buscaPorPlano(@PathVariable("idPlano") idPlano: Plano): ResponseEntity<List<ContratoDetailsDTO>> {
         return ResponseEntity.ok(contratoApplicationService.buscaPorPlano(idPlano))
-    }
+    }*/
 
 }

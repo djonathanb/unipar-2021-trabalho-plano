@@ -1,9 +1,8 @@
 package br.unipar.plano.domain.contratos.model
 
 import br.unipar.plano.domain.pessoas.model.Pessoa
-import org.hibernate.annotations.CascadeType
+import br.unipar.plano.domain.planos.model.Plano
 import java.time.LocalDate
-import java.util.*
 import javax.persistence.*
 
 enum class StatusContrato {
@@ -22,11 +21,9 @@ class Contrato(
     @Column(nullable = false)
     val dataContratoFinal: LocalDate,
 
-    @Column(nullable = false, name = "id_plano")
     @ManyToOne
     val plano: Plano,
 
-    @Column(nullable = false, name = "id_titular")
     @OneToOne
     val titular: Pessoa,
 
@@ -36,26 +33,26 @@ class Contrato(
     fun with(
         idContrato: IdContrato = this.id,
         dataContratoFinal: LocalDate = this.dataContratoFinal,
-        idPlano: Plano = this.plano
+        plano: Plano = this.plano
     ) = copy(
         idContrato = idContrato,
         dataContratoFinal = dataContratoFinal,
-        idPlano = idPlano
+        plano = plano
     )
 
     private fun copy(
         idContrato: IdContrato = this.id,
         dataContratacao: LocalDate = this.dataContratacao,
         dataContratoFinal: LocalDate = this.dataContratoFinal,
-        idPlano: Plano = this.plano,
-        idTitular: Pessoa = this.titular,
+        plano: Plano = this.plano,
+        Titular: Pessoa = this.titular,
         status: StatusContrato = this.status
     ) = Contrato(
         id = idContrato,
         dataContratacao = dataContratacao,
         dataContratoFinal = dataContratoFinal,
-        plano = idPlano,
-        titular = idTitular,
+        plano = plano,
+        titular = Titular,
         status = status
     )
 

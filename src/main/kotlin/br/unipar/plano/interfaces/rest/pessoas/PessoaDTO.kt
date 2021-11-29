@@ -72,7 +72,7 @@ data class PessoaDTO(
 
     val nomePai: String,
 
-    val dependente: List<DependenteDTO>
+    //val dependente: List<DependenteDTO>
 ) {
 
     fun toModel(id: IdPessoa) = Pessoa(
@@ -85,7 +85,7 @@ data class PessoaDTO(
         dataDeNascimento = this.dataDeNascimento,
         nomeMae = this.nomeMae,
         nomePai = this.nomePai,
-        dependente = this.dependente.map{ toModel(id dependente) }
+        //dependente = this.dependente.map{ toModel(id dependente) }
     )
 
     companion object {
@@ -99,7 +99,7 @@ data class PessoaDTO(
             dataDeNascimento = pessoa.dataDeNascimento,
             nomeMae = pessoa.nomeMae,
             nomePai = pessoa.nomePai,
-            dependente = pessoa.dependente
+            //dependente = pessoa.dependente
         )
     }
 

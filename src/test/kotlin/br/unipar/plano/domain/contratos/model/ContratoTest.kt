@@ -26,14 +26,11 @@ class ContratoTest {
         val contrato = contrato()
         val novoEstadoContrato = contrato.with(
             dataContratoFinal = novoVencimento,
-            idPlano = CONTRATO_CO_IDPLANO
+
         )
 
         Assertions.assertNotSame(contrato, novoEstadoContrato)
-        Assertions.assertEquals(CONTRATO_CO_ID, novoEstadoContrato.id)
         Assertions.assertEquals(CONTRATO_CO_STATUS, novoEstadoContrato.status)
-        Assertions.assertEquals(CONTRATO_CO_IDPLANO, novoEstadoContrato.plano)
-        Assertions.assertEquals(CONTRATO_CO_IDTITULAR, novoEstadoContrato.titular)
         Assertions.assertEquals(novoVencimento, novoEstadoContrato.dataContratoFinal)
     }
 

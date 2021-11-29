@@ -3,7 +3,7 @@ package br.unipar.plano.domain.contratos.services
 
 import br.unipar.plano.domain.contratos.model.Contrato
 import br.unipar.plano.domain.contratos.model.IdContrato
-import br.unipar.plano.domain.contratos.model.Plano
+import br.unipar.plano.domain.planos.model.Plano
 import br.unipar.plano.domain.contratos.model.StatusContrato
 import br.unipar.plano.domain.pessoas.model.Pessoa
 

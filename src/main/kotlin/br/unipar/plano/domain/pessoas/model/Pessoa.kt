@@ -41,8 +41,8 @@ class Pessoa(
     @Column()
     val nomePai: String,
 
-    @OneToMany(cascade = [CascadeType.ALL], mappedBy = "titular")
-    val dependentes: List<Dependente>?
+   // @OneToMany(cascade = [CascadeType.ALL], mappedBy = "titular")
+   // val dependentes: List<Dependente>?
 
 ) {
     fun with(
@@ -54,7 +54,8 @@ class Pessoa(
         estadoCivil: StatusEstadoCivil = this.estadoCivil,
         dataDeNascimento: LocalDate = this.dataDeNascimento,
         nomeMae: String = this.nomeMae,
-        nomePai: String = this.nomePai
+        nomePai: String = this.nomePai,
+       // dependentes: List<Dependente>? = this.dependentes
     ) = copy(
         idPessoa = idPessoa,
         nome = nome,
@@ -64,7 +65,8 @@ class Pessoa(
         estadoCivil = estadoCivil,
         dataDeNascimento = dataDeNascimento,
         nomeMae = nomeMae,
-        nomePai = nomePai
+        nomePai = nomePai,
+     //   dependentes = this.dependentes
     )
 
     private fun copy(
@@ -76,7 +78,8 @@ class Pessoa(
         estadoCivil: StatusEstadoCivil = this.estadoCivil,
         dataDeNascimento: LocalDate = this.dataDeNascimento,
         nomeMae: String = this.nomeMae,
-        nomePai: String = this.nomePai
+        nomePai: String = this.nomePai,
+       // dependentes: List<Dependente>? = this.dependentes
     ) = Pessoa(
         idPessoa = idPessoa,
         nome = nome,
@@ -86,6 +89,7 @@ class Pessoa(
         estadoCivil = estadoCivil,
         dataDeNascimento = dataDeNascimento,
         nomeMae = nomeMae,
-        nomePai = nomePai
+        nomePai = nomePai ,
+        //dependentes = dependentes
     )
 }
