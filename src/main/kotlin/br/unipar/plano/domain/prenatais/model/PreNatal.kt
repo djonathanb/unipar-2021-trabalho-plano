@@ -1,11 +1,10 @@
-package br.unipar.plano.domain.prenatal.model
+package br.unipar.plano.domain.prenatais.model
 
 import br.unipar.plano.domain.carteirinhas.model.Carteirinha
 import br.unipar.plano.domain.consultas.model.Consulta
-import br.unipar.plano.domain.consultas.model.TipoConsulta
-import org.springframework.beans.factory.annotation.Value
+import br.unipar.plano.domain.prenatais.ErroSolicitaoConsultaException
+import br.unipar.plano.interfaces.rest.FalhaAtendimentoException
 import java.time.LocalDate
-import java.util.*
 import javax.persistence.*
 import kotlin.collections.ArrayList
 
@@ -37,25 +36,25 @@ class PreNatal(
 
     fun solicitar(): PreNatal {
         if (!carteirinha.valida) {
-            throw Exception("Não é possível solicitar Pré-Natal, carterinha inválida")
+            throw ErroSolicitaoConsultaException("Não é possível solicitar Pré-Natal, carterinha inválida")
         } else if (!temObstetricia) {
-            throw Exception("Não é possível solicitar Pré-Natal, não tem obstetrícia")
+            throw ErroSolicitaoConsultaException("Não é possível solicitar Pré-Natal, não tem obstetrícia")
         } else if (!LocalDate.now().plusYears(1).isAfter(dataSolicitacao)) {
-            throw Exception("Não é possível solicitar Pré-Natal, você só pode ter um Pré-Natal por ano")
+            throw ErroSolicitaoConsultaException("Não é possível solicitar Pré-Natal, você só pode ter um Pré-Natal por ano")
         }
         return copy(status = StatusAtendimento.SOLICITADO)
     }
 
     fun cancelar(): PreNatal {
         if (status != StatusAtendimento.SOLICITADO) {
-            throw Exception("Não é possível cancelar um Pre-Natal com status $status")
+            throw FalhaAtendimentoException("Não é possível cancelar um Pre-Natal com status $status")
         }
         return copy(status = StatusAtendimento.CANCELADO)
     }
 
     fun autorizar(): PreNatal {
         if (status != StatusAtendimento.SOLICITADO || status == StatusAtendimento.AUTORIZADO || status == StatusAtendimento.CANCELADO) {
-            throw Exception("Não é possível cancelar um Pre-Natal com status $status")
+            throw FalhaAtendimentoException("Não é possível cancelar um Pre-Natal com status $status")
         }
         val consultasGratis: MutableList<Consulta> = ArrayList()
 

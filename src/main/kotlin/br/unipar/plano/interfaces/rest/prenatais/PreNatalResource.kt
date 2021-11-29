@@ -1,7 +1,7 @@
 package br.unipar.plano.interfaces.rest.prenatais
 
-import br.unipar.plano.domain.prenatal.model.IdPreNatal
-import br.unipar.plano.domain.prenatal.services.SolicitarPreNatalService
+import br.unipar.plano.domain.prenatais.model.IdPreNatal
+import br.unipar.plano.domain.prenatais.services.SolicitarPreNatalService
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.responses.ApiResponses

@@ -1,6 +1,6 @@
-package br.unipar.plano.domain.prenatal.services
+package br.unipar.plano.domain.prenatais.services
 
-import br.unipar.plano.domain.prenatal.model.IdPreNatal
+import br.unipar.plano.domain.prenatais.model.IdPreNatal
 import br.unipar.plano.interfaces.rest.prenatais.PreNatalDTO
 import br.unipar.plano.interfaces.rest.prenatais.PreNatalDetailsDTO
 import br.unipar.plano.interfaces.rest.prenatais.PreNatalSummaryDTO

@@ -1,4 +1,4 @@
-package br.unipar.plano.domain.prenatal.model
+package br.unipar.plano.domain.prenatais.model
 
 import com.fasterxml.jackson.annotation.JsonValue
 import java.io.Serializable

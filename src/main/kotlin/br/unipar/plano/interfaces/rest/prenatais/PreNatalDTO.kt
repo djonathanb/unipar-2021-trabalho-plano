@@ -1,8 +1,8 @@
 package br.unipar.plano.interfaces.rest.prenatais
 
 import br.unipar.plano.domain.carteirinhas.model.Carteirinha
-import br.unipar.plano.domain.prenatal.model.IdPreNatal
-import br.unipar.plano.domain.prenatal.model.StatusAtendimento
+import br.unipar.plano.domain.prenatais.model.IdPreNatal
+import br.unipar.plano.domain.prenatais.model.StatusAtendimento
 import java.time.LocalDate
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.NotNull

@@ -1,4 +1,4 @@
-package br.unipar.plano.domain.prenatal.model
+package br.unipar.plano.domain.prenatais.model
 
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
