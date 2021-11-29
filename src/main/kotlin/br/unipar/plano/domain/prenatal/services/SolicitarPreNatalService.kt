@@ -1,9 +1,9 @@
 package br.unipar.plano.domain.prenatal.services
 
 import br.unipar.plano.domain.prenatal.model.IdPreNatal
-import br.unipar.plano.interfaces.rest.prenatal.PreNatalDTO
-import br.unipar.plano.interfaces.rest.prenatal.PreNatalDetailsDTO
-import br.unipar.plano.interfaces.rest.prenatal.PreNatalSummaryDTO
+import br.unipar.plano.interfaces.rest.prenatais.PreNatalDTO
+import br.unipar.plano.interfaces.rest.prenatais.PreNatalDetailsDTO
+import br.unipar.plano.interfaces.rest.prenatais.PreNatalSummaryDTO
 
 interface SolicitarPreNatalService {
     fun solicitar(preNatalDTO: PreNatalDTO): IdPreNatal

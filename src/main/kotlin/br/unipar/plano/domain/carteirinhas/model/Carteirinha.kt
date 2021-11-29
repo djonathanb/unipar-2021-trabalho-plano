@@ -8,7 +8,7 @@ class Carteirinha(
     @field:EmbeddedId
     val id: IdCarteirinha,
 
-    @Value("valida")
+    @Column
     val valida: Boolean,
 
 ) {

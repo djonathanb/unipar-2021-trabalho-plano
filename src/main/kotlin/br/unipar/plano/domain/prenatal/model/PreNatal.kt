@@ -18,7 +18,7 @@ class PreNatal(
     @field:EmbeddedId
     val id: IdPreNatal,
 
-    @OneToOne(cascade = [CascadeType.ALL], orphanRemoval = true)
+    @OneToOne(cascade = [CascadeType.ALL])
     val carteirinha: Carteirinha,
 
     @Temporal(TemporalType.TIMESTAMP)
@@ -27,7 +27,7 @@ class PreNatal(
     @Column
     val temObstetricia: Boolean = false,
 
-    @OneToMany(cascade = [CascadeType.ALL], orphanRemoval = true)
+    @OneToMany(cascade = [CascadeType.ALL])
     val consultas: List<Consulta>,
 
     @Enumerated(EnumType.STRING)
