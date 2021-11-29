@@ -21,6 +21,9 @@ class Contrato(
     @Column(nullable = false)
     val dataContratoFinal: LocalDate,
 
+    @Column(nullable = false)
+    val dataCancelamento: LocalDate?,
+
     @ManyToOne
     val plano: Plano,
 
@@ -46,20 +49,22 @@ class Contrato(
         dataContratoFinal: LocalDate = this.dataContratoFinal,
         plano: Plano = this.plano,
         Titular: Pessoa = this.titular,
-        status: StatusContrato = this.status
+        status: StatusContrato = this.status,
+        dataCancelamento: LocalDate? = this.dataCancelamento
     ) = Contrato(
         id = idContrato,
         dataContratacao = dataContratacao,
         dataContratoFinal = dataContratoFinal,
         plano = plano,
         titular = Titular,
-        status = status
+        status = status,
+        dataCancelamento = dataCancelamento
     )
 
     fun cancela(): Contrato {
         if (status != StatusContrato.ATIVO) {
             throw IllegalStateException("Não é possível cancelar um Contrato com status $status")
         }
-        return copy(status = StatusContrato.CANCELADO)
+        return copy(status = StatusContrato.CANCELADO, dataCancelamento = LocalDate.now())
     }
 }

@@ -42,7 +42,6 @@ fun pessoaTest(
     nomeMae = nomeMae,
     nomePai = nomePai,
     estadoCivil = estadoCivil
-
 )
 
 
@@ -51,13 +50,15 @@ fun contrato(
     dataCadastro: LocalDate = LocalDate.of(2018,11,26),
     dataVencimento: LocalDate = LocalDate.of(2021,11,26),
     plano: Plano = planoTeste(),
-    titular : Pessoa = pessoaTest()
+    titular : Pessoa = pessoaTest(),
+    dataCancelamento: LocalDate = LocalDate.now()
 ) = Contrato(
     id = idContrato,
     dataContratacao = dataCadastro,
     dataContratoFinal = dataVencimento,
     plano = plano,
-    titular = titular
+    titular = titular,
+    dataCancelamento = dataCancelamento
 )
 
 

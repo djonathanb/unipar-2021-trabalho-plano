@@ -7,6 +7,7 @@ import br.unipar.plano.domain.contratos.model.StatusContrato
 import br.unipar.plano.domain.pessoas.model.Pessoa
 import java.time.LocalDate
 import javax.validation.constraints.NotBlank
+import javax.validation.constraints.NotNull
 
 data class ContratoSummaryDTO(
     val id: IdContrato,
@@ -49,17 +50,20 @@ data class ContratoDetailsDTO(
 }
 
 data class ContratoDTO(
-    @NotBlank(message = "Data de contratação não informada")
+    @NotNull(message = "Data de contratação não informada")
     val dataContratacao: LocalDate,
 
-    @NotBlank(message = "Data de termino de contrato não informada")
+    @NotNull(message = "Data de termino de contrato não informada")
     val dataContratoFinal: LocalDate,
 
-    @NotBlank(message = "ID Plano não informado")
+    @NotNull(message = "ID Plano não informado")
     val idPlano: Plano,
 
-    @NotBlank(message = "ID Pessoa não informado")
-    val idTitular: Pessoa
+    @NotNull(message = "ID Pessoa não informado")
+    val idTitular: Pessoa,
+
+    @NotNull(message = "ID Pessoa não informado")
+    val dataCancelamento: LocalDate?
 
 ) {
 
@@ -68,7 +72,8 @@ data class ContratoDTO(
         dataContratacao = this.dataContratacao,
         dataContratoFinal = this.dataContratoFinal,
         plano = this.idPlano,
-        titular = this.idTitular
+        titular = this.idTitular,
+        dataCancelamento = this.dataCancelamento
     )
 
     companion object {
@@ -77,7 +82,8 @@ data class ContratoDTO(
             dataContratacao = contrato.dataContratacao,
             dataContratoFinal = contrato.dataContratoFinal,
             idPlano = contrato.plano,
-            idTitular = contrato.titular
+            idTitular = contrato.titular,
+            dataCancelamento = contrato.dataCancelamento
         )
     }
 

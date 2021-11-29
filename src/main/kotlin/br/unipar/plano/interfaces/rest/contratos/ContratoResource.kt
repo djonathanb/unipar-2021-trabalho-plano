@@ -20,7 +20,7 @@ import javax.validation.Valid
 class ContratoResource(private val contratoApplicationService: ContratoApplicationService) {
 
     @Operation(summary = "Cria uma novo contrato e retorna o endereço do novo recurso")
-    @ApiResponses(ApiResponse(description = "", responseCode = "200"))// Para documentação do Swagger
+    @ApiResponses(ApiResponse(description = "Sucesso ao Criar um contrato", responseCode = "200"))// Para documentação do Swagger
     @PostMapping
     fun criar(@RequestBody @Valid contratoDTO: ContratoDTO): ResponseEntity<Void> {
         val idNovaCentral = contratoApplicationService.cria(contratoDTO)
@@ -46,18 +46,6 @@ class ContratoResource(private val contratoApplicationService: ContratoApplicati
     fun deleta(@PathVariable("idContrato") idContrato: UUID) {
         contratoApplicationService.deleta(idContrato = IdContrato(idContrato))
     }
-
-    /*@PostMapping("/{idCentral}/credenciamento")
-    @ResponseStatus(code = HttpStatus.NO_CONTENT)
-    fun credenciar(@PathVariable("idCentral") idCentral: UUID) {
-        contratoApplicationService.credenciar(IdCentral(idCentral))
-    }*/
-
-    /*@DeleteMapping("/{idCentral}/credenciamento")
-    @ResponseStatus(code = HttpStatus.NO_CONTENT)
-    fun descredenciar(@PathVariable("idCentral") idCentral: UUID) {
-        contratoApplicationService.descredenciar(IdCentral(idCentral))
-    }*/
 
     @Operation(summary = "Retorna a lista de contratos cadastrados")
     @GetMapping
