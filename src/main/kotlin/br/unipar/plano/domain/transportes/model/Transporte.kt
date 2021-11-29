@@ -1,7 +1,7 @@
-package br.unipar.plano.domain.centrais.model
+package br.unipar.plano.domain.transportes.model
 
 import br.unipar.plano.domain.carteirinhas.model.Carteirinha
-import br.unipar.plano.domain.transportes.model.EnderecoTransporte
+import br.unipar.plano.domain.centrais.model.IdTransporte
 import java.time.LocalDate
 import javax.persistence.*
 

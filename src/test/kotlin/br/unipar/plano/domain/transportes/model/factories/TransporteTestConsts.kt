@@ -1,9 +1,10 @@
 package br.unipar.plano.domain.centrais.model.factories
 
 import br.unipar.plano.application.factories.CIDADE_TOLEDO_ID
-import br.unipar.plano.domain.carteirinhas.model.Carteirinha
 import br.unipar.plano.domain.carteirinhas.model.IdCarteirinha
 import br.unipar.plano.domain.centrais.model.*
+import br.unipar.plano.domain.transportes.model.StatusTransporte
+import br.unipar.plano.domain.transportes.model.TipoTransporte
 import java.util.*
 
 val TRANSPORTE_ID = IdTransporte(UUID.fromString("017f7c2e-55ae-4ed7-847b-f7337a599e0f"))

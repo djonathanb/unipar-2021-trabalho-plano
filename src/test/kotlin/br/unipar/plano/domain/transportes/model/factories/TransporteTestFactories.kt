@@ -1,8 +1,11 @@
-package br.unipar.plano.domain.centrais.model.factories
+package br.unipar.plano.domain.transportes.model.factories
 
 import br.unipar.plano.domain.carteirinhas.model.Carteirinha
 import br.unipar.plano.domain.carteirinhas.model.IdCarteirinha
-import br.unipar.plano.domain.centrais.model.*
+import br.unipar.plano.domain.centrais.model.IdTransporte
+import br.unipar.plano.domain.transportes.model.TipoTransporte
+import br.unipar.plano.domain.transportes.model.Transporte
+import br.unipar.plano.domain.centrais.model.factories.*
 import br.unipar.plano.domain.transportes.model.EnderecoTransporte
 
 fun idTransporte(static: Boolean = true) = if (static) {

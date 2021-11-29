@@ -2,7 +2,6 @@ package br.unipar.plano.domain.centrais.model.factories
 
 import br.unipar.plano.domain.centrais.model.Central
 import br.unipar.plano.domain.centrais.model.EnderecoCentral
-import br.unipar.plano.domain.enderecos.model.Endereco
 import br.unipar.plano.domain.centrais.model.IdCentral
 
 fun idCentral(static: Boolean = true) = if (static) {

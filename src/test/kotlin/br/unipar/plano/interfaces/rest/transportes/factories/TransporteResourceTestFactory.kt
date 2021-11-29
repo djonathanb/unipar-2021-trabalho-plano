@@ -1,8 +1,9 @@
 package br.unipar.plano.interfaces.rest.transportes.factories
 
 import br.unipar.plano.domain.carteirinhas.model.Carteirinha
-import br.unipar.plano.domain.centrais.model.TipoTransporte
+import br.unipar.plano.domain.transportes.model.TipoTransporte
 import br.unipar.plano.domain.centrais.model.factories.*
+import br.unipar.plano.domain.transportes.model.factories.idCarteirinha
 import br.unipar.plano.interfaces.rest.carteirinhas.CarteirinhaSummaryDTO
 import br.unipar.plano.interfaces.rest.transportes.EnderecoTransporteDTO
 import br.unipar.plano.interfaces.rest.transportes.TransporteDTO
