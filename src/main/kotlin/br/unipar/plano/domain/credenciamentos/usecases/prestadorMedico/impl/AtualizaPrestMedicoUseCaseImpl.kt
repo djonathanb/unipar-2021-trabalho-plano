@@ -11,8 +11,8 @@ class AtualizaPrestMedicoUseCaseImpl(private val prestadorMedicoRepository: Pres
     AtualizaPrestMedicoUseCase {
 
     override fun executa(idPrestadorMedico: IdPrestadorMedico, transformation: (PrestadorMedico) -> PrestadorMedico) {
-        val central = prestadorMedicoRepository.findById(idPrestadorMedico).orElseThrow { PrestMedicoNotFoundException(idPrestadorMedico) }
-        prestadorMedicoRepository.save(transformation(central).with(id = idPrestadorMedico))
+        val prestadorMedico = prestadorMedicoRepository.findById(idPrestadorMedico).orElseThrow { PrestMedicoNotFoundException(idPrestadorMedico) }
+        prestadorMedicoRepository.save(transformation(prestadorMedico).with(id = idPrestadorMedico))
     }
 
 }
