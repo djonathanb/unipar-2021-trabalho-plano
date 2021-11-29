@@ -17,18 +17,18 @@ class Consulta(
 
     ) {
     fun with(
-        //id: IdConsulta = this.id,
+        id: IdConsulta = this.id,
         tipoConsulta: TipoConsulta = this.tipoConsulta,
     ) = copy(
-        //id = id,
+        id = id,
         tipoConsulta = tipoConsulta,
     )
 
     private fun copy(
-        //id: IdConsulta = this.id,
+        id: IdConsulta = this.id,
         tipoConsulta: TipoConsulta = this.tipoConsulta,
     ) = Consulta(
-        //id = id,
+        id = id,
         tipoConsulta = tipoConsulta,
     )
 }
