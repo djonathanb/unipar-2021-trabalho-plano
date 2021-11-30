@@ -5,12 +5,10 @@ import br.unipar.plano.domain.procedimento.model.Procedimento
 import br.unipar.plano.domain.solicitacaoprocedimento.model.IdSolicitacaoProcedimento
 import br.unipar.plano.domain.solicitacaoprocedimento.model.SolicitacaoProcedimento
 import br.unipar.plano.domain.solicitacaoprocedimento.model.StatusSolicitacaoProcedimento
-import org.springframework.data.jpa.repository.JpaRepository
-import org.springframework.stereotype.Repository
 
-@Repository
-interface SolicitacaoProcedimentoRepository : JpaRepository<SolicitacaoProcedimento, IdSolicitacaoProcedimento> {
-
+interface SolicitacaoProcedimentoQueryService {
+    fun lista(): List<SolicitacaoProcedimento>
+    fun buscaPorId(idSolicitacaoProcedimento: IdSolicitacaoProcedimento): SolicitacaoProcedimento
     fun findByProcedimentoAndStatusSolicitacaoEquals(
         procedimento: Procedimento,
         statusSolicitacao: StatusSolicitacaoProcedimento

@@ -1,31 +1,31 @@
 package br.unipar.plano.domain.solicitacaoprocedimento.service.impl
 
 import br.unipar.plano.domain.procedimento.model.IdProcedimento
+import br.unipar.plano.domain.solicitacaoprocedimento.model.SolicitacaoProcedimento
 import br.unipar.plano.domain.solicitacaoprocedimento.model.StatusSolicitacaoProcedimento
 import br.unipar.plano.domain.solicitacaoprocedimento.service.SolicitacaoProcedimentoRepository
-import br.unipar.plano.interfaces.rest.solicitacaoprocedimento.SolicitacaoProcedimentoDTO
 import java.time.Duration
 
 class ValidadorSolicitacaoProcedimento {
 
     companion object Factory {
-        fun validarObrigatoridadePrestadorMedico(solicitacaoProcedimento: SolicitacaoProcedimentoDTO) {
+        fun validarObrigatoridadePrestadorMedico(solicitacaoProcedimento: SolicitacaoProcedimento) {
             if (solicitacaoProcedimento.procedimento.prestador == null) {
                 throw Exception("Não é possível salvar uma Solicitação de procedimento sem um médico responsável")
             }
         }
 
         fun validarProcedimentoRestrito(
-            solicitacaoProcedimentoDTO: SolicitacaoProcedimentoDTO,
+            solicitacaoProcedimento: SolicitacaoProcedimento,
             solicitacaoProcedimentoRepository: SolicitacaoProcedimentoRepository
         ) {
-            val solicitacaoProcedimento =
+            val solicitacoesProcedimentos =
                 solicitacaoProcedimentoRepository.findByProcedimento_Id(IdProcedimento());
 
-            val solicitacoesEmAbertoParaDeterminadoUsuario = solicitacaoProcedimento.filter { solicitacao ->
+            val solicitacoesEmAbertoParaDeterminadoUsuario = solicitacoesProcedimentos.filter { solicitacao ->
                 solicitacao.statusSolicitacao.equals(StatusSolicitacaoProcedimento.ABERTO)
-                        && solicitacao.procedimento.carteirinha.equals(solicitacaoProcedimentoDTO.procedimento.carteirinha)
-                        && Duration.between(solicitacao.dataCriacao, solicitacaoProcedimentoDTO.dataCriacao)
+                        && solicitacao.procedimento.carteirinha.equals(solicitacaoProcedimento.procedimento.carteirinha)
+                        && Duration.between(solicitacao.dataCriacao, solicitacaoProcedimento.dataCriacao)
                     .toDays() < 30
             };
 
