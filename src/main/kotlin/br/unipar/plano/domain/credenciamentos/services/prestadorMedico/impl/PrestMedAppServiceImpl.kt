@@ -8,6 +8,7 @@ import br.unipar.plano.domain.credenciamentos.usecases.prestadorMedico.Credencia
 import br.unipar.plano.domain.credenciamentos.usecases.prestadorMedico.CriaPrestMedicoUseCase
 import br.unipar.plano.domain.credenciamentos.usecases.prestadorMedico.DescredenciaPrestMedicoUseCase
 import br.unipar.plano.domain.credenciamentos.usecases.prestadorMedico.AtualizaPrestMedicoUseCase
+import br.unipar.plano.interfaces.rest.credenciamentos.prestadorMedico.EspecialidadeDTO
 import br.unipar.plano.interfaces.rest.credenciamentos.prestadorMedico.PrestMedDTO
 import br.unipar.plano.interfaces.rest.credenciamentos.prestadorMedico.PrestadorMedicoDetailsDTO
 import br.unipar.plano.interfaces.rest.credenciamentos.prestadorMedico.PrestadorMedicoSummaryDTO
@@ -27,7 +28,7 @@ class PrestMedAppServiceImpl(
     override fun cria(prestadorMedicoDTO: PrestMedDTO): IdPrestadorMedico {
         val prestadorMedico = prestadorMedicoDTO.toModel(IdPrestadorMedico())
         val novoPrestadorMedico = criaPrestMedicoUseCase.executa(prestadorMedico)
-        return novoPrestadorMedico.id
+        return novoPrestadorMedico.idPrestadorMedico
     }
 
     override fun atualiza(idPrestadorMedico: IdPrestadorMedico, prestadorMedicoDTO: PrestMedDTO) {

@@ -11,24 +11,23 @@ import javax.validation.constraints.Pattern
 private const val MIN_NAME_SIZE = 10
 private const val MAX_NAME_SIZE = 120
 
-////////////////////////////////////////////////////////////
-//PrestadorMedicoSummaryDTO
 data class PrestadorMedicoSummaryDTO(
     val id: IdPrestadorMedico,
     val nome: String,
-    val crm: String
+    val crm: String,
+    val especialidades: List<EspecialidadeSummaryDTO>
 ) {
     companion object {
 
         fun toDTO(prestadorMedico: PrestadorMedico) = PrestadorMedicoSummaryDTO(
-            id   = prestadorMedico.id,
+            id = prestadorMedico.idPrestadorMedico,
             nome = prestadorMedico.nome,
-            crm  = prestadorMedico.crm
+            crm = prestadorMedico.crm,
+            especialidades = prestadorMedico.especialidades.map { especialidade -> EspecialidadeSummaryDTO(nomeEspecialidade = especialidade.nomeEspecialidade) }
             )
     }
 }
-////////////////////////////////////////////////////////////
-//PrestadorMedicoDetailsDTO
+
 data class PrestadorMedicoDetailsDTO(
     val id: IdPrestadorMedico,
     val status: StatusMedico,
@@ -36,15 +35,14 @@ data class PrestadorMedicoDetailsDTO(
 ){
     companion object {
         fun toDTO(prestadorMedico: PrestadorMedico) = PrestadorMedicoDetailsDTO(
-            id = prestadorMedico.id,
+            id = prestadorMedico.idPrestadorMedico,
             status = prestadorMedico.status,
             prestMedData = PrestMedDTO.toDTO(prestadorMedico)
         )
     }
 
 }
-////////////////////////////////////////////////////////////
-//PrestMedDTO
+
 data class PrestMedDTO(
 
     @field:NotBlank(message = "O nome deve ser informado")
@@ -58,16 +56,16 @@ data class PrestMedDTO(
     val crm: String,
 
     @field:NotNull
-    val especialidades: EspecialidadeDTO
+    val especialidades: List<EspecialidadeDTO>
 
 ) {
 
     fun toModel(id: IdPrestadorMedico) = PrestadorMedico(
-        id = id,
+        idPrestadorMedico = id,
         nome = this.nome,
         crm = this.crm,
         status = this.status,
-        especialidades = especialidades.toModel(idPrestadorMedico = id)
+        especialidades = especialidades.map {especialidade -> Especialidade(id = IdPrestadorMedico() ,nomeEspecialidade = especialidade.nomeEspecialidade) }
 
     )
 
@@ -77,14 +75,12 @@ data class PrestMedDTO(
             nome = prestadorMedico.nome,
             crm  = prestadorMedico.crm,
             status = prestadorMedico.status,
-            especialidades = EspecialidadeDTO.toDTO(prestadorMedico.especialidades)
+            especialidades = prestadorMedico.especialidades.map{especialidade -> EspecialidadeDTO(nomeEspecialidade = especialidade.nomeEspecialidade) }
         )
-
     }
 }
 
 data class EspecialidadeDTO(
-
     @field:NotNull
     val nomeEspecialidade: String
 ) {
@@ -92,8 +88,21 @@ data class EspecialidadeDTO(
         id = idPrestadorMedico,
         nomeEspecialidade = this.nomeEspecialidade
     )
+
     companion object {
         fun toDTO(especialidade: Especialidade) = EspecialidadeDTO(
+            nomeEspecialidade = especialidade.nomeEspecialidade
+        )
+    }
+}
+
+
+data class EspecialidadeSummaryDTO(
+    val nomeEspecialidade: String
+) {
+    companion object {
+
+        fun toDTO(especialidade: Especialidade) = EspecialidadeSummaryDTO(
             nomeEspecialidade = especialidade.nomeEspecialidade
         )
     }

@@ -3,14 +3,14 @@ package br.unipar.plano.domain.credenciamentos.model.prestadorMedico
 import javax.persistence.*
 
 enum class StatusMedico {
-    CRIADA, CREDENCIADA, DESCREDENCIADA
+    CRIADA, CREDENCIADA, DESCREDENCIADA, ATIVO, INATIVO
 }
 
 @Entity
 class PrestadorMedico(
 
     @field:EmbeddedId
-    val id: IdPrestadorMedico,
+    val idPrestadorMedico: IdPrestadorMedico,
 
     @Column(nullable = false)
     val nome: String,
@@ -21,9 +21,8 @@ class PrestadorMedico(
     @Column(unique = true)
     val crm: String,
 
-    //@OneToMany(cascade = [CascadeType.ALL])
-    @OneToOne(cascade = [CascadeType.ALL], orphanRemoval = true)
-    val especialidades: Especialidade
+    @OneToMany(cascade = [CascadeType.ALL])
+    val especialidades: List<Especialidade>
 
 ) {
 
@@ -42,10 +41,10 @@ class PrestadorMedico(
     }
 
     fun with(
-        id: IdPrestadorMedico = this.id,
+        id: IdPrestadorMedico = this.idPrestadorMedico,
         nome: String = this.nome,
         crm: String = this.crm,
-        especialidades: Especialidade = this.especialidades
+        especialidades: List<Especialidade> = this.especialidades
     ) = copy(
        id = id,
        nome = nome,
@@ -54,13 +53,13 @@ class PrestadorMedico(
     )
 
     private fun copy(
-        id: IdPrestadorMedico = this.id,
+        id: IdPrestadorMedico = this.idPrestadorMedico,
         nome: String = this.nome,
         crm: String = this.crm,
-        especialidades: Especialidade = this.especialidades,
+        especialidades: List<Especialidade> = this.especialidades,
         status: StatusMedico = this.status
     ) = PrestadorMedico(
-        id = id,
+        idPrestadorMedico = id,
         nome = nome,
         crm = crm,
         especialidades = especialidades,

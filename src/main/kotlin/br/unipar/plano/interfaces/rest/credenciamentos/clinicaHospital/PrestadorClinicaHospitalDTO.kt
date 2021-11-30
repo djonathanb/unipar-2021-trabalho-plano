@@ -4,27 +4,22 @@ import br.unipar.plano.domain.credenciamentos.model.clinicaHospital.IdPrestadorC
 import br.unipar.plano.domain.credenciamentos.model.clinicaHospital.PrestadorClinicaHospital
 import br.unipar.plano.domain.credenciamentos.model.clinicaHospital.Servico
 import br.unipar.plano.domain.credenciamentos.model.clinicaHospital.StatusClinicaHospital
-import br.unipar.plano.domain.credenciamentos.model.prestadorMedico.Especialidade
-import br.unipar.plano.domain.credenciamentos.model.prestadorMedico.IdPrestadorMedico
 import br.unipar.plano.domain.credenciamentos.model.prestadorMedico.PrestadorMedico
-import br.unipar.plano.domain.credenciamentos.model.status.Status
-import br.unipar.plano.interfaces.rest.credenciamentos.prestadorMedico.EspecialidadeDTO
-import br.unipar.plano.interfaces.rest.credenciamentos.prestadorMedico.PrestMedDTO
-import br.unipar.plano.interfaces.rest.credenciamentos.prestadorMedico.PrestadorMedicoDetailsDTO
-import br.unipar.plano.interfaces.rest.credenciamentos.prestadorMedico.PrestadorMedicoSummaryDTO
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.NotNull
 
 data class PrestClinHospSummaryDTO(
     val id: IdPrestadorClinicaHospital,
     val nome: String,
-    val cnpj: String
+    val cnpj: String,
+    val responsavel: PrestadorMedico
 ){
     companion object {
         fun toDTO(prestadorClinicaHospital: PrestadorClinicaHospital) = PrestClinHospSummaryDTO(
-            id = prestadorClinicaHospital.id,
+            id   = prestadorClinicaHospital.id,
             nome = prestadorClinicaHospital.nome,
-            cnpj = prestadorClinicaHospital.cnpj
+            cnpj = prestadorClinicaHospital.cnpj,
+            responsavel = prestadorClinicaHospital.responsavel
         )
     }
 }
@@ -51,14 +46,14 @@ data class PrestClinHospDTO(
     @field:NotBlank(message = "O CNPJ deve ser informado")
     val cnpj: String,
 
-   // @field:NotNull
-   // var responsavel: PrestMedDTO,
+    @field:NotNull
+    var responsavel: PrestadorMedico,
 
     @field:NotNull
     var status: StatusClinicaHospital,
 
     @field:NotNull
-    var servico: ServicoDTO
+    var servico: List<ServicoDTO>
 ){
 
     fun toModel(id: IdPrestadorClinicaHospital) = PrestadorClinicaHospital(
@@ -66,16 +61,21 @@ data class PrestClinHospDTO(
         nome = this.nome,
         cnpj = this.cnpj,
         status = this.status,
-        servico = servico.toModel(idPrestadorClinicaHospital = id)
+        servico = servico.map{ servico -> Servico(id = IdPrestadorClinicaHospital(), servico = servico.servico)},
+        responsavel = this.responsavel
 
     )
+
     companion object {
+
         fun toDTO(prestadorClinicaHospital: PrestadorClinicaHospital) = PrestClinHospDTO(
             nome = prestadorClinicaHospital.nome,
             cnpj = prestadorClinicaHospital.cnpj,
             status = prestadorClinicaHospital.status,
-            servico = ServicoDTO.toDTO(prestadorClinicaHospital.servico)
+            servico = prestadorClinicaHospital.servico.map { servico -> ServicoDTO(servico = servico.servico) },
+            responsavel = prestadorClinicaHospital.responsavel
         )
+
     }
 }
 

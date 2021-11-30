@@ -1,13 +1,11 @@
 package br.unipar.plano.domain.credenciamentos.model.clinicaHospital
 
-import br.unipar.plano.domain.credenciamentos.model.prestadorMedico.StatusMedico
-import br.unipar.plano.domain.credenciamentos.model.status.Status
+import br.unipar.plano.domain.credenciamentos.model.prestadorMedico.PrestadorMedico
 import javax.persistence.*
 
 enum class StatusClinicaHospital{
     CRIADA, CREDENCIADA, DESCREDENCIADA
 }
-
 
 @Entity
 class PrestadorClinicaHospital(
@@ -24,11 +22,12 @@ class PrestadorClinicaHospital(
     @Enumerated(EnumType.STRING)
     val status: StatusClinicaHospital = StatusClinicaHospital.CRIADA,
 
-  //  @OneToOne(cascade = [CascadeType.ALL], orphanRemoval = true)
-  //  val responsavel: PrestadorMedico,
+    @JoinColumn(nullable = false, name = "id")
     @OneToOne
-    //@OneToMany(cascade = [CascadeType.ALL], orphanRemoval = true)
-    val servico: Servico
+    val responsavel: PrestadorMedico,
+
+    @OneToMany(cascade = [CascadeType.ALL], orphanRemoval = true)
+    val servico: List<Servico>
 
 ) {
 
@@ -52,14 +51,14 @@ class PrestadorClinicaHospital(
         nome: String = this.nome,
         cnpj: String = this.cnpj,
         status: StatusClinicaHospital = this.status,
-        //responsavel: ListPrestadorMedico = this.responsavel,
-        servico: Servico = this.servico
+        responsavel: PrestadorMedico = this.responsavel,
+        servico: List<Servico> = this.servico
     ) = copy(
         id = id,
         nome = nome,
         cnpj = cnpj,
         status = status,
-       // responsavel = responsavel,
+       responsavel = responsavel,
         servico = servico
     )
 
@@ -68,14 +67,14 @@ class PrestadorClinicaHospital(
         nome: String = this.nome,
         cnpj: String = this.cnpj,
         status: StatusClinicaHospital = this.status,
-       // responsavel: PrestadorMedico = this.responsavel,
-        servico: Servico = this.servico
+        responsavel: PrestadorMedico = this.responsavel,
+        servico: List<Servico> = this.servico
     ) = PrestadorClinicaHospital(
         id = id,
         nome = nome,
         cnpj = cnpj,
         status = status,
-       // responsavel = responsavel,
+        responsavel = responsavel,
         servico = servico
     )
 }
