@@ -7,7 +7,7 @@ import br.unipar.plano.domain.contratos.usecases.impl.ContratoNotFoundException
 import br.unipar.plano.domain.pessoas.model.Pessoa
 import br.unipar.plano.domain.planos.model.Plano
 import org.springframework.stereotype.Service
-
+import java.util.*
 
 @Service
 class ContratoQueryServiceImpl(private val contratoRepository: ContratoRepository): ContratoQueryService {
@@ -24,6 +24,13 @@ class ContratoQueryServiceImpl(private val contratoRepository: ContratoRepositor
 
     override fun findByTitularAndStatus(titular: Pessoa, statusContrato: StatusContrato): List<Contrato> {
         return contratoRepository.findByTitularAndStatus(titular, statusContrato)
+    }
+
+    override fun buscaPorPlanoeStatus(
+        idPlano: Plano,
+        status: Optional<List<StatusContrato>>
+    ): List<Contrato> {
+        return contratoRepository.findbyPlanoeStatus(idPlano, status.orElse(null))
     }
 
 }
