@@ -14,4 +14,5 @@ interface ContratoQueryService {
     fun buscaPorId(idContrato: IdContrato): Contrato
     fun buscaPorPlano(idPlano: Plano): List<Contrato>
     fun findByTitularAndStatus (titular: Pessoa, statusContrato: StatusContrato): List<Contrato>
+
 }

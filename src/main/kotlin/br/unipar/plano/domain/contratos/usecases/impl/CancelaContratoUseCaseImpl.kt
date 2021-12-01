@@ -3,7 +3,9 @@ package br.unipar.plano.domain.contratos.usecases.impl
 import br.unipar.plano.domain.contratos.model.ContratoRepository
 import br.unipar.plano.domain.contratos.model.IdContrato
 import br.unipar.plano.domain.contratos.usecases.CancelaContratoUseCase
+import org.springframework.stereotype.Service
 
+@Service
 class CancelaContratoUseCaseImpl (private val contratoRepository: ContratoRepository) : CancelaContratoUseCase {
 
     override fun executa(idContrato: IdContrato) {

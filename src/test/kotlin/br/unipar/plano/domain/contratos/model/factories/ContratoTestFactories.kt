@@ -46,14 +46,14 @@ fun pessoaTest(
 
 
 fun contrato(
-    idContrato: IdContrato = idContrato(),
+    id: IdContrato = idContrato(),
     dataCadastro: LocalDate = LocalDate.of(2018,11,26),
     dataVencimento: LocalDate = LocalDate.of(2021,11,26),
     plano: Plano = planoTeste(),
     titular : Pessoa = pessoaTest(),
     dataCancelamento: LocalDate = LocalDate.now()
 ) = Contrato(
-    id = idContrato,
+    id = id,
     dataContratacao = dataCadastro,
     dataContratoFinal = dataVencimento,
     plano = plano,

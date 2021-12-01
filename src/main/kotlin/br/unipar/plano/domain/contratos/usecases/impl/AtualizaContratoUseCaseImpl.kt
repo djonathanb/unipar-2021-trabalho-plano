@@ -12,6 +12,6 @@ class AtualizaContratoUseCaseImpl(private val contratoRepository: ContratoReposi
 
     override fun executa(idContrato: IdContrato, transformation: (Contrato) -> Contrato) {
         val contrato = contratoRepository.findById(idContrato).orElseThrow { ContratoNotFoundException(idContrato) }
-        contratoRepository.save(transformation(contrato).with(idContrato = idContrato))
+        contratoRepository.save(transformation(contrato).with(id = idContrato))
     }
 }

@@ -44,7 +44,7 @@ class ContratoResource(private val contratoApplicationService: ContratoApplicati
     @DeleteMapping("/{idContrato}")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     fun deleta(@PathVariable("idContrato") idContrato: UUID) {
-        contratoApplicationService.deleta(idContrato = IdContrato(idContrato))
+        contratoApplicationService.cancelaContrato(idContrato = IdContrato(idContrato))
     }
 
     @Operation(summary = "Retorna a lista de contratos cadastrados")

@@ -34,17 +34,17 @@ class Contrato(
     val status: StatusContrato = StatusContrato.ATIVO
 ) {
     fun with(
-        idContrato: IdContrato = this.id,
+        id: IdContrato = this.id,
         dataContratoFinal: LocalDate = this.dataContratoFinal,
         plano: Plano = this.plano
     ) = copy(
-        idContrato = idContrato,
+        id = id,
         dataContratoFinal = dataContratoFinal,
         plano = plano
     )
 
     private fun copy(
-        idContrato: IdContrato = this.id,
+        id : IdContrato = this.id,
         dataContratacao: LocalDate = this.dataContratacao,
         dataContratoFinal: LocalDate = this.dataContratoFinal,
         plano: Plano = this.plano,
@@ -52,7 +52,7 @@ class Contrato(
         status: StatusContrato = this.status,
         dataCancelamento: LocalDate? = this.dataCancelamento
     ) = Contrato(
-        id = idContrato,
+        id = id,
         dataContratacao = dataContratacao,
         dataContratoFinal = dataContratoFinal,
         plano = plano,

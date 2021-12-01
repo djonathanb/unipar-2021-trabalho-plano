@@ -1,7 +1,10 @@
 package br.unipar.plano.domain.contratos.usecases.impl
 
+
+import br.unipar.plano.domain.centrais.usecases.impl.CentralNotFoundException
 import br.unipar.plano.domain.contratos.model.Contrato
 import br.unipar.plano.domain.contratos.model.ContratoRepository
+import br.unipar.plano.domain.contratos.model.StatusContrato
 import br.unipar.plano.domain.contratos.model.factories.CONTRATO_CO_ID
 import br.unipar.plano.domain.contratos.model.factories.contrato
 import br.unipar.plano.domain.contratos.model.factories.idContrato
@@ -10,44 +13,37 @@ import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
-import org.mockito.Mockito
+import java.util.*
 
 private val ID_CONTRATO_INEXISTENTE = idContrato(false)
 
-class CriaContratoUseCaseImplTest {
+class CancelaContratoUseCaseImplTesk {
 
     private val contratoRepository = mock<ContratoRepository>()
-    private val criaContratoUseCase = CriaContratoUseCaseImpl(contratoRepository)
+    private val cancelaContratoUseCase = CancelaContratoUseCaseImpl(contratoRepository)
 
     private val argumentCaptor = argumentCaptor<Contrato>()
 
     @BeforeEach
     fun setUp() {
-        whenever(contratoRepository.existsById(eq(CONTRATO_CO_ID))).thenReturn(true)
-        whenever(
-            contratoRepository.existsById(
-                eq(
-                    ID_CONTRATO_INEXISTENTE
-                )
-            )
-        ).thenReturn(false)
-        Mockito.`when`(contratoRepository.save(any())).then { it.arguments[0] }
+        whenever(contratoRepository.findById(eq(CONTRATO_CO_ID))).thenReturn(Optional.of(contrato().cancela()))
+        whenever(contratoRepository.findById(eq(ID_CONTRATO_INEXISTENTE))).thenReturn(Optional.empty())
     }
 
     @Test
-    fun `deve atualizar os dados informados pela funcao de transformacao`() {
-        val novaCentral = criaContratoUseCase.cria(contrato().with(id = ID_CONTRATO_INEXISTENTE))
+    fun `deve cancelar o contrato informado`() {
+        cancelaContratoUseCase.executa(CONTRATO_CO_ID)
 
         verify(contratoRepository).save(argumentCaptor.capture())
-        val centralSalva = argumentCaptor.firstValue
+        val contratoSalva = argumentCaptor.firstValue
 
-        Assertions.assertEquals(novaCentral, centralSalva)
+        Assertions.assertEquals(StatusContrato.CANCELADO, contratoSalva.status)
     }
 
     @Test
-    fun `deve disparar uma excecao se uma central com o mesmo id ja existir`() {
-        assertThrows<IllegalStateException> {
-            criaContratoUseCase.cria(contrato())
+    fun `deve disparar uma excecao se o contrato nao existir`() {
+        assertThrows<CentralNotFoundException> {
+            cancelaContratoUseCase.executa(ID_CONTRATO_INEXISTENTE)
         }
 
         verify(contratoRepository, never()).save(any())
