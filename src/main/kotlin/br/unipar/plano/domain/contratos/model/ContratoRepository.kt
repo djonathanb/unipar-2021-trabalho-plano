@@ -19,4 +19,6 @@ interface ContratoRepository : JpaRepository<Contrato, IdContrato> {
         @Nullable @Param("status") statusContrato: List<StatusContrato>): List<Contrato>
 
     fun findByTitularAndStatus (titular: Pessoa, statusContrato: StatusContrato): List<Contrato>
+
+
 }

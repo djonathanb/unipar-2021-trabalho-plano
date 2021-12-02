@@ -14,9 +14,7 @@ class ContratoQueryServiceImpl(private val contratoRepository: ContratoRepositor
 
     override fun lista(): List<Contrato> = contratoRepository.findAll()
 
-    override fun buscaPorId(idContrato: IdContrato): Contrato = contratoRepository.findById(idContrato).orElseThrow{
-        ContratoNotFoundException(idContrato)
-    }
+    override fun buscaPorId(idContrato: IdContrato): Contrato = contratoRepository.findById(idContrato).orElseThrow{ ContratoNotFoundException(idContrato) }
 
     override fun buscaPorPlano(idPlano: Plano): List<Contrato> {
         return contratoRepository.findByPlano(idPlano);

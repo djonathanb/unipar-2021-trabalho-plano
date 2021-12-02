@@ -8,14 +8,11 @@ import br.unipar.plano.domain.contratos.model.StatusContrato
 import br.unipar.plano.domain.contratos.services.ContratoApplicationService
 import br.unipar.plano.domain.contratos.services.ContratoQueryService
 import br.unipar.plano.domain.contratos.usecases.*
-import br.unipar.plano.domain.contratos.usecases.impl.ContratoJaExistenteException
-import br.unipar.plano.domain.contratos.usecases.impl.ContratoPendenciaException
 import br.unipar.plano.interfaces.rest.contratos.cobrancas.CobrancaDetailsDTO
 import br.unipar.plano.interfaces.rest.contratos.ContratoDTO
 import br.unipar.plano.interfaces.rest.contratos.ContratoDetailsDTO
 import br.unipar.plano.interfaces.rest.contratos.ContratoSummaryDTO
 import org.springframework.stereotype.Service
-import java.time.LocalDate
 import java.util.*
 import javax.validation.Valid
 
@@ -31,13 +28,6 @@ class ContratoApplicationServiceImpl(
 
     override fun cria(@Valid contratoDTO: ContratoDTO): IdContrato {
         val contrato = contratoDTO.toModel(IdContrato())
-
-        val contratosAtivos = contratoQueryService.findByTitularAndStatus(contrato.titular, StatusContrato.ATIVO)
-
-        if (Objects.nonNull(contratosAtivos) && contratosAtivos.isNotEmpty()) {
-          throw ContratoJaExistenteException(contrato.titular)
-        }
-
         val novoContrato = criaContratoUseCase.cria(contrato)
         return novoContrato.id
     }
@@ -68,16 +58,13 @@ class ContratoApplicationServiceImpl(
     }
 
     override fun cancelaContrato(idContrato: IdContrato) {
+
         val contrato = contratoQueryService.buscaPorId(idContrato)
         val status : List<StatusCobranca> = listOf(StatusCobranca.ABERTO)
-        val teste: Optional<List<StatusCobranca>> = Optional.of(status)
-        val listaCobranca: List<CobrancaDetailsDTO> = cobrancaService.buscarPorContratoAndStatus(contrato, teste)
+        val statusAberto: Optional<List<StatusCobranca>> = Optional.of(status)
+        val listaCobranca: List<CobrancaDetailsDTO> = cobrancaService.buscarPorContratoAndStatus(contrato, statusAberto)
 
-        if (contrato.dataContratacao.isAfter(LocalDate.now().minusDays(90)) or listaCobranca.isEmpty()) {
-            ContratoPendenciaException(contrato.titular);
-        }else {
-            cancelaContratoUseCase.executa(idContrato)
-        }
+        return cancelaContratoUseCase.executa(idContrato, listaCobranca.isNullOrEmpty())
 
     }
 }

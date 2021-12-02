@@ -1,9 +1,11 @@
 package br.unipar.plano.domain.contratos.usecases
 
+
+
 import br.unipar.plano.domain.contratos.model.IdContrato
 
 interface CancelaContratoUseCase {
 
-    fun executa(idContrato: IdContrato)
+    fun executa(idContrato: IdContrato, cobrancaEmAberto: Boolean)
 
 }
