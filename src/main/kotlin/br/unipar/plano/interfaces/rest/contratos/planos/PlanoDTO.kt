@@ -1,9 +1,10 @@
-package br.unipar.plano.interfaces.rest.planos
+package br.unipar.plano.interfaces.rest.contratos.planos
 
-import br.unipar.plano.domain.planos.model.Plano
-import br.unipar.plano.domain.planos.model.IdPlano
-import br.unipar.plano.domain.planos.model.TipoAbrangencia
-import br.unipar.plano.domain.planos.model.TipoAcomodacao
+
+import br.unipar.plano.domain.contratos.planos.model.IdPlano
+import br.unipar.plano.domain.contratos.planos.model.Plano
+import br.unipar.plano.domain.contratos.planos.model.TipoAbrangencia
+import br.unipar.plano.domain.contratos.planos.model.TipoAcomodacao
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.NotNull
 import javax.validation.constraints.Size
@@ -12,13 +13,13 @@ private const val MIN_NAME_SIZE = 10
 private const val MAX_NAME_SIZE = 120
 
 data class PlanoSummaryDTO(
-        val id: IdPlano,
-        val nome: String,
-        val abrangencia: TipoAbrangencia,
-        val acomodacao: TipoAcomodacao,
-        val obstetricia: Boolean,
-        val transporteaereo: Boolean,
-        val valorbase: Double,
+    val id: IdPlano,
+    val nome: String,
+    val abrangencia: TipoAbrangencia,
+    val acomodacao: TipoAcomodacao,
+    val obstetricia: Boolean,
+    val transporteaereo: Boolean,
+    val valorbase: Double,
 ) {
 
     companion object {

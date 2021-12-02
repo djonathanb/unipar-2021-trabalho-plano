@@ -1,7 +1,7 @@
 package br.unipar.plano.domain.contratos.model
 
+import br.unipar.plano.domain.contratos.planos.model.Plano
 import br.unipar.plano.domain.pessoas.model.Pessoa
-import br.unipar.plano.domain.planos.model.Plano
 import java.time.LocalDate
 import javax.persistence.*
 

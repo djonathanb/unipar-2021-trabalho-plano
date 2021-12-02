@@ -1,19 +1,21 @@
-package br.unipar.plano.domain.planos.services.impl
+package br.unipar.plano.domain.contratos.planos.services.impl
 
-import br.unipar.plano.domain.planos.model.IdPlano
-import br.unipar.plano.domain.planos.services.PlanoApplicationService
-import br.unipar.plano.domain.planos.services.PlanoQueryService
-import br.unipar.plano.domain.planos.usecases.*
-import br.unipar.plano.interfaces.rest.planos.PlanoDTO
-import br.unipar.plano.interfaces.rest.planos.PlanoDetailsDTO
-import br.unipar.plano.interfaces.rest.planos.PlanoSummaryDTO
+import br.unipar.plano.domain.contratos.planos.model.IdPlano
+import br.unipar.plano.domain.contratos.planos.services.PlanoApplicationService
+import br.unipar.plano.domain.contratos.planos.services.PlanoQueryService
+import br.unipar.plano.domain.contratos.planos.usecases.CriaPlanoUseCase
+import br.unipar.plano.domain.contratos.planos.usecases.DeletaPlanoUseCase
+import br.unipar.plano.domain.contratos.planos.usecases.*
+import br.unipar.plano.interfaces.rest.contratos.planos.PlanoDTO
+import br.unipar.plano.interfaces.rest.contratos.planos.PlanoDetailsDTO
+import br.unipar.plano.interfaces.rest.contratos.planos.PlanoSummaryDTO
 import org.springframework.stereotype.Service
 
 @Service
 class PlanoApplicationServiceImpl(
-        private val planoQueryService: PlanoQueryService,
-        private val addPlanoUseCase: CriaPlanoUseCase,
-        private val deletePlanoUseCase: DeletaPlanoUseCase,
+    private val planoQueryService: PlanoQueryService,
+    private val addPlanoUseCase: CriaPlanoUseCase,
+    private val deletePlanoUseCase: DeletaPlanoUseCase,
 ) : PlanoApplicationService {
 
     override fun cria(planoDTO: PlanoDTO): IdPlano {

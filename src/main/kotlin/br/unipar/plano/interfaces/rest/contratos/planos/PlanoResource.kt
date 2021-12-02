@@ -1,7 +1,6 @@
-package br.unipar.plano.interfaces.rest.planos
+package br.unipar.plano.interfaces.rest.contratos.planos
 
-import br.unipar.plano.domain.centrais.model.IdCentral
-import br.unipar.plano.domain.planos.model.IdPlano
+import br.unipar.plano.domain.contratos.planos.model.IdPlano
 import io.swagger.v3.oas.annotations.Operation
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -9,9 +8,7 @@ import org.springframework.web.bind.annotation.*
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder
 import java.util.*
 import javax.validation.Valid
-import br.unipar.plano.domain.planos.services.PlanoApplicationService
-import br.unipar.plano.interfaces.rest.centrais.CentralDetailsDTO
-import br.unipar.plano.interfaces.rest.centrais.CentralSummaryDTO
+import br.unipar.plano.domain.contratos.planos.services.PlanoApplicationService
 
 @RestController
 @RequestMapping("/planos")

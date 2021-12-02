@@ -3,7 +3,7 @@ package br.unipar.plano.interfaces.rest.contratos
 
 
 import br.unipar.plano.domain.contratos.model.IdContrato
-import br.unipar.plano.domain.planos.model.Plano
+import br.unipar.plano.domain.contratos.planos.model.Plano
 import br.unipar.plano.domain.contratos.services.ContratoApplicationService
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.responses.ApiResponse

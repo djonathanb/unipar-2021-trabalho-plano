@@ -10,12 +10,12 @@ import java.time.LocalDate
 @Service
 class CancelaContratoUseCaseImpl (private val contratoRepository: ContratoRepository) : CancelaContratoUseCase {
 
-    override fun executa(idContrato: IdContrato, cobrancaEmAberto : Boolean){
+    override fun executa(idContrato: IdContrato, existePendencia : Boolean){
 
         val contrato = contratoRepository.findById(idContrato).orElseThrow { ContratoNotFoundException(idContrato) }
 
-        if (contrato.dataContratacao.isAfter(LocalDate.now().minusDays(90)) or false == cobrancaEmAberto) {
-            ContratoPendenciaException(contrato.titular);
+        if (contrato.dataContratacao.isAfter(LocalDate.now().minusDays(90)) or true == existePendencia) {
+            ContratoPendenciaException(contrato.titular)
         } else {
             contratoRepository.save(contrato.cancela())
         }

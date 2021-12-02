@@ -3,11 +3,12 @@ package br.unipar.plano.domain.contratos.services.impl
 import br.unipar.plano.domain.contratos.cobrancas.service.CobrancaService
 import br.unipar.plano.domain.contratos.cobrancas.valueobjects.StatusCobranca
 import br.unipar.plano.domain.contratos.model.IdContrato
-import br.unipar.plano.domain.planos.model.Plano
 import br.unipar.plano.domain.contratos.model.StatusContrato
+import br.unipar.plano.domain.contratos.planos.model.Plano
 import br.unipar.plano.domain.contratos.services.ContratoApplicationService
 import br.unipar.plano.domain.contratos.services.ContratoQueryService
 import br.unipar.plano.domain.contratos.usecases.*
+import br.unipar.plano.domain.contratos.planos.services.PlanoQueryService
 import br.unipar.plano.interfaces.rest.contratos.cobrancas.CobrancaDetailsDTO
 import br.unipar.plano.interfaces.rest.contratos.ContratoDTO
 import br.unipar.plano.interfaces.rest.contratos.ContratoDetailsDTO
@@ -23,7 +24,8 @@ class ContratoApplicationServiceImpl(
     private val criaContratoUseCase: CriaContratoUseCase,
     private val atualizaContratoUseCase: AtualizaContratoUseCase,
     private val cobrancaService: CobrancaService,
-    private val cancelaContratoUseCase: CancelaContratoUseCase
+    private val cancelaContratoUseCase: CancelaContratoUseCase,
+    private val planoQueryService: PlanoQueryService
 ) : ContratoApplicationService {
 
     override fun cria(@Valid contratoDTO: ContratoDTO): IdContrato {
@@ -43,7 +45,7 @@ class ContratoApplicationServiceImpl(
         atualizaContratoUseCase.executa(idContrato) {
             it.with(
                 dataContratoFinal = contratoDTO.dataContratoFinal,
-                plano = contratoDTO.idPlano
+                plano = contratoDTO.plano
             )
         }
     }
@@ -64,7 +66,7 @@ class ContratoApplicationServiceImpl(
         val statusAberto: Optional<List<StatusCobranca>> = Optional.of(status)
         val listaCobranca: List<CobrancaDetailsDTO> = cobrancaService.buscarPorContratoAndStatus(contrato, statusAberto)
 
-        return cancelaContratoUseCase.executa(idContrato, listaCobranca.isNullOrEmpty())
+        return cancelaContratoUseCase.executa(idContrato, !listaCobranca.isNullOrEmpty())
 
     }
 }

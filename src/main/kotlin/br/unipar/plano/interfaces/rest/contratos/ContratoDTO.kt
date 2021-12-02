@@ -2,11 +2,10 @@ package br.unipar.plano.interfaces.rest.contratos
 
 import br.unipar.plano.domain.contratos.model.Contrato
 import br.unipar.plano.domain.contratos.model.IdContrato
-import br.unipar.plano.domain.planos.model.Plano
+import br.unipar.plano.domain.contratos.planos.model.Plano
 import br.unipar.plano.domain.contratos.model.StatusContrato
 import br.unipar.plano.domain.pessoas.model.Pessoa
 import java.time.LocalDate
-import javax.validation.constraints.NotBlank
 import javax.validation.constraints.NotNull
 
 data class ContratoSummaryDTO(
@@ -57,10 +56,10 @@ data class ContratoDTO(
     val dataContratoFinal: LocalDate,
 
     @NotNull(message = "ID Plano não informado")
-    val idPlano: Plano,
+    val plano: Plano,
 
     @NotNull(message = "ID Pessoa não informado")
-    val idTitular: Pessoa,
+    val titular: Pessoa,
 
     @NotNull(message = "ID Pessoa não informado")
     val dataCancelamento: LocalDate?
@@ -71,8 +70,8 @@ data class ContratoDTO(
         id = id,
         dataContratacao = this.dataContratacao,
         dataContratoFinal = this.dataContratoFinal,
-        plano = this.idPlano,
-        titular = this.idTitular,
+        plano = this.plano,
+        titular = this.titular,
         dataCancelamento = this.dataCancelamento
     )
 
@@ -81,8 +80,8 @@ data class ContratoDTO(
         fun toDTO(contrato: Contrato) = ContratoDTO(
             dataContratacao = contrato.dataContratacao,
             dataContratoFinal = contrato.dataContratoFinal,
-            idPlano = contrato.plano,
-            idTitular = contrato.titular,
+            plano = contrato.plano,
+            titular = contrato.titular,
             dataCancelamento = contrato.dataCancelamento
         )
     }

@@ -1,6 +1,7 @@
-package br.unipar.plano.domain.planos.usecases
+package br.unipar.plano.domain.contratos.planos.usecases
 
-import br.unipar.plano.domain.planos.model.IdPlano
+import br.unipar.plano.domain.contratos.planos.model.IdPlano
+
 
 interface DeletaPlanoUseCase {
 

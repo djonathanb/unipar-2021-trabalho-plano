@@ -1,4 +1,4 @@
-package br.unipar.plano.domain.planos.model
+package br.unipar.plano.domain.contratos.planos.model
 
 import javax.persistence.*
 

@@ -11,7 +11,14 @@ import org.springframework.stereotype.Service
 class AtualizaContratoUseCaseImpl(private val contratoRepository: ContratoRepository) : AtualizaContratoUseCase {
 
     override fun executa(idContrato: IdContrato, transformation: (Contrato) -> Contrato) {
+
         val contrato = contratoRepository.findById(idContrato).orElseThrow { ContratoNotFoundException(idContrato) }
-        contratoRepository.save(transformation(contrato).with(id = idContrato))
+        val alteraContrato = transformation(contrato).plano.valorbase
+        if (alteraContrato > contrato.plano.valorbase ){
+            contratoRepository.save(transformation(contrato).with(id = idContrato))
+        }
+        else {
+            ContratoDowngradeException(contrato.titular)
+        }
     }
 }

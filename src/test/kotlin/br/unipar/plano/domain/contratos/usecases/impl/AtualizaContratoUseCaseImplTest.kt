@@ -6,12 +6,14 @@ import br.unipar.plano.domain.contratos.model.ContratoRepository
 import br.unipar.plano.domain.contratos.model.factories.CONTRATO_CO_ID
 import br.unipar.plano.domain.contratos.model.factories.contrato
 import br.unipar.plano.domain.contratos.model.factories.idContrato
-import br.unipar.plano.domain.contratos.model.factories.planoTeste
+import br.unipar.plano.domain.contratos.planos.model.factories.idPlano
+import br.unipar.plano.domain.contratos.planos.model.factories.plano
 import com.nhaarman.mockitokotlin2.*
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
+import java.time.LocalDate
 import java.util.*
 
 
@@ -32,27 +34,27 @@ class AtualizaContratoUseCaseImplTest {
 
     @Test
     fun `deve atualizar os dados informados pela funcao de transformacao`() {
-        val novoPlano = planoTeste(UUID.fromString("4a4acdf0-4f59-4a2e-c315-a2b254e9e88a"))
+        val novoVencimento = LocalDate.of(2021,8,18)
 
         atualizaContratoUseCase.executa(CONTRATO_CO_ID) {
-            it.with(plano = novoPlano)
+            it.with(dataContratoFinal = novoVencimento)
         }
 
         verify(contratoRepository).save(argumentCaptor.capture())
         val contratoSalva = argumentCaptor.firstValue
 
         Assertions.assertEquals(CONTRATO_CO_ID, contratoSalva.id)
-        Assertions.assertEquals(novoPlano, contratoSalva.plano)
+        Assertions.assertEquals(novoVencimento, contratoSalva.dataContratoFinal)
     }
 
     @Test
     fun `deve garantir que o id permanece o mesmo mesmo que alterado pela funcao de transformacao`() {
-        val novoPlano = planoTeste(UUID.fromString("4a4acdf0-4f59-4a2e-c315-a2b254e9e88a"))
+        val novoVencimento = LocalDate.of(2021,8,18)
 
         atualizaContratoUseCase.executa(CONTRATO_CO_ID) {
             it.with(
                 id = idContrato(false),
-                plano = novoPlano
+                dataContratoFinal = novoVencimento
             )
         }
 
@@ -60,7 +62,7 @@ class AtualizaContratoUseCaseImplTest {
         val contratoSalva = argumentCaptor.firstValue
 
         Assertions.assertEquals(CONTRATO_CO_ID, contratoSalva.id)
-        Assertions.assertEquals(novoPlano, contratoSalva.plano)
+        Assertions.assertEquals(novoVencimento, contratoSalva.dataContratoFinal)
     }
 
     @Test

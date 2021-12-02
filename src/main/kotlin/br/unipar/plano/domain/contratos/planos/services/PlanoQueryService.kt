@@ -1,7 +1,8 @@
-package br.unipar.plano.domain.planos.services
+package br.unipar.plano.domain.contratos.planos.services
 
-import br.unipar.plano.domain.planos.model.Plano
-import br.unipar.plano.domain.planos.model.IdPlano
+import br.unipar.plano.domain.contratos.planos.model.IdPlano
+import br.unipar.plano.domain.contratos.planos.model.Plano
+
 
 interface PlanoQueryService {
     fun lista(): List<Plano>

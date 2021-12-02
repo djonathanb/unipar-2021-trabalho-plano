@@ -31,19 +31,31 @@ class CancelaContratoUseCaseImplTesk {
     }
 
     @Test
-    fun `deve cancelar o contrato informado`() {
-        cancelaContratoUseCase.executa(CONTRATO_CO_ID)
+    fun `não deve cancelar o contrato informado`() {
+        cancelaContratoUseCase.executa(CONTRATO_CO_ID, true)
 
         verify(contratoRepository).save(argumentCaptor.capture())
         val contratoSalva = argumentCaptor.firstValue
 
         Assertions.assertEquals(StatusContrato.CANCELADO, contratoSalva.status)
+        print(contratoSalva.status)
     }
+
+    @Test
+    fun `deve cancelar o contrato informado`() {
+        cancelaContratoUseCase.executa(CONTRATO_CO_ID, true)
+
+        verify(contratoRepository).save(argumentCaptor.capture())
+        val contratoSalva = argumentCaptor.firstValue
+
+        Assertions.assertEquals(StatusContrato.ATIVO, contratoSalva.status)
+    }
+
 
     @Test
     fun `deve disparar uma excecao se o contrato nao existir`() {
         assertThrows<CentralNotFoundException> {
-            cancelaContratoUseCase.executa(ID_CONTRATO_INEXISTENTE)
+            cancelaContratoUseCase.executa(ID_CONTRATO_INEXISTENTE, false)
         }
 
         verify(contratoRepository, never()).save(any())
