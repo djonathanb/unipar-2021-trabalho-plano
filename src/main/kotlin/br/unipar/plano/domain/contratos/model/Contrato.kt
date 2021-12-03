@@ -1,5 +1,6 @@
 package br.unipar.plano.domain.contratos.model
 
+import br.unipar.plano.domain.dependentes.model.Dependente
 import br.unipar.plano.domain.pessoas.model.Pessoa
 import br.unipar.plano.domain.planos.model.Plano
 import java.time.LocalDate
@@ -31,16 +32,22 @@ class Contrato(
     val titular: Pessoa,
 
     @Enumerated(EnumType.STRING)
-    val status: StatusContrato = StatusContrato.ATIVO
+    val status: StatusContrato = StatusContrato.ATIVO,
+
+    @OneToMany(cascade = [CascadeType.ALL], mappedBy = "contrato")
+    val dependentes: List<Dependente>?
+
 ) {
     fun with(
         idContrato: IdContrato = this.id,
         dataContratoFinal: LocalDate = this.dataContratoFinal,
-        plano: Plano = this.plano
+        plano: Plano = this.plano,
+        dependentes: List<Dependente>? = this.dependentes
     ) = copy(
         idContrato = idContrato,
         dataContratoFinal = dataContratoFinal,
-        plano = plano
+        plano = plano,
+        dependentes = dependentes
     )
 
     private fun copy(
@@ -50,7 +57,8 @@ class Contrato(
         plano: Plano = this.plano,
         Titular: Pessoa = this.titular,
         status: StatusContrato = this.status,
-        dataCancelamento: LocalDate? = this.dataCancelamento
+        dataCancelamento: LocalDate? = this.dataCancelamento,
+        dependentes: List<Dependente>? = this.dependentes
     ) = Contrato(
         id = idContrato,
         dataContratacao = dataContratacao,
@@ -58,7 +66,8 @@ class Contrato(
         plano = plano,
         titular = Titular,
         status = status,
-        dataCancelamento = dataCancelamento
+        dataCancelamento = dataCancelamento,
+        dependentes = dependentes
     )
 
     fun cancela(): Contrato {

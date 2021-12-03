@@ -4,9 +4,10 @@ import br.unipar.plano.domain.contratos.model.Contrato
 import br.unipar.plano.domain.contratos.model.IdContrato
 import br.unipar.plano.domain.planos.model.Plano
 import br.unipar.plano.domain.contratos.model.StatusContrato
+import br.unipar.plano.domain.dependentes.model.Dependente
 import br.unipar.plano.domain.pessoas.model.Pessoa
+import br.unipar.plano.interfaces.rest.dependentes.DependenteDTO
 import java.time.LocalDate
-import javax.validation.constraints.NotBlank
 import javax.validation.constraints.NotNull
 
 data class ContratoSummaryDTO(
@@ -14,7 +15,8 @@ data class ContratoSummaryDTO(
     val idTitular: Pessoa,
     val idPlano: Plano,
     val dataContratacao: LocalDate,
-    val dataContratoFinal : LocalDate
+    val dataContratoFinal : LocalDate,
+    val dependente: List<Dependente>?
 ) {
 
     companion object {
@@ -24,7 +26,8 @@ data class ContratoSummaryDTO(
             idTitular = contrato.titular,
             idPlano = contrato.plano,
             dataContratacao = contrato.dataContratacao,
-            dataContratoFinal = contrato.dataContratoFinal
+            dataContratoFinal = contrato.dataContratoFinal,
+            dependente = contrato.dependentes
         )
 
     }
@@ -56,14 +59,15 @@ data class ContratoDTO(
     @NotNull(message = "Data de termino de contrato não informada")
     val dataContratoFinal: LocalDate,
 
-    @NotNull(message = "ID Plano não informado")
+    @NotNull(message = "ID Plano não informado") //Arrumar mensagem todo
     val idPlano: Plano,
 
-    @NotNull(message = "ID Pessoa não informado")
+    @NotNull(message = "ID Pessoa não informado") //Arrumar mensagem todo
     val idTitular: Pessoa,
 
-    @NotNull(message = "ID Pessoa não informado")
-    val dataCancelamento: LocalDate?
+    val dataCancelamento: LocalDate?,
+
+    val dependentes: List<DependenteDTO>?
 
 ) {
 
@@ -73,7 +77,9 @@ data class ContratoDTO(
         dataContratoFinal = this.dataContratoFinal,
         plano = this.idPlano,
         titular = this.idTitular,
-        dataCancelamento = this.dataCancelamento
+        dataCancelamento = this.dataCancelamento,
+        dependentes = this.dependentes?.map{ it.toModel(it.idDependente, this.)}
+
     )
 
     companion object {
@@ -83,7 +89,8 @@ data class ContratoDTO(
             dataContratoFinal = contrato.dataContratoFinal,
             idPlano = contrato.plano,
             idTitular = contrato.titular,
-            dataCancelamento = contrato.dataCancelamento
+            dataCancelamento = contrato.dataCancelamento,
+            dependentes = contrato.dependentes?.map{DependenteDTO.toDTO(it)}
         )
     }
 

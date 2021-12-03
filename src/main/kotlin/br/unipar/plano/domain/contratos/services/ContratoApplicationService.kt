@@ -1,14 +1,10 @@
 package br.unipar.plano.domain.contratos.services
 
-
-
 import br.unipar.plano.domain.contratos.model.IdContrato
 import br.unipar.plano.domain.planos.model.Plano
 import br.unipar.plano.interfaces.rest.contratos.ContratoDTO
 import br.unipar.plano.interfaces.rest.contratos.ContratoDetailsDTO
 import br.unipar.plano.interfaces.rest.contratos.ContratoSummaryDTO
-import java.util.*
-
 
 interface ContratoApplicationService {
 

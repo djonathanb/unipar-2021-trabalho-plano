@@ -1,6 +1,5 @@
 package br.unipar.plano.domain.pessoas.services.impl
 
-import br.unipar.plano.domain.dependentes.model.IdDependente
 import br.unipar.plano.domain.pessoas.model.IdPessoa
 import br.unipar.plano.domain.pessoas.services.PessoaApplicationService
 import br.unipar.plano.domain.pessoas.services.PessoaQueryService
@@ -10,6 +9,7 @@ import br.unipar.plano.domain.pessoas.usecases.DeletaPessoaUseCase
 import br.unipar.plano.interfaces.rest.pessoas.PessoaDTO
 import br.unipar.plano.interfaces.rest.pessoas.PessoaDetailsDTO
 import org.springframework.stereotype.Service
+import javax.validation.Valid
 
 @Service
 class PessoaApplicationServiceImpl(
@@ -19,7 +19,7 @@ class PessoaApplicationServiceImpl(
     private val atualizaPessoaUseCase: AtualizaPessoaUseCase
 ) : PessoaApplicationService {
 
-    override fun cria(pessoaDTO: PessoaDTO): IdPessoa {
+    override fun cria(@Valid pessoaDTO: PessoaDTO): IdPessoa {
         val pessoa = pessoaDTO.toModel((IdPessoa()))
         val novaPessoa = criaPessoaUseCase.cria(pessoa)
         return novaPessoa.idPessoa

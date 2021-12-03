@@ -1,6 +1,5 @@
 package br.unipar.plano.interfaces.rest.pessoas
 
-import br.unipar.plano.domain.dependentes.model.Dependente
 import br.unipar.plano.domain.pessoas.model.IdPessoa
 import br.unipar.plano.domain.pessoas.model.Pessoa
 import br.unipar.plano.domain.pessoas.model.StatusEstadoCivil
@@ -8,28 +7,21 @@ import org.hibernate.validator.constraints.br.CPF
 import java.time.LocalDate
 import javax.validation.constraints.NotBlank
 
-/*
+
 data class PessoaSummaryDTO(
-    val id: IdContrato,
-    val idTitular: UUID,
-    val idPlano: UUID,
-    val dataContratacao: LocalDate,
-    val dataContratoFinal : LocalDate
+    val id: IdPessoa
 ) {
 
     companion object {
 
         fun toDTO(pessoa: Pessoa) = PessoaSummaryDTO(
-            id = contrato.idContrato,
-            idTitular = contrato.idTitular,
-            idPlano = contrato.idPlano,
-            dataContratacao = contrato.dataContratacao,
-            dataContratoFinal = contrato.dataContratoFinal
+            id = pessoa.idPessoa
         )
+
 
     }
 
-}*/
+}
 
 data class PessoaDetailsDTO(
     val id: IdPessoa,
@@ -70,9 +62,7 @@ data class PessoaDTO(
 
     val nomeMae: String,
 
-    val nomePai: String,
-
-    //val dependente: List<DependenteDTO>
+    val nomePai: String
 ) {
 
     fun toModel(id: IdPessoa) = Pessoa(
@@ -84,8 +74,7 @@ data class PessoaDTO(
         estadoCivil = this.estadoCivil,
         dataDeNascimento = this.dataDeNascimento,
         nomeMae = this.nomeMae,
-        nomePai = this.nomePai,
-        //dependente = this.dependente.map{ toModel(id dependente) }
+        nomePai = this.nomePai
     )
 
     companion object {
@@ -98,8 +87,7 @@ data class PessoaDTO(
             estadoCivil = pessoa.estadoCivil,
             dataDeNascimento = pessoa.dataDeNascimento,
             nomeMae = pessoa.nomeMae,
-            nomePai = pessoa.nomePai,
-            //dependente = pessoa.dependente
+            nomePai = pessoa.nomePai
         )
     }
 

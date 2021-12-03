@@ -1,8 +1,7 @@
 package br.unipar.plano.domain.pessoas.model
 
-
-import br.unipar.plano.domain.dependentes.model.Dependente
 import org.hibernate.validator.constraints.br.CPF
+import java.lang.reflect.Constructor
 import java.time.LocalDate
 import javax.persistence.*
 
@@ -35,16 +34,15 @@ class Pessoa(
     @Column(nullable = false)
     val dataDeNascimento: LocalDate,
 
-    @Column()
+    @Column
     val nomeMae: String,
 
-    @Column()
+    @Column
     val nomePai: String,
 
-   // @OneToMany(cascade = [CascadeType.ALL], mappedBy = "titular")
-   // val dependentes: List<Dependente>?
 
 ) {
+
     fun with(
         idPessoa: IdPessoa = this.idPessoa,
         nome: String = this.nome,
@@ -54,8 +52,7 @@ class Pessoa(
         estadoCivil: StatusEstadoCivil = this.estadoCivil,
         dataDeNascimento: LocalDate = this.dataDeNascimento,
         nomeMae: String = this.nomeMae,
-        nomePai: String = this.nomePai,
-       // dependentes: List<Dependente>? = this.dependentes
+        nomePai: String = this.nomePai
     ) = copy(
         idPessoa = idPessoa,
         nome = nome,
@@ -65,8 +62,7 @@ class Pessoa(
         estadoCivil = estadoCivil,
         dataDeNascimento = dataDeNascimento,
         nomeMae = nomeMae,
-        nomePai = nomePai,
-     //   dependentes = this.dependentes
+        nomePai = nomePai
     )
 
     private fun copy(
@@ -78,8 +74,7 @@ class Pessoa(
         estadoCivil: StatusEstadoCivil = this.estadoCivil,
         dataDeNascimento: LocalDate = this.dataDeNascimento,
         nomeMae: String = this.nomeMae,
-        nomePai: String = this.nomePai,
-       // dependentes: List<Dependente>? = this.dependentes
+        nomePai: String = this.nomePai
     ) = Pessoa(
         idPessoa = idPessoa,
         nome = nome,
@@ -89,7 +84,6 @@ class Pessoa(
         estadoCivil = estadoCivil,
         dataDeNascimento = dataDeNascimento,
         nomeMae = nomeMae,
-        nomePai = nomePai ,
-        //dependentes = dependentes
+        nomePai = nomePai
     )
 }

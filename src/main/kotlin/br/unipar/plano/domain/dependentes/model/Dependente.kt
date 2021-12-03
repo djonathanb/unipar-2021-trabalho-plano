@@ -1,8 +1,12 @@
 package br.unipar.plano.domain.dependentes.model
 
+import br.unipar.plano.domain.contratos.model.Contrato
 import br.unipar.plano.domain.pessoas.model.Pessoa
 import javax.persistence.*
 
+enum class TipoDependente {
+    CONJUJE, FILHO, PAIS
+}
 
 @Entity
 class Dependente(
@@ -11,50 +15,37 @@ class Dependente(
     val idDependente: IdDependente,
 
     @ManyToOne
-    val titular: Pessoa
+    val contrato: Contrato,
 
-) /*{
+    @OneToOne
+    val pessoa: Pessoa,
+
+    @Column(name = "tipodependente", nullable = false)
+    @Enumerated(EnumType.STRING)
+    val tipo: TipoDependente
+
+) {
     fun with(
-        idPessoa: IdDependente = this.idPessoa,
-        nome: String = this.nome,
-        endereco: String = this.endereco,
-        rg: String = this.rg,
-        cpf: String = this.cpf,
-        estadoCivil: StatusEstadoCivil = this.estadoCivil,
-        dataDeNascimento: LocalDate = this.dataDeNascimento,
-        nomeMae: String = this.nomeMae,
-        nomePai: String = this.nomePai
+        idDependente: IdDependente = this.idDependente,
+        contrato: Contrato = this.contrato,
+        pessoa: Pessoa = this.pessoa,
+        tipo: TipoDependente = this.tipo
     ) = copy(
-        idPessoa = idPessoa,
-        nome = nome,
-        endereco = endereco,
-        rg = rg,
-        cpf = cpf,
-        estadoCivil = estadoCivil,
-        dataDeNascimento = dataDeNascimento,
-        nomeMae = nomeMae,
-        nomePai = nomePai
+        idDependente = idDependente,
+        contrato = contrato,
+        pessoa =pessoa,
+        tipo = tipo
     )
 
     private fun copy(
-        idPessoa: IdDependente = this.idPessoa,
-        nome: String = this.nome,
-        endereco: String = this.endereco,
-        rg: String = this.rg,
-        cpf: String = this.cpf,
-        estadoCivil: StatusEstadoCivil = this.estadoCivil,
-        dataDeNascimento: LocalDate = this.dataDeNascimento,
-        nomeMae: String = this.nomeMae,
-        nomePai: String = this.nomePai
-    ) = Pessoa(
-        idPessoa = idPessoa,
-        nome = nome,
-        endereco = endereco,
-        rg = rg,
-        cpf = cpf,
-        estadoCivil = estadoCivil,
-        dataDeNascimento = dataDeNascimento,
-        nomeMae = nomeMae,
-        nomePai = nomePai
+        idDependente: IdDependente = this.idDependente,
+        contrato: Contrato = this.contrato,
+        pessoa: Pessoa = this.pessoa,
+        tipo: TipoDependente = this.tipo
+    ) = Dependente(
+        idDependente = idDependente,
+        contrato = contrato,
+        pessoa =pessoa,
+        tipo = tipo
     )
-}*/
+}

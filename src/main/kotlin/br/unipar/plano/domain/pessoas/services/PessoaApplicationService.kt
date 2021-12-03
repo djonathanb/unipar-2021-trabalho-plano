@@ -4,7 +4,6 @@ import br.unipar.plano.domain.pessoas.model.IdPessoa
 import br.unipar.plano.interfaces.rest.pessoas.PessoaDTO
 import br.unipar.plano.interfaces.rest.pessoas.PessoaDetailsDTO
 
-
 interface PessoaApplicationService {
 
     fun cria(pessoaDTO: PessoaDTO): IdPessoa
