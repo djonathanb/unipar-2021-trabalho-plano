@@ -5,5 +5,5 @@ import org.springframework.stereotype.Service
 
 @Service
 interface RegistraExtravioUseCase {
-    fun RegistraExtravio(carteirinha: Carteirinha): Carteirinha
+    fun registraExtravio(carteirinha: Carteirinha): Carteirinha
 }

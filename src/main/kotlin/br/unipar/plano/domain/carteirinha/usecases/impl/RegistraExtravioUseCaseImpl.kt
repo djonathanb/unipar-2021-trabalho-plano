@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service
 @Service
 class RegistraExtravioUseCaseImpl(private val carteirinhaQueryService: CarteirinhaQueryService) : RegistraExtravioUseCase {
 
-    override fun RegistraExtravio(carteirinha: Carteirinha): Carteirinha {
+    override fun registraExtravio(carteirinha: Carteirinha): Carteirinha {
 
         var carteirinhaResult: Carteirinha = carteirinha.registrarExtravio()
 

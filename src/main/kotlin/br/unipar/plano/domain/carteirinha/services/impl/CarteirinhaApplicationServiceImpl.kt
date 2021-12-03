@@ -47,7 +47,7 @@ class CarteirinhaApplicationServiceImpl(
         try {
             carteirinha = carteirinhaQueryService.findByIdUsuario(dto.idUsuario);
 
-            carteirinha = registraExtravioUseCase.RegistraExtravio(carteirinha)
+            carteirinha = registraExtravioUseCase.registraExtravio(carteirinha)
 
             var motivoExtravio = toModelMotivo(dto, carteirinha)
 
