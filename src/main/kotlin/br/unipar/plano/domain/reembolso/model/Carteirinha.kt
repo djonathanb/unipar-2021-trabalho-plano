@@ -1,10 +1,11 @@
 package br.unipar.plano.domain.reembolso.model
 
+import java.time.LocalDate
 import java.util.*
 import javax.persistence.*
 
 enum class StatusCarteirinha {
-    ATIVO, INATIVO
+    ATIVA, VENCIDA
 }
 
 @Entity
@@ -16,7 +17,10 @@ class Carteirinha (
     val numero: String,
 
     @Enumerated(EnumType.STRING)
-    val status: StatusCarteirinha = StatusCarteirinha.ATIVO,
+    val statusCarteirinha: StatusCarteirinha = StatusCarteirinha.ATIVA,
+
+    @Column(nullable = false)
+    val dataValidade: LocalDate,
 
     @OneToOne(cascade = [CascadeType.ALL])
     val usuario: Usuario,

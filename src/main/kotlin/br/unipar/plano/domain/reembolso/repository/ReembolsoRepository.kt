@@ -12,12 +12,12 @@ import java.time.LocalDate
 
 @Repository
 interface ReembolsoRepository : JpaRepository<Reembolso, IdReembolso> {
-    @Query("select count(r.id) from Reembolso r where r.usuario = :idUsuario and r.data >= :dataSolicitacao")
+    @Query("select count(r.id) from Reembolso r where r.usuario = :idUsuario and r.dataSolicitacao >= :dataSolicitacao")
     fun totalSolicitacoesAno(
             @Param("idUsuario") idUsuario: IdUsuario,
             @Param("dataSolicitacao") dataSolicitacao: LocalDate) : Long
 
-    @Query("select sum(r.valor) from Reembolso r where r.usuario = :idUsuario and r.data >= :dataSolicitacao")
+    @Query("select sum(r.valor) from Reembolso r where r.usuario = :idUsuario and r.dataSolicitacao >= :dataSolicitacao")
     fun valorTotalSolicitacoesAno(
             @Param("idUsuario") idUsuario: IdUsuario,
             @Param("dataSolicitacao") anoSolicitacao: LocalDate) : BigDecimal
@@ -27,9 +27,5 @@ interface ReembolsoRepository : JpaRepository<Reembolso, IdReembolso> {
 
 //    @Query("select sum(r.valor) from Reembolso r where r.usuario = ?1 and extract(year from r.data) = ?2")
 //    fun valorTotalSolicitacoesRealizadas(idUsuario: IdUsuario, year:Int) : BigDecimal
-
-
-
-
 }
 

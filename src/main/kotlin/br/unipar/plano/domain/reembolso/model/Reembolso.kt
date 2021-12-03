@@ -1,7 +1,11 @@
 package br.unipar.plano.domain.reembolso.model
 
+import org.springframework.core.convert.converter.Converter
+import org.springframework.lang.NonNull
+import org.springframework.stereotype.Component
 import java.math.BigDecimal
 import java.time.LocalDate
+import java.util.*
 import javax.persistence.*
 
 enum class StatusReembolso {
@@ -13,64 +17,70 @@ class Reembolso(
         @field:EmbeddedId
         val id: IdReembolso,
 
-        @Column
-        val estadoSolicitacao: String,
+        @Column(nullable = false)
+        val estadoSolicitacao: EnumEstados,
 
         @Enumerated(EnumType.STRING)
-        val status: StatusReembolso,
+        val statusReembolso: StatusReembolso = StatusReembolso.EM_ANALIZE,
 
-        @Column
+        @Column(nullable = false)
         val valor: BigDecimal,
 
-        @Column
-        val data: LocalDate,
+        @Column(nullable = false)
+        val dataSolicitacao: LocalDate = LocalDate.now(),
+
+        @Column(nullable = true)
+        val dataAnalize: LocalDate,
 
         @OneToOne(cascade = [CascadeType.ALL])
         val usuario: Usuario
 ){
 
         fun autoriza(): Reembolso {
-                if (status == StatusReembolso.APROVADO) {
-                        throw IllegalStateException("Não é possível autorizar um reembolso com status $status")
+                if (statusReembolso == StatusReembolso.APROVADO) {
+                        throw IllegalStateException("Não é possível autorizar um reembolso com status $statusReembolso")
                 }
                 return copy(status = StatusReembolso.APROVADO)
         }
 
         fun rejeita(): Reembolso {
-                if (status != StatusReembolso.APROVADO) {
-                        throw IllegalStateException("Não é possível rejeitar um reembolso com status $status")
+                if (statusReembolso != StatusReembolso.APROVADO) {
+                        throw IllegalStateException("Não é possível rejeitar um reembolso com status $statusReembolso")
                 }
                 return copy(status = StatusReembolso.REJEITADO)
         }
 
         fun with(
                 id: IdReembolso = this.id,
-                estadoSolicitacao: String = this.estadoSolicitacao,
+                estadoSolicitacao: EnumEstados = this.estadoSolicitacao,
                 valor: BigDecimal = this.valor,
-                data: LocalDate = this.data,
+                dataSolicitacao: LocalDate = this.dataSolicitacao,
+                dataAnalize: LocalDate = this.dataAnalize,
                 usuario: Usuario = this.usuario
         ) = copy(
                 id = id,
                 estadoSolicitacao = estadoSolicitacao,
                 valor = valor,
-                data = data,
+                dataSolicitacao = dataSolicitacao,
+                dataAnalize = dataAnalize,
                 usuario = usuario
         )
 
         private fun copy(
                 id: IdReembolso = this.id,
-                estadoSolicitacao: String = this.estadoSolicitacao,
+                estadoSolicitacao: EnumEstados = this.estadoSolicitacao,
                 valor: BigDecimal = this.valor,
-                data: LocalDate = this.data,
+                dataSolicitacao: LocalDate = this.dataSolicitacao,
+                dataAnalize: LocalDate = this.dataAnalize,
                 usuario: Usuario = this.usuario,
-                status: StatusReembolso = this.status
+                status: StatusReembolso = this.statusReembolso
         ) = Reembolso(
                 id = id,
                 estadoSolicitacao = estadoSolicitacao,
                 valor = valor,
-                data = data,
+                dataSolicitacao = dataSolicitacao,
+                dataAnalize = dataAnalize,
                 usuario = usuario,
-                status = status
+                statusReembolso = status
         )
-
 }

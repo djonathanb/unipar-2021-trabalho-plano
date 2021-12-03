@@ -1,4 +1,4 @@
-package br.unipar.plano.interfaces.dto
+package br.unipar.plano.interfaces.rest.centrais.dto
 
 import br.unipar.plano.domain.centrais.model.Central
 import br.unipar.plano.domain.centrais.model.Endereco

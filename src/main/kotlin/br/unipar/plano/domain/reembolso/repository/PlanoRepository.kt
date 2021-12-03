@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository
 import java.util.*
 
 @Repository
-interface PlanoRepository : JpaRepository<Reembolso, IdReembolso> {
-    @Query("from Plano p inner join Usuario u on p.usuario = u.id")
+interface PlanoRepository : JpaRepository<Plano, UUID> {
+    @Query("from Plano p where p.usuario.id = ?1")
     fun findByPlano(idUsuario: UUID) : Plano
 }

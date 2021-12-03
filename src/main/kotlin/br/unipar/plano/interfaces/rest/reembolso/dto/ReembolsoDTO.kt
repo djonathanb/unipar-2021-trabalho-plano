@@ -1,4 +1,4 @@
-package br.unipar.plano.interfaces.dto
+package br.unipar.plano.interfaces.rest.reembolso.dto
 
 import br.unipar.plano.domain.reembolso.model.*
 import java.math.BigDecimal
@@ -10,10 +10,11 @@ import javax.validation.constraints.NotNull
 
 data class ReembolsoSummaryDTO(
         val id: IdReembolso,
-        val estadoSolicitacao: String,
-        val status: StatusReembolso,
+        val estadoSolicitacao: EnumEstados,
+        val statusReembolso: StatusReembolso,
         val valor: BigDecimal,
-        val data: LocalDate,
+        val dataSolicitacao: LocalDate,
+        val dataAnalize: LocalDate,
         val usuario: Usuario
 ) {
 
@@ -22,9 +23,10 @@ data class ReembolsoSummaryDTO(
         fun toDTO(reembolso: Reembolso) = ReembolsoSummaryDTO(
                 id = reembolso.id,
                 estadoSolicitacao = reembolso.estadoSolicitacao,
-                status = reembolso.status,
+                statusReembolso = reembolso.statusReembolso,
                 valor = reembolso.valor,
-                data = reembolso.data,
+                dataSolicitacao = reembolso.dataSolicitacao,
+                dataAnalize = reembolso.dataAnalize,
                 usuario = reembolso.usuario
         )
 
@@ -34,10 +36,11 @@ data class ReembolsoSummaryDTO(
 
 data class ReembolsoDetailsDTO(
         val id: IdReembolso,
-        val estadoSolicitacao: String,
-        val status: StatusReembolso,
+        val estadoSolicitacao: EnumEstados,
+        val statusReembolso: StatusReembolso,
         val valor: BigDecimal,
-        val data: LocalDate,
+        val dataSolicitacao: LocalDate,
+        val dataAnalize: LocalDate,
         val usuario: Usuario
 ) {
 
@@ -46,9 +49,10 @@ data class ReembolsoDetailsDTO(
         fun toDTO(reembolso: Reembolso) = ReembolsoDetailsDTO(
                 id = reembolso.id,
                 estadoSolicitacao = reembolso.estadoSolicitacao,
-                status = reembolso.status,
+                statusReembolso = reembolso.statusReembolso,
                 valor = reembolso.valor,
-                data = reembolso.data,
+                dataSolicitacao = reembolso.dataSolicitacao,
+                dataAnalize = reembolso.dataAnalize,
                 usuario = reembolso.usuario
         )
 
@@ -58,16 +62,18 @@ data class ReembolsoDetailsDTO(
 
 data class ReembolsoDTO(
         @field:NotBlank
-        val estadoSolicitacao: String,
+        val estadoSolicitacao: EnumEstados,
 
         @field:Enumerated(EnumType.STRING)
-        val status: StatusReembolso,
+        val statusReembolso: StatusReembolso,
 
         @field:NotNull
         val valor: BigDecimal,
 
         @field:NotNull
-        val data: LocalDate,
+        val dataSolicitacao: LocalDate,
+
+        val dataAnalize: LocalDate,
 
         @field:NotNull
         val usuario: Usuario
@@ -76,9 +82,10 @@ data class ReembolsoDTO(
     fun toModel(id: IdReembolso) = Reembolso(
             id = id,
             estadoSolicitacao = estadoSolicitacao,
-            status = status,
+            statusReembolso = statusReembolso,
             valor = valor,
-            data = data,
+            dataSolicitacao = dataSolicitacao,
+            dataAnalize = dataAnalize,
             usuario = usuario
     )
 
@@ -86,9 +93,10 @@ data class ReembolsoDTO(
 
         fun toDTO(reembolso: Reembolso) = ReembolsoDTO(
                 estadoSolicitacao = reembolso.estadoSolicitacao,
-                status = reembolso.status,
+                statusReembolso = reembolso.statusReembolso,
                 valor = reembolso.valor,
-                data = reembolso.data,
+                dataSolicitacao = reembolso.dataSolicitacao,
+                dataAnalize = reembolso.dataAnalize,
                 usuario = reembolso.usuario
         )
     }

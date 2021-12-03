@@ -9,19 +9,15 @@ enum class TipoAbrangencia {
 
 @Entity
 class Plano (
-
-        @Id
+    @Id
     val id: UUID,
 
-        @Enumerated(EnumType.STRING)
-    val abrangencia: TipoAbrangencia,
+    @Enumerated(EnumType.STRING)
+    val tipoAbrangencia: TipoAbrangencia,
 
-        @Column
-    val estadoPlanoAtual: String,
+    @Column(nullable = false)
+    val areaAbrangencia: EnumEstados,
 
-        @Column
-    val estadoSolicitacaoReembolso: String,
-
-        @OneToOne(cascade = [CascadeType.ALL])
+    @OneToOne(cascade = [CascadeType.ALL])
     val usuario: Usuario
 )

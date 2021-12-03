@@ -2,9 +2,9 @@ package br.unipar.plano.interfaces.rest.centrais
 
 import br.unipar.plano.domain.centrais.model.IdCentral
 import br.unipar.plano.domain.centrais.services.CentralApplicationService
-import br.unipar.plano.interfaces.dto.CentralDTO
-import br.unipar.plano.interfaces.dto.CentralDetailsDTO
-import br.unipar.plano.interfaces.dto.CentralSummaryDTO
+import br.unipar.plano.interfaces.rest.centrais.dto.CentralDTO
+import br.unipar.plano.interfaces.rest.centrais.dto.CentralDetailsDTO
+import br.unipar.plano.interfaces.rest.centrais.dto.CentralSummaryDTO
 import io.swagger.v3.oas.annotations.Operation
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity

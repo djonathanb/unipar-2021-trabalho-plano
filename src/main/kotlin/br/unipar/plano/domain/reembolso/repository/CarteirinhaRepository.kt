@@ -8,6 +8,6 @@ import java.util.*
 
 @Repository
 interface CarteirinhaRepository : JpaRepository<Carteirinha, UUID> {
-    @Query("from Carteirinha c where c.usuario = ?1")
+    @Query("from Carteirinha c where c.usuario.id = ?1")
     fun findByCarteirinha(idUsuario: UUID) : Carteirinha
 }

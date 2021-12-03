@@ -3,7 +3,7 @@ package br.unipar.plano.domain.reembolso.services.impl
 import br.unipar.plano.domain.reembolso.model.IdReembolso
 import br.unipar.plano.domain.reembolso.services.UsuarioApplicationService
 import br.unipar.plano.domain.reembolso.usecases.SolicitaReembolsoUseCase
-import br.unipar.plano.interfaces.dto.ReembolsoDTO
+import br.unipar.plano.interfaces.rest.reembolso.dto.ReembolsoDTO
 import org.springframework.stereotype.Service
 
 @Service

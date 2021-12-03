@@ -5,8 +5,9 @@ import br.unipar.plano.domain.reembolso.services.AgenteApplicationService
 import br.unipar.plano.domain.reembolso.services.ReembolsoQueryService
 import br.unipar.plano.domain.reembolso.usecases.AutorizaReembolsoUseCase
 import br.unipar.plano.domain.reembolso.usecases.RejeitaReembolsoUseCase
-import br.unipar.plano.interfaces.dto.ReembolsoDetailsDTO
-import br.unipar.plano.interfaces.dto.ReembolsoSummaryDTO
+import br.unipar.plano.interfaces.rest.reembolso.dto.ReembolsoDetailsDTO
+import br.unipar.plano.interfaces.rest.reembolso.dto.ReembolsoRejeitadoDTO
+import br.unipar.plano.interfaces.rest.reembolso.dto.ReembolsoSummaryDTO
 import org.springframework.stereotype.Service
 
 @Service
@@ -20,8 +21,9 @@ class AgenteApplicationServiceImpl(
         autorizaReembolsoUseCase.executa(idReembolso)
     }
 
-    override fun rejeitarReembolso(idReembolso: IdReembolso) {
-        rejeitaReembolsoUseCase.executa(idReembolso)
+    override fun rejeitarReembolso(idReembolso: IdReembolso, reembolsoRejeitadoDTO: ReembolsoRejeitadoDTO) {
+        val reembolsoRejeitado = reembolsoRejeitadoDTO.toModel(reembolsoRejeitadoDTO.id)
+        rejeitaReembolsoUseCase.executa(idReembolso, reembolsoRejeitado)
     }
 
     override fun lista() = reembolsoQueryService.lista().map(ReembolsoSummaryDTO::toDTO)

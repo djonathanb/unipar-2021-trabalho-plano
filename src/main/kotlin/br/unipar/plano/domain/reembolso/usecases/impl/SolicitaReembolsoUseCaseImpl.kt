@@ -24,11 +24,11 @@ class SolicitaReembolsoUseCaseImpl(
         val carteirinha = carteirinhaRepository.findByCarteirinha(idUsuario.id)
         val plano =  planoRepository.findByPlano(idUsuario.id)
 
-        if(carteirinha.status != StatusCarteirinha.ATIVO) {
+        if(carteirinha.statusCarteirinha != StatusCarteirinha.ATIVA) {
             throw CarteirinhaInvalidaException("A solicitação deve ser solicitada para uma carteirinha válida.")
         }
 
-        if (plano.estadoSolicitacaoReembolso == plano.estadoPlanoAtual) {
+        if (reembolso.estadoSolicitacao == plano.areaAbrangencia) {
             throw AreaAbrangenciaInvalidaException("A solicitação deve ser feita para um estado fora da Área de Abrangência do plano")
         }
 

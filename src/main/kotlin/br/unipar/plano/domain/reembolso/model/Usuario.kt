@@ -12,5 +12,4 @@ class Usuario(
 
         @Column(nullable = false)
         val cpf: String
-
 )

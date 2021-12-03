@@ -1,7 +1,8 @@
-package br.unipar.plano.interfaces.dto
+package br.unipar.plano.interfaces.rest.reembolso.dto
 
 import br.unipar.plano.domain.reembolso.model.IdUsuario
 import br.unipar.plano.domain.reembolso.model.Usuario
+import org.hibernate.validator.constraints.br.CPF
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.Size
 
@@ -54,7 +55,8 @@ data class UsuarioDTO(
         )
         val nome: String,
 
-        @field:NotBlank(message = "O cpf deve ser informado")
+        @NotBlank(message = "CPF não informado")
+        @CPF(message = "O CPF informado é inválido")
         val cpf: String
 
 ) {
