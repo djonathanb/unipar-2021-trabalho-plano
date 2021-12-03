@@ -3,10 +3,10 @@ package br.unipar.plano.interfaces.rest.centrais.factories
 import br.unipar.plano.domain.centrais.model.IdCentral
 import br.unipar.plano.domain.centrais.model.StatusCentral
 import br.unipar.plano.domain.centrais.model.factories.*
-import br.unipar.plano.interfaces.dto.CentralDTO
-import br.unipar.plano.interfaces.dto.CentralDetailsDTO
-import br.unipar.plano.interfaces.dto.CentralSummaryDTO
-import br.unipar.plano.interfaces.dto.EnderecoDTO
+import br.unipar.plano.interfaces.rest.centrais.dto.CentralDTO
+import br.unipar.plano.interfaces.rest.centrais.dto.CentralDetailsDTO
+import br.unipar.plano.interfaces.rest.centrais.dto.CentralSummaryDTO
+import br.unipar.plano.interfaces.rest.centrais.dto.EnderecoDTO
 
 fun centralDTO(
     nome: String = CENTRAL_CO_NOME,
