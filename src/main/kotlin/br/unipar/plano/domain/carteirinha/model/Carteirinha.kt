@@ -12,4 +12,5 @@ class Carteirinha(
 );
 
 /* Classe criada simplesmente com a finalidade de facilitar o desenvolvimento
- * Visto que a implementação da mesma depende de outra equipe */
+ * Visto que a implementação da mesma depende de outra equipe
+ * */
