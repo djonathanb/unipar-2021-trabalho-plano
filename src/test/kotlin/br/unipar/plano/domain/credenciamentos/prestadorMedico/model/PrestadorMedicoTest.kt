@@ -9,22 +9,22 @@ import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments
 import org.junit.jupiter.params.provider.MethodSource
 
-class CentralTest {
+class PrestadorMedicoTest {
 
     @Test
-    fun `deve criar com status igual a CRIADA`() {
-        val central = central()
-        assertEquals(StatusCentral.CRIADA, central.status)
+    fun `deve criar com status igual o CRIADO`() {
+        val prestadorMedico = prestadorMedico()
+        assertEquals(StatusPrestadorMedico.CRIADO, prestadorMedico.status)
     }
 
     @Test
-    fun `deve permitir a alteracao de informacoes basicas da central`() {
+    fun `deve permitir a alteracao de informacoes basico de prestador medico`() {
         val novoNome = "00.000.000/0001-00"
         val novoCnpj = "00.000.000/0001-00"
         val novaCidade = 1010100
 
-        val central = central()
-        val novoEstadoCentral = central.with(
+        val prestadorMedico = prestadorMedico()
+        val novoEstadoPrestadorMedico = prestadorMedico.with(
             nome = novoNome,
             cnpj = novoCnpj,
             endereco = endereco(
@@ -32,8 +32,8 @@ class CentralTest {
             )
         )
 
-        assertNotSame(central, novoEstadoCentral)
-        assertEquals(CENTRAL_CO_ID, novoEstadoCentral.id)
+        assertNotSame(prestadorMedico, novoEstadoPrestadorMedico)
+        assertEquals(PRESTADORMEDICO_CO_ID, novoEstadoPrestadorMedico.id)
         assertEquals(CENTRAL_CO_STATUS, novoEstadoCentral.status)
         assertEquals(CENTRAL_CO_ENDERECO_LOGRADOURO, novoEstadoCentral.endereco.logradouro)
         assertEquals(novoCnpj, novoEstadoCentral.cnpj)

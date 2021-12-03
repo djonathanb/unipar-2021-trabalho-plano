@@ -4,20 +4,19 @@ import br.unipar.plano.domain.centrais.model.IdCentral
 import br.unipar.plano.domain.centrais.model.StatusCentral
 import br.unipar.plano.domain.centrais.model.factories.*
 import br.unipar.plano.domain.credenciamentos.model.prestadorMedico.IdPrestadorMedico
+import br.unipar.plano.domain.credenciamentos.model.prestadorMedico.PrestadorMedico
 import br.unipar.plano.interfaces.rest.centrais.CentralDTO
 import br.unipar.plano.interfaces.rest.centrais.CentralDetailsDTO
-import br.unipar.plano.interfaces.rest.centrais.CentralSummaryDTO
-import br.unipar.plano.interfaces.rest.centrais.EnderecoDTO
+import br.unipar.plano.interfaces.rest.credenciamentos.prestadorMedico.PrestMedDTO
+import br.unipar.plano.interfaces.rest.credenciamentos.prestadorMedico.PrestadorMedicoDetailsDTO
 
 fun PrestMedDTO(
     nome: String = PRESTADORMEDICO_CO_NOME,
-    crm: String = PRESTADOR_CO_CRM,
-    status: String = PRESTADOR_CO_STRING,
-    especialidade: String = PRESTADOR_CO_STRING
+    crm: String = PRESTADORMEDICO_CO_CRM,
+    especialidade: String = PRESTADORMEDICO_CO_ESPECIALIDADE
 ) = PrestMedDTO(
     nome = nome,
     crm = crm,
-    status = status,
     especialidade = especialidade
 )
 
@@ -30,27 +29,25 @@ fun EspecialidadeDTO(
 fun PrestadorMedicoSummaryDTO(
     staticId: Boolean = true,
     idPrestadorMedico: IdPrestadorMedico = idPrestadorMedico(staticId),
-    nome: String = CENTRAL_CO_NOME,
-    crm: Int = CENTRAL_CO_CRM
+    nome: String = PRESTADORMEDICO_CO_NOME,
+    crm: String = PRESTADORMEDICO_CO_CRM
 ) = PrestadorMedicoSummaryDTO(
-    id = idCentral,
+    id = idPrestadorMedico,
     nome = nome,
-    cidade = cidade
+    crm = crm
 )
-
 
 val id: IdPrestadorMedico,
 val nome: String,
-val crm: String
+val status: String
 
-
-fun centralDetailsDTO(
+fun prestadorMedicoDetailsDTO(
     staticId: Boolean = true,
-    idCentral: IdCentral = idCentral(staticId),
-    status: StatusCentral = CENTRAL_CO_STATUS,
-    centralData: CentralDTO = centralDTO()
+    idPrestadorMedico: IdPrestadorMedico = idPrestadorMedico(staticId),
+    status: StatusCentral = PRESTADORMEDICO_CO_STATUS,
+    prestMedData: PrestadorMedicoDetailsDTO = PrestMedDTO()
 ) = CentralDetailsDTO(
-    id = idCentral,
+    id = idPrestadorMedico,
     status = status,
-    centralData = centralData
+    prestMedData = prestMedData
 )

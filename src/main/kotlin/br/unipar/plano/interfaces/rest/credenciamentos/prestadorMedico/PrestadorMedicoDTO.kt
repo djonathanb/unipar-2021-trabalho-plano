@@ -40,16 +40,12 @@ data class PrestadorMedicoDetailsDTO(
             prestMedData = PrestMedDTO.toDTO(prestadorMedico)
         )
     }
-
 }
 
 data class PrestMedDTO(
 
     @field:NotBlank(message = "O nome deve ser informado")
     val nome: String,
-
-    @field:NotNull
-    val status: StatusMedico,
 
     @field:NotBlank(message = "O CRM deve ser informado")
     @field:Pattern(regexp = "^[0-9]{5}+[/]+[A-Z]{2}$")
@@ -64,7 +60,6 @@ data class PrestMedDTO(
         idPrestadorMedico = id,
         nome = this.nome,
         crm = this.crm,
-        status = this.status,
         especialidades = especialidades.map {especialidade -> Especialidade(id = IdPrestadorMedico() ,nomeEspecialidade = especialidade.nomeEspecialidade) }
 
     )
@@ -74,7 +69,6 @@ data class PrestMedDTO(
         fun toDTO(prestadorMedico: PrestadorMedico) = PrestMedDTO(
             nome = prestadorMedico.nome,
             crm  = prestadorMedico.crm,
-            status = prestadorMedico.status,
             especialidades = prestadorMedico.especialidades.map{especialidade -> EspecialidadeDTO(nomeEspecialidade = especialidade.nomeEspecialidade) }
         )
     }
