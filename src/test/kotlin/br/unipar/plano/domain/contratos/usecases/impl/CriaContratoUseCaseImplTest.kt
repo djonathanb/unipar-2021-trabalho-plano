@@ -36,7 +36,7 @@ class CriaContratoUseCaseImplTest {
 
     @Test
     fun `deve atualizar os dados informados pela funcao de transformacao`() {
-        val novaCentral = criaContratoUseCase.cria(contrato().with(idContrato = ID_CONTRATO_INEXISTENTE))
+        val novaCentral = criaContratoUseCase.cria(contrato().with(id = ID_CONTRATO_INEXISTENTE))
 
         verify(contratoRepository).save(argumentCaptor.capture())
         val centralSalva = argumentCaptor.firstValue

@@ -1,7 +1,7 @@
 package br.unipar.plano.interfaces.rest.contratos
 
 import br.unipar.plano.domain.contratos.model.IdContrato
-import br.unipar.plano.domain.planos.model.Plano
+import br.unipar.plano.domain.contratos.planos.model.Plano
 import br.unipar.plano.domain.contratos.services.ContratoApplicationService
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.responses.ApiResponse
@@ -49,7 +49,7 @@ class ContratoResource(private val contratoApplicationService: ContratoApplicati
     @ApiResponses(ApiResponse(description = "Sucesso ao deletar o contrato", responseCode = "200"),
                   ApiResponse(description = "Caso ocorra algum erro ao deletar o contrato", responseCode = "400"))
     fun deleta(@PathVariable("idContrato") idContrato: UUID) {
-        contratoApplicationService.deleta(idContrato = IdContrato(idContrato))
+        contratoApplicationService.cancelaContrato(idContrato = IdContrato(idContrato))
     }
 
     @Operation(summary = "Retorna a lista de contratos cadastrados")
