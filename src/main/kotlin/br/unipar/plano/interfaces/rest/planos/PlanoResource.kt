@@ -12,13 +12,16 @@ import javax.validation.Valid
 import br.unipar.plano.domain.planos.services.PlanoApplicationService
 import br.unipar.plano.interfaces.rest.centrais.CentralDetailsDTO
 import br.unipar.plano.interfaces.rest.centrais.CentralSummaryDTO
+import io.swagger.v3.oas.annotations.responses.ApiResponse
+import io.swagger.v3.oas.annotations.responses.ApiResponses
 
 @RestController
 @RequestMapping("/planos")
 class PlanoResource(private val planoApplicationService: PlanoApplicationService) {
 
-    @Operation(summary = "Cria um novo plano e retorna o endereço do novo recurso")
     @PostMapping
+    @ApiResponses(ApiResponse(description = "ok.", responseCode = "201"))
+    @Operation(summary = "Cria um novo plano e retorna o endereço do novo recurso")
     fun criar(@RequestBody @Valid planoDTO: PlanoDTO): ResponseEntity<Void> {
         val idNovoPlano = planoApplicationService.cria(planoDTO)
 
@@ -37,14 +40,19 @@ class PlanoResource(private val planoApplicationService: PlanoApplicationService
         planoApplicationService.deleta(idPlano = IdPlano(idPlano))
     }
 
-    @Operation(summary = "Retorna a lista de planos cadastrados")
     @GetMapping
+    @ApiResponses(ApiResponse(description = "ok.", responseCode = "200"))
+    @Operation(summary = "Retorna a lista de planos cadastrados")
     fun lista(): ResponseEntity<List<PlanoSummaryDTO>> {
         return ResponseEntity.ok(planoApplicationService.lista())
     }
 
-    @Operation(summary = "Busca os detalhes de um plano por id")
     @GetMapping("/{idPlano}")
+    @ApiResponses(
+            ApiResponse(description = "ok.", responseCode = "200"),
+            ApiResponse(description = "Caso não exista o plano.", responseCode = "404")
+    )
+    @Operation(summary = "Busca os detalhes de um plano por id")
     fun buscaPorId(@PathVariable("idPlano") idPlano: UUID): ResponseEntity<PlanoDetailsDTO> {
         return ResponseEntity.ok(planoApplicationService.buscaPorId(IdPlano(idPlano)))
     }

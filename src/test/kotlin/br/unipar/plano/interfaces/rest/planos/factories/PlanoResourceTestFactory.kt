@@ -7,32 +7,33 @@ import br.unipar.plano.domain.planos.model.factories.*
 import br.unipar.plano.interfaces.rest.planos.PlanoDTO
 import br.unipar.plano.interfaces.rest.planos.PlanoDetailsDTO
 import br.unipar.plano.interfaces.rest.planos.PlanoSummaryDTO
+import java.math.BigDecimal
 
 fun planoDTO(
-        nome: String = PLANO_CO_NOME,
-        abrangencia: TipoAbrangencia = PLANO_CO_ABRANGENCIA,
-        acomodacao: TipoAcomodacao = PLANO_CO_ACOMODACAO,
-        obstetricia: Boolean = PLANO_CO_OBSTETRICIA,
-        transporteaereo: Boolean = PLANO_CO_TRANPORTEAEREO,
-        valorbase: Double = PLANO_CO_VALORBASE
+        nome: String = PLANO_CCMA_50_NOME,
+        abrangencia: TipoAbrangencia = PLANO_CCMA_50_ABRANGENCIA,
+        acomodacao: TipoAcomodacao = PLANO_CCMA_50_ACOMODACAO,
+        obstetricia: Boolean = PLANO_CCMA_50_OBSTETRICIA,
+        transporteAereo: Boolean = PLANO_CCMA_50_TRANPORTEAEREO,
+        valorBase: BigDecimal = PLANO_CCMA_50_VALORBASE
 ) = PlanoDTO(
         nome = nome,
         abrangencia = abrangencia,
         acomodacao = acomodacao,
         obstetricia = obstetricia,
-        transporteaereo = transporteaereo,
-        valorbase = valorbase
+        transporteAereo = transporteAereo,
+        valorBase = valorBase
 )
 
 fun planoSummaryDTO(
     staticId: Boolean = true,
     idPlano: IdPlano = idPlano(staticId),
-    nome: String = PLANO_CO_NOME,
-    abrangencia: TipoAbrangencia = PLANO_CO_ABRANGENCIA,
-    acomodacao: TipoAcomodacao = PLANO_CO_ACOMODACAO,
-    obstetricia: Boolean = PLANO_CO_OBSTETRICIA,
-    transporteaereo: Boolean = PLANO_CO_TRANPORTEAEREO,
-    valorbase: Double = PLANO_CO_VALORBASE,
+    nome: String = PLANO_CCMA_50_NOME,
+    abrangencia: TipoAbrangencia = PLANO_CCMA_50_ABRANGENCIA,
+    acomodacao: TipoAcomodacao = PLANO_CCMA_50_ACOMODACAO,
+    obstetricia: Boolean = PLANO_CCMA_50_OBSTETRICIA,
+    transporteAereo: Boolean = PLANO_CCMA_50_TRANPORTEAEREO,
+    valorBase: BigDecimal = PLANO_CCMA_50_VALORBASE,
 
 ) = PlanoSummaryDTO(
     id = idPlano,
@@ -40,8 +41,8 @@ fun planoSummaryDTO(
     abrangencia = abrangencia,
     acomodacao = acomodacao,
     obstetricia = obstetricia,
-    transporteaereo = transporteaereo,
-    valorbase = valorbase
+    transporteAereo = transporteAereo,
+    valorBase = valorBase
 )
 
 fun planoDetailsDTO(

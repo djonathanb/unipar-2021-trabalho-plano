@@ -2,7 +2,7 @@ package br.unipar.plano.domain.planos.usecases.impl
 
 import br.unipar.plano.domain.planos.model.Plano
 import br.unipar.plano.domain.planos.model.PlanoRepository
-import br.unipar.plano.domain.planos.model.factories.PLANO_CO_ID
+import br.unipar.plano.domain.planos.model.factories.PLANO_CCMA_50_ID
 import br.unipar.plano.domain.planos.model.factories.plano
 import br.unipar.plano.domain.planos.model.factories.idPlano
 import com.nhaarman.mockitokotlin2.*
@@ -23,7 +23,7 @@ class CriaPlanoUseCaseImplTest {
 
     @BeforeEach
     fun setUp() {
-        whenever(planoRepository.existsById(eq(PLANO_CO_ID))).thenReturn(true)
+        whenever(planoRepository.existsById(eq(PLANO_CCMA_50_ID))).thenReturn(true)
         whenever(planoRepository.existsById(eq(ID_PLANO_INEXISTENTE))).thenReturn(false)
         `when`(planoRepository.save(any())).then { it.arguments[0] }
     }

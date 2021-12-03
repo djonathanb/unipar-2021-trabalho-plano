@@ -4,6 +4,7 @@ import br.unipar.plano.domain.planos.model.Plano
 import br.unipar.plano.domain.planos.model.IdPlano
 import br.unipar.plano.domain.planos.model.TipoAbrangencia
 import br.unipar.plano.domain.planos.model.TipoAcomodacao
+import java.math.BigDecimal
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.NotNull
 import javax.validation.constraints.Size
@@ -17,8 +18,8 @@ data class PlanoSummaryDTO(
         val abrangencia: TipoAbrangencia,
         val acomodacao: TipoAcomodacao,
         val obstetricia: Boolean,
-        val transporteaereo: Boolean,
-        val valorbase: Double,
+        val transporteAereo: Boolean,
+        val valorBase: BigDecimal,
 ) {
 
     companion object {
@@ -29,8 +30,8 @@ data class PlanoSummaryDTO(
                 abrangencia = plano.abrangencia,
                 acomodacao = plano.acomodacao,
                 obstetricia = plano.obstetricia,
-                transporteaereo = plano.transporteaereo,
-                valorbase = plano.valorbase,
+                transporteAereo = plano.transporteAereo,
+                valorBase = plano.valorBase,
         )
 
     }
@@ -72,11 +73,11 @@ data class PlanoDTO(
     @field:NotNull(message = "A cobertura para obstetricia deve ser informado")
     val obstetricia: Boolean,
 
-    @field:NotNull(message = "O nome deve ser informado")
-    val transporteaereo: Boolean,
+    @field:NotNull(message = "O transporte aéreo deve ser informado")
+    val transporteAereo: Boolean,
 
-    @field:NotNull(message = "O nome deve ser informado")
-    val valorbase: Double,
+    @field:NotNull(message = "O valor base deve ser informado")
+    val valorBase: BigDecimal,
 
 ) {
 
@@ -86,8 +87,8 @@ data class PlanoDTO(
         abrangencia = this.abrangencia,
         acomodacao = this.acomodacao,
         obstetricia = this.obstetricia,
-        transporteaereo = this.transporteaereo,
-        valorbase = this.valorbase,
+        transporteAereo = this.transporteAereo,
+        valorBase = this.valorBase,
     )
 
     companion object {
@@ -97,8 +98,8 @@ data class PlanoDTO(
             abrangencia = plano.abrangencia,
             acomodacao = plano.acomodacao,
             obstetricia = plano.obstetricia,
-            transporteaereo = plano.transporteaereo,
-            valorbase = plano.valorbase,
+            transporteAereo = plano.transporteAereo,
+            valorBase = plano.valorBase,
         )
     }
 

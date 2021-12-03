@@ -4,27 +4,28 @@ import br.unipar.plano.domain.planos.model.Plano
 import br.unipar.plano.domain.planos.model.IdPlano
 import br.unipar.plano.domain.planos.model.TipoAbrangencia
 import br.unipar.plano.domain.planos.model.TipoAcomodacao
+import java.math.BigDecimal
 
 fun idPlano(static: Boolean = true) = if (static) {
-    PLANO_CO_ID
+    PLANO_CCMA_50_ID
 } else {
     IdPlano()
 }
 
 fun plano(
         idPlano: IdPlano = idPlano(),
-        nome: String = PLANO_CO_NOME,
-        abrangencia: TipoAbrangencia = PLANO_CO_ABRANGENCIA,
-        acomodacao: TipoAcomodacao = PLANO_CO_ACOMODACAO,
-        obstetricia: Boolean = PLANO_CO_OBSTETRICIA,
-        transporteaereo: Boolean = PLANO_CO_TRANPORTEAEREO,
-        valorbase: Double = PLANO_CO_VALORBASE
+        nome: String = PLANO_CCMA_50_NOME,
+        abrangencia: TipoAbrangencia = PLANO_CCMA_50_ABRANGENCIA,
+        acomodacao: TipoAcomodacao = PLANO_CCMA_50_ACOMODACAO,
+        obstetricia: Boolean = PLANO_CCMA_50_OBSTETRICIA,
+        transporteAereo: Boolean = PLANO_CCMA_50_TRANPORTEAEREO,
+        valorBase: BigDecimal = PLANO_CCMA_50_VALORBASE
 ) = Plano(
     id = idPlano,
     nome = nome,
     abrangencia = abrangencia,
     acomodacao = acomodacao,
     obstetricia = obstetricia,
-    transporteaereo = transporteaereo,
-    valorbase = valorbase
+    transporteAereo = transporteAereo,
+    valorBase = valorBase
 )

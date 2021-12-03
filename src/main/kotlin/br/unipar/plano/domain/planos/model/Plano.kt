@@ -1,5 +1,6 @@
 package br.unipar.plano.domain.planos.model
 
+import java.math.BigDecimal
 import javax.persistence.*
 
 enum class TipoAbrangencia {
@@ -29,10 +30,10 @@ class Plano(
         val obstetricia: Boolean = false,
 
         @Column(nullable = false)
-        val transporteaereo: Boolean = false,
+        val transporteAereo: Boolean = false,
 
         @Column(nullable = false)
-        val valorbase: Double = 100.0,
+        val valorBase: BigDecimal = BigDecimal.valueOf(100.0),
 
         ) {
 
@@ -42,16 +43,16 @@ class Plano(
             abrangencia: TipoAbrangencia = this.abrangencia,
             acomodacao: TipoAcomodacao = this.acomodacao,
             obstetricia: Boolean = this.obstetricia,
-            transporteaereo: Boolean = this.transporteaereo,
-            valorbase: Double = this.valorbase
+            transporteAereo: Boolean = this.transporteAereo,
+            valorBase: BigDecimal = this.valorBase
     ) = copy(
             id = id,
             nome = nome,
             abrangencia = abrangencia,
             acomodacao = acomodacao,
             obstetricia = obstetricia,
-            transporteaereo = transporteaereo,
-            valorbase = valorbase
+            transporteAereo = transporteAereo,
+            valorBase = valorBase
     )
 
     private fun copy(
@@ -60,16 +61,16 @@ class Plano(
             abrangencia: TipoAbrangencia = this.abrangencia,
             acomodacao: TipoAcomodacao = this.acomodacao,
             obstetricia: Boolean = this.obstetricia,
-            transporteaereo: Boolean = this.transporteaereo,
-            valorbase: Double = this.valorbase
+            transporteAereo: Boolean = this.transporteAereo,
+            valorBase: BigDecimal = this.valorBase
     ) = Plano(
             id = id,
             nome = nome,
             abrangencia = abrangencia,
             acomodacao = acomodacao,
             obstetricia = obstetricia,
-            transporteaereo = transporteaereo,
-            valorbase = valorbase
+            transporteAereo = transporteAereo,
+            valorBase = valorBase
     )
 
 
