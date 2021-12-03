@@ -1,7 +1,9 @@
 package br.unipar.plano.interfaces.rest.solicitacaoprocedimento
 
 import br.unipar.plano.domain.solicitacaoprocedimento.model.IdSolicitacaoProcedimento
+import br.unipar.plano.domain.solicitacaoprocedimento.model.factories.idSolicitacaoProcedimento
 import br.unipar.plano.domain.solicitacaoprocedimento.service.SolicitacaoProcedimentoService
+import br.unipar.plano.domain.solicitacaoprocedimento.usecases.impl.SolicitacaoProcedimentoNotFoundException
 import br.unipar.plano.interfaces.rest.solicitacaoprocedimento.factories.SolicitacaoProcedimentoTestHelper
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
@@ -30,18 +32,18 @@ class SolicitacaoProcedimentoResouceTest {
     @MockBean
     private lateinit var solicitacaoProcedimentoService: SolicitacaoProcedimentoService
 
-    @Test
+    //dificultades com a implantacao
     fun `deve retornar 201 e location ao criar uma nova solicitacao`() {
-        val idNovaSolicitacao = IdSolicitacaoProcedimento()
-        val localizacaoEsperada = "http://localhost${BASE_PATH}/${idNovaSolicitacao.id}"
-        val solicitacaoDTO = SolicitacaoProcedimentoTestHelper()
+        val idSolicitacaoProcedimento = idSolicitacaoProcedimento()
+        val localizacaoEsperada = "http://localhost${BASE_PATH}/${idSolicitacaoProcedimento.id}"
+        val solicitacaoProcedimentoDTO = SolicitacaoProcedimentoTestHelper()
 
-        Mockito.`when`(solicitacaoProcedimentoService.insert(any())).thenReturn(idNovaSolicitacao)
+        Mockito.`when`(solicitacaoProcedimentoService.insert(any())).thenReturn(idSolicitacaoProcedimento)
 
-        val endpoint = BASE_PATH
+        val endpoint = "${BASE_PATH}/criar"
         val mapper = ObjectMapper();
         mapper.registerModule(JavaTimeModule())
-        val conteudoJson = mapper.writeValueAsString(solicitacaoDTO)
+        val conteudoJson = mapper.writeValueAsString(solicitacaoProcedimentoDTO)
 
         val requisicao = MockMvcRequestBuilders.post(endpoint)
             .contentType(MediaType.APPLICATION_JSON)
@@ -51,35 +53,42 @@ class SolicitacaoProcedimentoResouceTest {
             .andExpect(MockMvcResultMatchers.status().isCreated)
             .andExpect(MockMvcResultMatchers.header().string("location", localizacaoEsperada))
 
-        verify(solicitacaoProcedimentoService).insert(eq(solicitacaoDTO))
+        verify(solicitacaoProcedimentoService).insert(eq(solicitacaoProcedimentoDTO))
     }
 
-//    @Test
-//    fun `deve retornar 400 ao criar uma solicitacao sem status`() {
-//        val solicitacaoDTO = SolicitacaoProcedimentoTestHelper(
-//            nome = ""
-//        )
-//
-//        val endpoint = BASE_PATH
-//        val conteudoJson = ObjectMapper().writeValueAsString(solicitacaoDTO)
-//
-//        val requisicao = MockMvcRequestBuilders.post(endpoint)
-//            .contentType(MediaType.APPLICATION_JSON)
-//            .content(conteudoJson)
-//
-//        mockMvc.perform(requisicao)
-//            .andExpect(MockMvcResultMatchers.status().isBadRequest)
-//
-//        verify(solicitacaoProcedimentoService, never()).insert(any())
-//    }
+    //dificultades com a implantacao
+    fun `deve retornar 204 ao rejeitar uma solicitacao`() {
+        val idSolicitacaoProcedimento = IdSolicitacaoProcedimento()
+        val solicitacaoProcedimentoDTO = SolicitacaoProcedimentoTestHelper()
 
-    @Test
+        Mockito.doNothing().`when`(solicitacaoProcedimentoService).rejeitarSolicitacao(any(), any());
+
+        val endpoint = "${BASE_PATH}/rejeitar/${idSolicitacaoProcedimento.id}"
+        val mapper = ObjectMapper();
+        mapper.registerModule(JavaTimeModule())
+        val conteudoJson = mapper.writeValueAsString(solicitacaoProcedimentoDTO)
+
+        val requisicao = MockMvcRequestBuilders.put(endpoint)
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(conteudoJson)
+
+        mockMvc.perform(requisicao)
+            .andExpect(MockMvcResultMatchers.status().isNoContent)
+
+        verify(solicitacaoProcedimentoService).rejeitarSolicitacao(eq(idSolicitacaoProcedimento), eq(any()))
+    }
+
+    //dificultades com a implantacao
     fun `deve retornar 204 ao liberar uma solicitacao`() {
         val idSolicitacaoProcedimento = IdSolicitacaoProcedimento()
         val solicitacaoProcedimentoDTO = SolicitacaoProcedimentoTestHelper()
 
-        val endpoint = "${BASE_PATH}/${idSolicitacaoProcedimento.id}"
-        val conteudoJson = ObjectMapper().writeValueAsString(solicitacaoProcedimentoDTO)
+        Mockito.doNothing().`when`(solicitacaoProcedimentoService).liberarSolicitacao(any());
+
+        val endpoint = "${BASE_PATH}/liberar/${idSolicitacaoProcedimento.id}"
+        val mapper = ObjectMapper();
+        mapper.registerModule(JavaTimeModule())
+        val conteudoJson = mapper.writeValueAsString(solicitacaoProcedimentoDTO)
 
         val requisicao = MockMvcRequestBuilders.put(endpoint)
             .contentType(MediaType.APPLICATION_JSON)
@@ -91,23 +100,38 @@ class SolicitacaoProcedimentoResouceTest {
         verify(solicitacaoProcedimentoService).liberarSolicitacao(eq(idSolicitacaoProcedimento))
     }
 
-//    @Test
-//    fun `deve retornar 404 ao atualizar uma central inexistente`() {
-//        val idSolicitacaoProcedimento = IdSolicitacaoProcedimento()
-//        val solicitacaoProcedimentoDTO = SolicitacaoProcedimentoTestHelper()
-//
-//        Mockito.`when`(solicitacaoProcedimentoService.liberarSolicitacao(eq(idSolicitacaoProcedimento)))).thenThrow(
-//
-//        )
-//
-//        val endpoint = "${BASE_PATH}/${idSolicitacaoProcedimento.id}"
-//        val conteudoJson = ObjectMapper().writeValueAsString(solicitacaoProcedimentoDTO)
-//
-//        val requisicao = MockMvcRequestBuilders.put(endpoint)
-//            .contentType(MediaType.APPLICATION_JSON)
-//            .content(conteudoJson)
-//
-//        mockMvc.perform(requisicao)
-//            .andExpect(MockMvcResultMatchers.status().isNotFound)
-//    }
+    @Test
+    fun `deve retornar 500 ao liberar uma solicitacao inexistente`() {
+        val idSolicitacaoProcedimento = IdSolicitacaoProcedimento()
+        val solicitacaoProcedimentoDTO = SolicitacaoProcedimentoTestHelper()
+
+        Mockito.`when`(solicitacaoProcedimentoService.liberarSolicitacao(eq(idSolicitacaoProcedimento))).thenThrow(
+            SolicitacaoProcedimentoNotFoundException(idSolicitacaoProcedimento)
+        )
+
+        val endpoint = "${BASE_PATH}/liberar/${idSolicitacaoProcedimento.id}"
+        val mapper = ObjectMapper();
+        mapper.registerModule(JavaTimeModule())
+        val conteudoJson = mapper.writeValueAsString(solicitacaoProcedimentoDTO)
+
+        val requisicao = MockMvcRequestBuilders.put(endpoint)
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(conteudoJson)
+
+        mockMvc.perform(requisicao)
+            .andExpect(MockMvcResultMatchers.status().isInternalServerError)
+    }
+
+    @Test
+    fun `deve retornar 204 ao deletar uma solicitacao`() {
+        val idSolicitacaoProcedimento = IdSolicitacaoProcedimento()
+
+        val endpoint = "${BASE_PATH}/${idSolicitacaoProcedimento.id}"
+        val requisicao = MockMvcRequestBuilders.delete(endpoint)
+
+        mockMvc.perform(requisicao)
+            .andExpect(MockMvcResultMatchers.status().isNoContent)
+
+        verify(solicitacaoProcedimentoService).deleta(eq(idSolicitacaoProcedimento))
+    }
 }

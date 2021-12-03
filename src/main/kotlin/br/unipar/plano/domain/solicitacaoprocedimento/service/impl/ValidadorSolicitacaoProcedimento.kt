@@ -1,6 +1,5 @@
 package br.unipar.plano.domain.solicitacaoprocedimento.service.impl
 
-import br.unipar.plano.domain.procedimento.model.IdProcedimento
 import br.unipar.plano.domain.solicitacaoprocedimento.model.SolicitacaoProcedimento
 import br.unipar.plano.domain.solicitacaoprocedimento.model.StatusSolicitacaoProcedimento
 import br.unipar.plano.domain.solicitacaoprocedimento.service.SolicitacaoProcedimentoRepository
@@ -20,7 +19,7 @@ class ValidadorSolicitacaoProcedimento {
             solicitacaoProcedimentoRepository: SolicitacaoProcedimentoRepository
         ) {
             val solicitacoesProcedimentos =
-                solicitacaoProcedimentoRepository.findByProcedimento_Id(IdProcedimento());
+                solicitacaoProcedimentoRepository.findByProcedimento_Id(solicitacaoProcedimento.procedimento.id);
 
             val solicitacoesEmAbertoParaDeterminadoUsuario = solicitacoesProcedimentos.filter { solicitacao ->
                 solicitacao.statusSolicitacao.equals(StatusSolicitacaoProcedimento.ABERTO)

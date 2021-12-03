@@ -1,6 +1,5 @@
 package br.unipar.plano.domain.solicitacaoprocedimento.usecases.impl
 
-import br.unipar.plano.domain.centrais.usecases.impl.SolicitacaoProcedimentoNotFoundException
 import br.unipar.plano.domain.solicitacaoprocedimento.model.IdSolicitacaoProcedimento
 import br.unipar.plano.domain.solicitacaoprocedimento.model.SolicitacaoProcedimento
 import br.unipar.plano.domain.solicitacaoprocedimento.service.SolicitacaoProcedimentoRepository
@@ -14,7 +13,7 @@ class AtualizaSolicitacaoProcedimentoUseCaseImpl(private val solicitacaoProcedim
         idSolicitacaoProcedimento: IdSolicitacaoProcedimento,
         transformation: (SolicitacaoProcedimento) -> SolicitacaoProcedimento
     ) {
-        val central = solicitacaoProcedimentoRepository.findById(idSolicitacaoProcedimento).orElseThrow { SolicitacaoProcedimentoNotFoundException(idSolicitacaoProcedimento) }
-        solicitacaoProcedimentoRepository.save(transformation(central).with(id = idSolicitacaoProcedimento))
+        val solicitacao = solicitacaoProcedimentoRepository.findById(idSolicitacaoProcedimento).orElseThrow { SolicitacaoProcedimentoNotFoundException(idSolicitacaoProcedimento) }
+        solicitacaoProcedimentoRepository.save(transformation(solicitacao).with(id = idSolicitacaoProcedimento))
     }
 }

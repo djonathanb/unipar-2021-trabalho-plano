@@ -1,4 +1,4 @@
-package br.unipar.plano.domain.centrais.usecases
+package br.unipar.plano.domain.solicitacaoprocedimento.usecases
 
 import br.unipar.plano.domain.solicitacaoprocedimento.model.SolicitacaoProcedimento
 

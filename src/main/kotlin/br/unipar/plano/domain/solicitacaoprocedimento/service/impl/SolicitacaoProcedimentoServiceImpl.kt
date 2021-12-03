@@ -1,12 +1,12 @@
 package br.unipar.plano.domain.solicitacaoprocedimento.service.impl;
 
-import br.unipar.plano.domain.centrais.usecases.CriaSolicitacaoProcedimentoUseCase
-import br.unipar.plano.domain.centrais.usecases.DeletaSolicitacaoProcedimentoUseCase
-import br.unipar.plano.domain.centrais.usecases.LiberaSolicitacaoProcedimentoUseCase
-import br.unipar.plano.domain.centrais.usecases.RejeitaSolicitacaoProcedimentoUseCase
 import br.unipar.plano.domain.solicitacaoprocedimento.model.IdSolicitacaoProcedimento
 import br.unipar.plano.domain.solicitacaoprocedimento.service.SolicitacaoProcedimentoQueryService
 import br.unipar.plano.domain.solicitacaoprocedimento.service.SolicitacaoProcedimentoService
+import br.unipar.plano.domain.solicitacaoprocedimento.usecases.CriaSolicitacaoProcedimentoUseCase
+import br.unipar.plano.domain.solicitacaoprocedimento.usecases.DeletaSolicitacaoProcedimentoUseCase
+import br.unipar.plano.domain.solicitacaoprocedimento.usecases.LiberaSolicitacaoProcedimentoUseCase
+import br.unipar.plano.domain.solicitacaoprocedimento.usecases.RejeitaSolicitacaoProcedimentoUseCase
 import br.unipar.plano.interfaces.rest.solicitacaoprocedimento.SolicitacaoProcedimentoDTO
 import br.unipar.plano.interfaces.rest.solicitacaoprocedimento.SolicitacaoProcedimentoDetailsDTO
 import br.unipar.plano.interfaces.rest.solicitacaoprocedimento.SolicitacaoProcedimentoSummaryDTO

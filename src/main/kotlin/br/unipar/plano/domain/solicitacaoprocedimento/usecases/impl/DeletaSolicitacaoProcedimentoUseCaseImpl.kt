@@ -1,8 +1,8 @@
-package br.unipar.plano.domain.centrais.usecases.impl
+package br.unipar.plano.domain.solicitacaoprocedimento.usecases.impl
 
-import br.unipar.plano.domain.centrais.usecases.DeletaSolicitacaoProcedimentoUseCase
 import br.unipar.plano.domain.solicitacaoprocedimento.model.IdSolicitacaoProcedimento
 import br.unipar.plano.domain.solicitacaoprocedimento.service.SolicitacaoProcedimentoRepository
+import br.unipar.plano.domain.solicitacaoprocedimento.usecases.DeletaSolicitacaoProcedimentoUseCase
 import org.springframework.stereotype.Service
 
 @Service

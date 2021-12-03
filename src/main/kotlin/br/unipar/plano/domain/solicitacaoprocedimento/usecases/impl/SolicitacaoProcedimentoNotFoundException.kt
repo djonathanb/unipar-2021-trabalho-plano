@@ -1,4 +1,4 @@
-package br.unipar.plano.domain.centrais.usecases.impl
+package br.unipar.plano.domain.solicitacaoprocedimento.usecases.impl
 
 import br.unipar.plano.application.exceptions.NotFoundException
 import br.unipar.plano.domain.solicitacaoprocedimento.model.IdSolicitacaoProcedimento

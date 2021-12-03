@@ -20,10 +20,10 @@ class SolicitacaoProcedimento(
     val dataCriacao: LocalDate,
 
     @Column(name = "dataLiberacaoRejeicao")
-    var dataLiberacaoRejeicao: LocalDate,
+    var dataLiberacaoRejeicao: LocalDate?,
 
     @Column(name = "descricao_rejeicao")
-    var descricaoRejeicao: String
+    var descricaoRejeicao: String?
 ) {
 
     fun with(
@@ -31,8 +31,8 @@ class SolicitacaoProcedimento(
         procedimento: Procedimento = this.procedimento,
         statusSolicitacao: StatusSolicitacaoProcedimento = this.statusSolicitacao,
         dataCriacao: LocalDate = this.dataCriacao,
-        dataLiberacaoRejeicao: LocalDate = this.dataLiberacaoRejeicao,
-        descricaoRejeicao: String = this.descricaoRejeicao
+        dataLiberacaoRejeicao: LocalDate? = this.dataLiberacaoRejeicao,
+        descricaoRejeicao: String? = this.descricaoRejeicao
     ) = copy(
         id = id,
         procedimento = procedimento,
@@ -47,8 +47,8 @@ class SolicitacaoProcedimento(
         procedimento: Procedimento = this.procedimento,
         statusSolicitacao: StatusSolicitacaoProcedimento = this.statusSolicitacao,
         dataCriacao: LocalDate = this.dataCriacao,
-        dataLiberacaoRejeicao: LocalDate = this.dataLiberacaoRejeicao,
-        descricaoRejeicao: String = this.descricaoRejeicao
+        dataLiberacaoRejeicao: LocalDate? = this.dataLiberacaoRejeicao,
+        descricaoRejeicao: String? = this.descricaoRejeicao
     ) = SolicitacaoProcedimento(
         id = id,
         procedimento = procedimento,

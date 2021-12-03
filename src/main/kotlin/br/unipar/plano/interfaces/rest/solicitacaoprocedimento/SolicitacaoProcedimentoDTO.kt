@@ -49,9 +49,9 @@ data class SolicitacaoProcedimentoDTO(
     @field:NotNull
     val dataCriacao: LocalDate,
 
-    val dataLiberacaoRejeicao: LocalDate,
+    val dataLiberacaoRejeicao: LocalDate?,
 
-    val descricaoRejeicao: String
+    val descricaoRejeicao: String?
 ) {
 
     fun toModel(id: IdSolicitacaoProcedimento) = SolicitacaoProcedimento(

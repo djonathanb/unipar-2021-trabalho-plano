@@ -8,8 +8,8 @@ import br.unipar.plano.interfaces.rest.solicitacaoprocedimento.SolicitacaoProced
 interface SolicitacaoProcedimentoService {
 
     fun insert(dto: SolicitacaoProcedimentoDTO): IdSolicitacaoProcedimento
-    fun liberarSolicitacao(solicitacaoID: IdSolicitacaoProcedimento)
-    fun rejeitarSolicitacao(solicitacaoID: IdSolicitacaoProcedimento, descricaoRejeicao: String)
+    fun liberarSolicitacao(idSolicitacaoProcedimento: IdSolicitacaoProcedimento)
+    fun rejeitarSolicitacao(idSolicitacaoProcedimento: IdSolicitacaoProcedimento, descricaoRejeicao: String)
     fun lista(): List<SolicitacaoProcedimentoSummaryDTO>
     fun buscaPorId(idSolicitacaoProcedimento: IdSolicitacaoProcedimento): SolicitacaoProcedimentoDetailsDTO
     fun deleta(idSolicitacaoProcedimento: IdSolicitacaoProcedimento)

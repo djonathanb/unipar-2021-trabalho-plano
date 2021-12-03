@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service
 
 @Service
 class ProcedimentoApplicationServiceImpl(
-    private val procedimentoQueryService: ProcedimentoQueryService,
+//    private val procedimentoQueryService: ProcedimentoQueryService,
     private val criaProcedimentoUseCase: CriaProcedimentoUseCase,
     private val atualizaProcedimentoUseCase: AtualizaProcedimentoUseCase,
     private val deletaProcedimentoUseCase: DeletaProcedimentoUseCase
@@ -33,15 +33,23 @@ class ProcedimentoApplicationServiceImpl(
         }
     }
 
+    override fun lista(): List<ProcedimentoSummaryDTO> {
+        TODO("Not yet implemented")
+    }
+
+    override fun buscaPorId(idProcedimento: IdProcedimento): ProcedimentoDetailsDTO {
+        TODO("Not yet implemented")
+    }
+
     override fun deleta(idProcedimento: IdProcedimento) {
         deletaProcedimentoUseCase.executa(idProcedimento)
     }
 
-    override fun lista() = procedimentoQueryService.lista().map(ProcedimentoSummaryDTO::toDTO)
-
-    override fun buscaPorId(idProcedimento: IdProcedimento): ProcedimentoDetailsDTO {
-        val procedimento = procedimentoQueryService.buscaPorId(idProcedimento)
-        return ProcedimentoDetailsDTO.toDTO(procedimento)
-    }
+//    override fun lista() = procedimentoQueryService.lista().map(ProcedimentoSummaryDTO::toDTO)
+//
+//    override fun buscaPorId(idProcedimento: IdProcedimento): ProcedimentoDetailsDTO {
+//        val procedimento = procedimentoQueryService.buscaPorId(idProcedimento)
+//        return ProcedimentoDetailsDTO.toDTO(procedimento)
+//    }
 
 }

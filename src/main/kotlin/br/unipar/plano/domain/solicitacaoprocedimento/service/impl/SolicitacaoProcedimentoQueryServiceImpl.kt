@@ -1,6 +1,5 @@
 package br.unipar.plano.domain.solicitacaoprocedimento.service.impl
 
-import br.unipar.plano.domain.centrais.usecases.impl.SolicitacaoProcedimentoNotFoundException
 import br.unipar.plano.domain.procedimento.model.IdProcedimento
 import br.unipar.plano.domain.procedimento.model.Procedimento
 import br.unipar.plano.domain.solicitacaoprocedimento.model.IdSolicitacaoProcedimento
@@ -8,6 +7,7 @@ import br.unipar.plano.domain.solicitacaoprocedimento.model.SolicitacaoProcedime
 import br.unipar.plano.domain.solicitacaoprocedimento.model.StatusSolicitacaoProcedimento
 import br.unipar.plano.domain.solicitacaoprocedimento.service.SolicitacaoProcedimentoQueryService
 import br.unipar.plano.domain.solicitacaoprocedimento.service.SolicitacaoProcedimentoRepository
+import br.unipar.plano.domain.solicitacaoprocedimento.usecases.impl.SolicitacaoProcedimentoNotFoundException
 import org.springframework.stereotype.Service
 
 @Service
