@@ -1,7 +1,6 @@
 package br.unipar.plano.domain.contratos.usecases.impl
 
 
-import br.unipar.plano.domain.centrais.usecases.impl.CentralNotFoundException
 import br.unipar.plano.domain.contratos.model.Contrato
 import br.unipar.plano.domain.contratos.model.ContratoRepository
 import br.unipar.plano.domain.contratos.model.StatusContrato
@@ -24,40 +23,46 @@ class CancelaContratoUseCaseImplTesk {
 
     private val argumentCaptor = argumentCaptor<Contrato>()
 
+
     @BeforeEach
     fun setUp() {
         whenever(contratoRepository.findById(eq(CONTRATO_CO_ID))).thenReturn(Optional.of(contrato().cancela()))
         whenever(contratoRepository.findById(eq(ID_CONTRATO_INEXISTENTE))).thenReturn(Optional.empty())
     }
 
-    @Test
+   /* @Test
     fun `não deve cancelar o contrato informado`() {
+        whenever(contratoRepository.findById(eq(CONTRATO_CO_ID))).thenReturn(Optional.of(contrato()))
         cancelaContratoUseCase.executa(CONTRATO_CO_ID, true)
+
+        val contratoSalva = argumentCaptor.firstValue
+        Assertions.assertEquals(StatusContrato.ATIVO, contratoSalva.status)
+    }*/
+
+    @Test
+    fun `deve cancelar o contrato informado`() {
+        whenever(contratoRepository.findById(eq(CONTRATO_CO_ID))).thenReturn(Optional.of(contrato()))
+        cancelaContratoUseCase.executa(CONTRATO_CO_ID, false)
 
         verify(contratoRepository).save(argumentCaptor.capture())
         val contratoSalva = argumentCaptor.firstValue
 
         Assertions.assertEquals(StatusContrato.CANCELADO, contratoSalva.status)
-        print(contratoSalva.status)
     }
-
-    @Test
-    fun `deve cancelar o contrato informado`() {
-        cancelaContratoUseCase.executa(CONTRATO_CO_ID, true)
-
-        verify(contratoRepository).save(argumentCaptor.capture())
-        val contratoSalva = argumentCaptor.firstValue
-
-        Assertions.assertEquals(StatusContrato.ATIVO, contratoSalva.status)
-    }
-
 
     @Test
     fun `deve disparar uma excecao se o contrato nao existir`() {
-        assertThrows<CentralNotFoundException> {
+        assertThrows<ContratoNotFoundException> {
             cancelaContratoUseCase.executa(ID_CONTRATO_INEXISTENTE, false)
         }
+        verify(contratoRepository, never()).save(any())
+    }
 
+    @Test
+    fun `nao deve cancelar o contrato informado`(){
+        assertThrows<ContratoPendenciaException> {
+            cancelaContratoUseCase.executa(CONTRATO_CO_ID, true)
+        }
         verify(contratoRepository, never()).save(any())
     }
 }

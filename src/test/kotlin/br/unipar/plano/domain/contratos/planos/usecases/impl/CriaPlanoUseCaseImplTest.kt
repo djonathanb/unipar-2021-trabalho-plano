@@ -1,9 +1,10 @@
 package br.unipar.plano.domain.contratos.planos.usecases.impl
 
-import br.unipar.plano.domain.contratos.model.factories.idPlano
+
 import br.unipar.plano.domain.contratos.planos.model.Plano
 import br.unipar.plano.domain.contratos.planos.model.PlanoRepository
 import br.unipar.plano.domain.contratos.planos.model.factories.PLANO_CO_ID
+import br.unipar.plano.domain.contratos.planos.model.factories.idPlano
 import br.unipar.plano.domain.contratos.planos.model.factories.plano
 import com.nhaarman.mockitokotlin2.*
 import org.junit.jupiter.api.Assertions.assertEquals

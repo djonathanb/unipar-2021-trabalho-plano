@@ -15,22 +15,13 @@ fun idContrato (static: Boolean = true) = if (static) {
     IdContrato()
 }
 
-fun idPlano (static: Boolean = true) = if (static) {
-    PLANO_CO_ID
-} else {
-    IdPlano()
-}
-
-
-
-
 fun contrato(
     id: IdContrato = idContrato(),
-    dataCadastro: LocalDate = LocalDate.of(2018,11,26),
-    dataVencimento: LocalDate = LocalDate.of(2021,11,26),
+    dataCadastro: LocalDate = CONTRATO_CO_DATACADASTRO,
+    dataVencimento: LocalDate = CONTRATO_CO_VENCIMENTO,
     plano: Plano = plano(),
     titular : Pessoa = pessoaTest(),
-    dataCancelamento: LocalDate = LocalDate.now()
+    dataCancelamento: LocalDate = CONTRATO_CO_DATACANCELAMENTO
 ) = Contrato(
     id = id,
     dataContratacao = dataCadastro,

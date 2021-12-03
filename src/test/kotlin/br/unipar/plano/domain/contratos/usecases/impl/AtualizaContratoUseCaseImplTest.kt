@@ -1,6 +1,6 @@
 package br.unipar.plano.domain.contratos.usecases.impl
 
-import br.unipar.plano.domain.centrais.usecases.impl.CentralNotFoundException
+
 import br.unipar.plano.domain.contratos.model.Contrato
 import br.unipar.plano.domain.contratos.model.ContratoRepository
 import br.unipar.plano.domain.contratos.model.factories.CONTRATO_CO_ID
@@ -66,8 +66,40 @@ class AtualizaContratoUseCaseImplTest {
     }
 
     @Test
+    fun `deve garantir que o planos seja atualizado`() {
+        val plano = plano(idPlano(), valorbase = 110.0)
+
+        atualizaContratoUseCase.executa(CONTRATO_CO_ID) {
+            it.with(
+                dataContratoFinal = LocalDate.now(),
+                plano = plano
+            )
+        }
+
+        verify(contratoRepository).save(argumentCaptor.capture())
+        val contratoSalva = argumentCaptor.firstValue
+
+        Assertions.assertEquals(CONTRATO_CO_ID, contratoSalva.id)
+        Assertions.assertEquals(plano.valorbase, contratoSalva.plano.valorbase)
+    }
+
+    @Test
+    fun `deve disparar uma excecao se o plano for menor`() {
+        val plano = plano( idPlano(), valorbase = 10.0)
+        assertThrows<ContratoDowngradeException> {
+            atualizaContratoUseCase.executa(CONTRATO_CO_ID) {
+                it.with(
+                    plano = plano
+                )
+            }
+        }
+
+        verify(contratoRepository, never()).save(any())
+    }
+
+    @Test
     fun `deve disparar uma excecao se o contrato nao existir`() {
-        assertThrows<CentralNotFoundException> {
+        assertThrows<ContratoNotFoundException> {
             atualizaContratoUseCase.executa(ID_CONTRATO_INEXISTENTE) {
                 it.with()
             }

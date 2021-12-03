@@ -50,7 +50,8 @@ class ContratoApplicationServiceImpl(
         }
     }
 
-    override fun buscaPorPlano(idPlano: Plano) = contratoQueryService.buscaPorPlano(idPlano).map(ContratoDetailsDTO::toDTO)
+    override fun buscaPorPlano(idPlano: Plano) =
+        contratoQueryService.buscaPorPlano(idPlano).map(ContratoDetailsDTO::toDTO)
 
     override fun buscaPorPlanoeStatus(
         plano: Plano,
@@ -62,7 +63,7 @@ class ContratoApplicationServiceImpl(
     override fun cancelaContrato(idContrato: IdContrato) {
 
         val contrato = contratoQueryService.buscaPorId(idContrato)
-        val status : List<StatusCobranca> = listOf(StatusCobranca.ABERTO)
+        val status: List<StatusCobranca> = listOf(StatusCobranca.ABERTO)
         val statusAberto: Optional<List<StatusCobranca>> = Optional.of(status)
         val listaCobranca: List<CobrancaDetailsDTO> = cobrancaService.buscarPorContratoAndStatus(contrato, statusAberto)
 
