@@ -1,5 +1,6 @@
 package br.unipar.plano.domain.carteirinha.model
 
+import java.time.LocalDate
 import java.util.*
 import javax.persistence.*
 
@@ -12,13 +13,13 @@ class Carteirinha(
         val idUsuario: Int,
 
         @Column(nullable = false)
-        val dataEmissao: Date,
+        val dataEmissao: LocalDate,
 
         @Column(nullable = false)
-        val dataVencimento: Date,
+        val dataVencimento: LocalDate,
 
         @Column()
-        val dataEntrega: Date?,
+        val dataEntrega: LocalDate?,
 
         @Enumerated(EnumType.STRING)
         val status: StatusCarteirinha) {
@@ -28,10 +29,10 @@ class Carteirinha(
         if (status != StatusCarteirinha.ENTREGA_PENDENTE)
             throw Exception("Não é possível entregar uma carteirinha que não esteja pendente")
 
-        if (Date() <= dataEmissao)
+        if (LocalDate.now() < dataEmissao)
             throw Exception("Não é possível registrar a carteirinha com data de entrega menor que data de emissão")
 
-        return copy(status = StatusCarteirinha.VALIDA, dataEntrega = Date());
+        return copy(status = StatusCarteirinha.VALIDA, dataEntrega = LocalDate.now());
     }
 
     fun registrarExtravio(): Carteirinha {
@@ -39,15 +40,15 @@ class Carteirinha(
     }
 
     fun validate() : Boolean {
-        return (status == StatusCarteirinha.VALIDA && dataVencimento >= Date())
+        return (status == StatusCarteirinha.VALIDA && dataVencimento >= LocalDate.now())
     }
 
     private fun copy(
             numeroCarteirinha: String = this.numeroCarteirinha,
             idUsuario: Int = this.idUsuario,
-            dataEmissao: Date = this.dataEmissao,
-            dataVencimento: Date = this.dataVencimento,
-            dataEntrega: Date? = this.dataEntrega,
+            dataEmissao: LocalDate = this.dataEmissao,
+            dataVencimento: LocalDate = this.dataVencimento,
+            dataEntrega: LocalDate? = this.dataEntrega,
             status: StatusCarteirinha = this.status
     ) = Carteirinha(
             numeroCarteirinha = numeroCarteirinha,

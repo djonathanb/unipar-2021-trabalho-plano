@@ -8,10 +8,10 @@ import org.springframework.stereotype.Service
 @Service
 class ValidaCarteirinhaUseCaseImpl(private val carteirinhaQueryService: CarteirinhaQueryService) : ValidaCarteirinhaUseCase {
 
-    override fun validar(carteirinha: Carteirinha): Carteirinha {
+    override fun validar(numeroCarteirinha: String): Carteirinha {
         val carteirinhaResult: Carteirinha
         try {
-            carteirinhaResult = carteirinhaQueryService.buscaPorId(carteirinha.numeroCarteirinha)
+            carteirinhaResult = carteirinhaQueryService.buscaPorId(numeroCarteirinha)
         } catch (ex: Exception) {
             throw ex;
         }

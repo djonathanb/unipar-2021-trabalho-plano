@@ -7,8 +7,8 @@ import br.unipar.plano.interfaces.rest.carteirinha.MotivoDTO
 
 interface CarteirinhaApplicationService {
     fun criar(dto: CarteirinhaDTO): String;
-    fun validaCarteirinha(dto: CarteirinhaDTO): Carteirinha
+    fun validaCarteirinha(numeroCarteirinha: String): Carteirinha
     fun registraExtravio(dto: MotivoDTO): MotivoExtravio
-    fun registraEntrega(dto: CarteirinhaDTO): Carteirinha
+    fun registraEntrega(numeroCarteirinha: String): Carteirinha
 
 }

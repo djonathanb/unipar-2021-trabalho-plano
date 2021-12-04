@@ -1,5 +1,6 @@
 package br.unipar.plano.domain.carteirinha.model
 
+import java.time.LocalDate
 import java.util.*
 import javax.persistence.Column
 import javax.persistence.EmbeddedId
@@ -12,13 +13,13 @@ class MotivoExtravio(
         val numeroCarteirinha: String,
 
         @Column(nullable = false)
-        val dataExtravio: Date,
+        val dataExtravio: LocalDate,
 
         @Column(nullable = false)
         val motivoExtravio: String) {
 
     fun registrarExtravio(): MotivoExtravio {
-        val m = MotivoExtravio(dataExtravio = Date(), numeroCarteirinha = numeroCarteirinha, motivoExtravio = motivoExtravio);
+        val m = MotivoExtravio(dataExtravio = LocalDate.now(), numeroCarteirinha = numeroCarteirinha, motivoExtravio = motivoExtravio);
 
         return m
     }

@@ -10,6 +10,7 @@ import br.unipar.plano.domain.carteirinha.usecases.*
 import br.unipar.plano.interfaces.rest.carteirinha.CarteirinhaDTO
 import br.unipar.plano.interfaces.rest.carteirinha.MotivoDTO
 import org.springframework.stereotype.Service
+import java.time.LocalDate
 import java.util.*
 import java.util.regex.Pattern
 
@@ -35,9 +36,9 @@ class CarteirinhaApplicationServiceImpl(
         }
     }
 
-    override fun validaCarteirinha(dto: CarteirinhaDTO): Carteirinha {
-        validaRegex(dto.numeroCarteirinha)
-        return validaCarteirinhaUseCase.validar(toModel(dto))
+    override fun validaCarteirinha(numeroCarteirinha: String): Carteirinha {
+        validaRegex(numeroCarteirinha)
+        return validaCarteirinhaUseCase.validar(numeroCarteirinha)
     }
 
     override fun registraExtravio(dto: MotivoDTO): MotivoExtravio {
@@ -60,9 +61,9 @@ class CarteirinhaApplicationServiceImpl(
 
     }
 
-    override fun registraEntrega(dto: CarteirinhaDTO): Carteirinha {
-        validaRegex(dto.numeroCarteirinha)
-        val carteirinha = registraEntregaUseCase.registra(toModel(dto, status = StatusCarteirinha.VALIDA))
+    override fun registraEntrega(numeroCarteirinha: String): Carteirinha {
+        validaRegex(numeroCarteirinha)
+        val carteirinha = registraEntregaUseCase.registra(numeroCarteirinha)
         return carteirinha;
 
     }
@@ -70,7 +71,7 @@ class CarteirinhaApplicationServiceImpl(
     fun toModel(carteirinhaDTO: CarteirinhaDTO, status: StatusCarteirinha = StatusCarteirinha.ENTREGA_PENDENTE): Carteirinha = Carteirinha(
             numeroCarteirinha = carteirinhaDTO.numeroCarteirinha,
             idUsuario = carteirinhaDTO.idUsuario,
-            dataEmissao = Date(),
+            dataEmissao = LocalDate.now(),
             dataVencimento = calcularVencimento(),
             dataEntrega = null,
             status = status
@@ -79,13 +80,11 @@ class CarteirinhaApplicationServiceImpl(
     fun toModelMotivo(motivoDTO: MotivoDTO, carteirinha: Carteirinha): MotivoExtravio = MotivoExtravio(
             numeroCarteirinha = carteirinha.numeroCarteirinha,
             motivoExtravio = motivoDTO.motivo,
-            dataExtravio = Date()
+            dataExtravio = LocalDate.now()
     )
 
-    fun calcularVencimento(): Date {
-        val date = Calendar.getInstance()
-        date.add(Calendar.YEAR, 3)
-        return date.time
+    fun calcularVencimento(): LocalDate {
+        return LocalDate.now().plusYears(3)
     }
 
     fun validaRegex(value: String): Boolean {

@@ -39,10 +39,10 @@ class CarteirinhaResource(private val carteirinhaApplicationService: Carteirinha
     }
 
     @Operation(summary = "Verifica se uma carteirinha é válida ou não")
-    @PostMapping("/validate")
-    fun verificarValidade(@RequestBody @Valid dto: CarteirinhaDTO) : ResponseEntity<Any> {
+    @GetMapping("/{numeroCarteirinha}/valida")
+    fun verificarValidade(@PathVariable("numeroCarteirinha") numeroCarteirinha: String) : ResponseEntity<Any> {
         try {
-            val carteirinha = carteirinhaApplicationService.validaCarteirinha(dto)
+            val carteirinha = carteirinhaApplicationService.validaCarteirinha(numeroCarteirinha)
 
             return ResponseEntity.ok(carteirinha)
         } catch (ex: Exception) {
@@ -51,10 +51,10 @@ class CarteirinhaResource(private val carteirinhaApplicationService: Carteirinha
     }
 
     @Operation(summary = "Registra a entrega da carteirinha ao usuário")
-    @PostMapping("/register")
-    fun registrarEntrega(@RequestBody @Valid dto: CarteirinhaDTO): ResponseEntity<Any> {
+    @GetMapping("/{numeroCarteirinha}/entrega")
+    fun registrarEntrega(@PathVariable("numeroCarteirinha") numeroCarteirinha: String): ResponseEntity<Any> {
         try {
-            val carteirinha = carteirinhaApplicationService.registraEntrega(dto)
+            val carteirinha = carteirinhaApplicationService.registraEntrega(numeroCarteirinha)
             return ResponseEntity.ok(carteirinha)
         } catch (ex: Exception) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.message)
