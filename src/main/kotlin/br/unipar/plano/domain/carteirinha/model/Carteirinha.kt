@@ -1,7 +1,6 @@
 package br.unipar.plano.domain.carteirinha.model
 
 import java.time.LocalDate
-import java.util.*
 import javax.persistence.*
 
 @Entity
@@ -36,6 +35,9 @@ class Carteirinha(
     }
 
     fun registrarExtravio(): Carteirinha {
+        if (status != StatusCarteirinha.VALIDA)
+            throw Exception("Só é possível registrar o extravio de uma carteirinha com status: ${StatusCarteirinha.VALIDA}")
+
         return copy(status = StatusCarteirinha.EXTRAVIADA);
     }
 
