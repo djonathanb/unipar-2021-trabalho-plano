@@ -1,6 +1,5 @@
 package br.unipar.plano.interfaces.rest.carteirinha
 
-import br.unipar.plano.domain.usuario.IdUsuario
 import javax.validation.constraints.NotNull
 
 class CarteirinhaDTO (

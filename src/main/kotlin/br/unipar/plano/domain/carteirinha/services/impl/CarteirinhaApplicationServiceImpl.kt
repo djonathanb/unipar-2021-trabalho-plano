@@ -11,7 +11,6 @@ import br.unipar.plano.interfaces.rest.carteirinha.CarteirinhaDTO
 import br.unipar.plano.interfaces.rest.carteirinha.MotivoDTO
 import org.springframework.stereotype.Service
 import java.time.LocalDate
-import java.util.*
 import java.util.regex.Pattern
 
 @Service

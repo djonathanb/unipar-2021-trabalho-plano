@@ -26,17 +26,17 @@ class Carteirinha(
     fun registrarEntrega(): Carteirinha {
 
         if (status != StatusCarteirinha.ENTREGA_PENDENTE)
-            throw Exception("Não é possível entregar uma carteirinha que não esteja pendente")
+            throw IllegalStateException("Não é possível entregar uma carteirinha que não esteja pendente")
 
         if (LocalDate.now() < dataEmissao)
-            throw Exception("Não é possível registrar a carteirinha com data de entrega menor que data de emissão")
+            throw IllegalStateException("Não é possível registrar a carteirinha com data de entrega menor que data de emissão")
 
         return copy(status = StatusCarteirinha.VALIDA, dataEntrega = LocalDate.now());
     }
 
     fun registrarExtravio(): Carteirinha {
         if (status != StatusCarteirinha.VALIDA)
-            throw Exception("Só é possível registrar o extravio de uma carteirinha com status: ${StatusCarteirinha.VALIDA}")
+            throw IllegalStateException("Só é possível registrar o extravio de uma carteirinha com status: ${StatusCarteirinha.VALIDA}")
 
         return copy(status = StatusCarteirinha.EXTRAVIADA);
     }
