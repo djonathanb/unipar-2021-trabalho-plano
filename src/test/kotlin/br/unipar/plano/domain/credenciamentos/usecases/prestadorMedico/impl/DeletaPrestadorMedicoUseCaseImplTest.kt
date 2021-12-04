@@ -6,6 +6,7 @@ import br.unipar.plano.domain.credenciamentos.model.prestadorMedico.factories.PR
 import br.unipar.plano.domain.credenciamentos.model.prestadorMedico.factories.idPrestadorMedico
 import br.unipar.plano.domain.credenciamentos.model.prestadorMedico.factories.prestadorMedico
 import br.unipar.plano.domain.credenciamentos.usecases.prestadorMedico.impl.DeletaPrestMedicoUseCaseImpl
+import br.unipar.plano.domain.credenciamentos.usecases.prestadorMedico.impl.PrestMedicoNotFoundException
 import com.nhaarman.mockitokotlin2.*
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
@@ -40,7 +41,7 @@ class DeletaPrestadorMedicoUseCaseImplTest {
 
     @Test
     fun `deve disparar uma excecao se a prestador Medico nao existir`() {
-        assertThrows<CentralNotFoundException> {
+        assertThrows<PrestMedicoNotFoundException> {
             deletaPrestadorMedicoUseCase.executa(ID_PRESTADORMEDICO_INEXISTENTE)
         }
 
