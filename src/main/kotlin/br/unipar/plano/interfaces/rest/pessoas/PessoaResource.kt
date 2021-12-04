@@ -50,14 +50,14 @@ class PessoaResource(private val pessoaApplicationService: PessoaApplicationServ
     }
 
 
-    @Operation(summary = "Retorna a lista de contratos cadastrados")
+    @Operation(summary = "Retorna a lista de pessoas cadastradas")
     @GetMapping
     @ApiResponses(ApiResponse(description = "Sucesso ao consultar as pessoas", responseCode = "200"))
     fun lista(): ResponseEntity<List<PessoaDTO>> {
         return ResponseEntity.ok(pessoaApplicationService.lista())
     }
 
-    @Operation(summary = "Busca os detalhes de um contrato por id")
+    @Operation(summary = "Busca os detalhes de uma pessoa por id")
     @GetMapping("/{idPessoa}")
     @ApiResponses(ApiResponse(description = "Sucesso ao consultar a pessoa", responseCode = "200"))
     fun buscaPorId(@PathVariable("idPessoa") idPessoa: UUID ): ResponseEntity<PessoaDetailsDTO> {
