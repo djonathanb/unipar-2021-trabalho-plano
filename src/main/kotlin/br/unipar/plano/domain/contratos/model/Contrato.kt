@@ -17,7 +17,7 @@ class Contrato(
     val id: IdContrato,
 
     @Column(nullable = false)
-    val dataContratacao: LocalDate,
+    var dataContratacao: LocalDate,
 
     @Column(nullable = false)
     val dataContratoFinal: LocalDate,

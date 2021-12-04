@@ -43,14 +43,12 @@ fun contratoSummaryDTO(
     id: IdContrato = idContrato(static = staticId),
     idTitular: Pessoa = pessoaTest(),
     idPlano: Plano = plano(),
-    dataContratacao: LocalDate = CONTRATO_CO_DATACADASTRO,
     dataContratoFinal : LocalDate = CONTRATO_CO_VENCIMENTO,
     dependente: List<Dependente>? = null
 ) = ContratoSummaryDTO(
     id = id,
     idTitular = idTitular,
     idPlano = idPlano,
-    dataContratacao = dataContratacao,
     dataContratoFinal = dataContratoFinal,
     dependente = dependente
 

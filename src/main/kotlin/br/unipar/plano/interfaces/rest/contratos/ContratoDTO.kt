@@ -14,7 +14,6 @@ data class ContratoSummaryDTO(
     val id: IdContrato,
     val idTitular: Pessoa,
     val idPlano: Plano,
-    val dataContratacao: LocalDate,
     val dataContratoFinal : LocalDate,
     val dependente: List<Dependente>?
 ) {
@@ -25,7 +24,6 @@ data class ContratoSummaryDTO(
             id = contrato.id,
             idTitular = contrato.titular,
             idPlano = contrato.plano,
-            dataContratacao = contrato.dataContratacao,
             dataContratoFinal = contrato.dataContratoFinal,
             dependente = contrato.dependentes
         )
