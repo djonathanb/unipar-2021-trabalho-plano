@@ -1,6 +1,7 @@
 package br.unipar.plano.interfaces.rest
 
 import br.unipar.plano.application.exceptions.NotFoundException
+import br.unipar.plano.domain.contratos.usecases.impl.ContratoJaExistenteException
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -21,6 +22,10 @@ class RestResponseEntityExceptionHandler : ResponseEntityExceptionHandler() {
         return handleExceptionInternal(exception, ExceptionResponse(exception.message ?: ""), HttpHeaders(), status, request)
     }
 
+    @ExceptionHandler(value = [ContratoJaExistenteException::class])
+    fun handleNotFound(jaExisteException: ContratoJaExistenteException, request: WebRequest): ResponseEntity<Any> {
+        return handleException(jaExisteException, status = HttpStatus.BAD_REQUEST, request)
+    }
 }
 
 data class ExceptionResponse(val message: String)
