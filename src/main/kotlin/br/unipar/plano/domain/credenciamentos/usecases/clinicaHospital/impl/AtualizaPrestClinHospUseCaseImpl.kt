@@ -4,7 +4,6 @@ import br.unipar.plano.domain.credenciamentos.model.clinicaHospital.IdPrestadorC
 import br.unipar.plano.domain.credenciamentos.model.clinicaHospital.PrestadorClinicaHospital
 import br.unipar.plano.domain.credenciamentos.model.clinicaHospital.PrestadorClinicaHospitalRepository
 import br.unipar.plano.domain.credenciamentos.usecases.clinicaHospital.AtualizaPrestClinHospUseCase
-import br.unipar.plano.domain.credenciamentos.usecases.prestadorMedico.impl.PrestMedicoNotFoundException
 import org.springframework.stereotype.Service
 
 @Service

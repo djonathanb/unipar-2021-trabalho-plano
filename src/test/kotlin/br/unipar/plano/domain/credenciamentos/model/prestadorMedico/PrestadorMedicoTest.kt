@@ -1,6 +1,9 @@
-package br.unipar.plano.domain.centrais.model
+package br.unipar.plano.domain.credenciamentos.model.prestadorMedico
 
+import br.unipar.plano.domain.centrais.model.Central
+import br.unipar.plano.domain.centrais.model.StatusCentral
 import br.unipar.plano.domain.centrais.model.factories.*
+import br.unipar.plano.domain.credenciamentos.model.prestadorMedico.factories.prestadorMedico
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotSame
 import org.junit.jupiter.api.Test
@@ -14,30 +17,23 @@ class PrestadorMedicoTest {
     @Test
     fun `deve criar com status igual o CRIADO`() {
         val prestadorMedico = prestadorMedico()
-        assertEquals(StatusPrestadorMedico.CRIADO, prestadorMedico.status)
+        assertEquals(StatusMedico.CRIADO, prestadorMedico.status)
     }
 
     @Test
     fun `deve permitir a alteracao de informacoes basico de prestador medico`() {
         val novoNome = "00.000.000/0001-00"
-        val novoCnpj = "00.000.000/0001-00"
-        val novaCidade = 1010100
+        val novoCrm = "00.000.000/0001-00"
 
         val prestadorMedico = prestadorMedico()
         val novoEstadoPrestadorMedico = prestadorMedico.with(
             nome = novoNome,
-            cnpj = novoCnpj,
-            endereco = endereco(
-                cidade = novaCidade
-            )
+            crm = novoCrm
         )
 
         assertNotSame(prestadorMedico, novoEstadoPrestadorMedico)
-        assertEquals(PRESTADORMEDICO_CO_ID, novoEstadoPrestadorMedico.id)
-        assertEquals(CENTRAL_CO_STATUS, novoEstadoCentral.status)
-        assertEquals(CENTRAL_CO_ENDERECO_LOGRADOURO, novoEstadoCentral.endereco.logradouro)
-        assertEquals(novoCnpj, novoEstadoCentral.cnpj)
-        assertEquals(novaCidade, novoEstadoCentral.endereco.cidade)
+        assertEquals(novoCrm, novoEstadoPrestadorMedico.crm)
+        assertEquals(novoNome, novoEstadoPrestadorMedico.nome)
     }
 
     @Test

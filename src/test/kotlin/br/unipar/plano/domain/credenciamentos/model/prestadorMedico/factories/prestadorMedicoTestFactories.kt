@@ -1,4 +1,4 @@
-package br.unipar.plano.domain.credenciamentos.prestadorMedico.model.factories
+package br.unipar.plano.domain.credenciamentos.model.prestadorMedico.factories
 
 import br.unipar.plano.domain.credenciamentos.model.prestadorMedico.Especialidade
 import br.unipar.plano.domain.credenciamentos.model.prestadorMedico.IdPrestadorMedico
@@ -14,18 +14,18 @@ fun prestadorMedico(
     idPrestadorMedico: IdPrestadorMedico = idPrestadorMedico(),
     nome: String = PRESTADORMEDICO_NOME,
     crm: String = PRESTADORMEDICO_CRM,
-    especialidade: Especialidade = especialidades(idPrestadorMedico = idPrestadorMedico)
+    especialidades: List<Especialidade> = listOf(especialidade(idPrestadorMedico = idPrestadorMedico))
 ) = PrestadorMedico(
     idPrestadorMedico = idPrestadorMedico,
     nome = nome,
     crm = crm,
-    especialidades = especialidade
+    especialidades = especialidades
 )
 
-fun especialidades(
+fun especialidade(
     idPrestadorMedico: IdPrestadorMedico = idPrestadorMedico(),
-    especialidade: String = PRESTADORMEDICO_ESPECIALIDADE
+    especialidade: String = ""
 ) = Especialidade(
-    idPrestadorMedico = idPrestadorMedico,
-    especialidade = especialidade
+    id = idPrestadorMedico,
+    nomeEspecialidade = especialidade
 )

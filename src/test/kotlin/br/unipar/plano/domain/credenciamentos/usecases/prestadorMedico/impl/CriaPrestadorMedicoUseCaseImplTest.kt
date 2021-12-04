@@ -1,10 +1,11 @@
 package br.unipar.plano.domain.centrais.usecases.impl
 
-import br.unipar.plano.domain.centrais.model.Central
-import br.unipar.plano.domain.centrais.model.CentralRepository
-import br.unipar.plano.domain.centrais.model.factories.CENTRAL_CO_ID
-import br.unipar.plano.domain.centrais.model.factories.central
-import br.unipar.plano.domain.centrais.model.factories.idCentral
+import br.unipar.plano.domain.credenciamentos.model.prestadorMedico.PrestadorMedico
+import br.unipar.plano.domain.credenciamentos.model.prestadorMedico.PrestadorMedicoRepository
+import br.unipar.plano.domain.credenciamentos.model.prestadorMedico.factories.PRESTADORMEDICO_ID
+import br.unipar.plano.domain.credenciamentos.model.prestadorMedico.factories.idPrestadorMedico
+import br.unipar.plano.domain.credenciamentos.model.prestadorMedico.factories.prestadorMedico
+import br.unipar.plano.domain.credenciamentos.usecases.prestadorMedico.impl.CriaPrestMedicoUseCaseImpl
 import com.nhaarman.mockitokotlin2.*
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
@@ -17,13 +18,13 @@ private val ID_PRESTADORMEDICO_INEXISTENTE = idPrestadorMedico(false)
 class CriaPrestadorMedicoUseCaseImplTest {
 
     private val prestadorMedicoRepository = mock<PrestadorMedicoRepository>()
-    private val criaPrestadorMedicoUseCase = CriaPrestadorMedicoUseCaseImpl(prestadorMedicoRepository)
+    private val criaPrestadorMedicoUseCase = CriaPrestMedicoUseCaseImpl(prestadorMedicoRepository)
 
-    private val argumentCaptor = argumentCaptor<Central>()
+    private val argumentCaptor = argumentCaptor<PrestadorMedico>()
 
     @BeforeEach
     fun setUp() {
-        whenever(prestadorMedicoRepository.existsById(eq(PRESTADORMEDICO_CO_ID))).thenReturn(true)
+        whenever(prestadorMedicoRepository.existsById(eq(PRESTADORMEDICO_ID))).thenReturn(true)
         whenever(prestadorMedicoRepository.existsById(eq(ID_PRESTADORMEDICO_INEXISTENTE))).thenReturn(false)
         `when`(prestadorMedicoRepository.save(any())).then { it.arguments[0] }
     }

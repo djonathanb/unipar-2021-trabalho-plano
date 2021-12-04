@@ -3,7 +3,7 @@ package br.unipar.plano.domain.credenciamentos.model.prestadorMedico
 import javax.persistence.*
 
 enum class StatusMedico {
-    CRIADA, CREDENCIADA, DESCREDENCIADA, ATIVO, INATIVO
+    CRIADO, CREDENCIADA, DESCREDENCIADA, ATIVO, INATIVO
 }
 
 @Entity
@@ -16,7 +16,7 @@ class PrestadorMedico(
     val nome: String,
 
     @Enumerated(EnumType.STRING)
-    val status: StatusMedico = StatusMedico.CRIADA,
+    val status: StatusMedico = StatusMedico.CRIADO,
 
     @Column(unique = true)
     val crm: String,

@@ -1,52 +1,45 @@
-package br.unipar.plano.interfaces.rest.centrais.factories
+package br.unipar.plano.interfaces.rest.credenciamentos.prestadorMedico.factories
 
-import br.unipar.plano.domain.centrais.model.IdCentral
-import br.unipar.plano.domain.centrais.model.StatusCentral
-import br.unipar.plano.domain.centrais.model.factories.*
 import br.unipar.plano.domain.credenciamentos.model.prestadorMedico.IdPrestadorMedico
-import br.unipar.plano.domain.credenciamentos.model.prestadorMedico.PrestadorMedico
-import br.unipar.plano.interfaces.rest.centrais.CentralDTO
-import br.unipar.plano.interfaces.rest.centrais.CentralDetailsDTO
-import br.unipar.plano.interfaces.rest.credenciamentos.prestadorMedico.PrestMedDTO
-import br.unipar.plano.interfaces.rest.credenciamentos.prestadorMedico.PrestadorMedicoDetailsDTO
+import br.unipar.plano.domain.credenciamentos.model.prestadorMedico.StatusMedico
+import br.unipar.plano.domain.credenciamentos.model.prestadorMedico.factories.*
+import br.unipar.plano.interfaces.rest.credenciamentos.prestadorMedico.*
 
-fun PrestMedDTO(
-    nome: String = PRESTADORMEDICO_CO_NOME,
-    crm: String = PRESTADORMEDICO_CO_CRM,
-    especialidade: String = PRESTADORMEDICO_CO_ESPECIALIDADE
+fun prestMedDTO(
+    nome: String = PRESTADORMEDICO_NOME,
+    crm: String = PRESTADORMEDICO_CRM,
+    especialidades: List<EspecialidadeDTO> = listOf()
 ) = PrestMedDTO(
     nome = nome,
     crm = crm,
-    especialidade = especialidade
+    especialidades = especialidades
 )
 
-fun EspecialidadeDTO(
+fun especialidadeDTO(
     especialidade: String
 ) = EspecialidadeDTO(
-    especialidade = especialidade
+    nomeEspecialidade = especialidade
 )
 
-fun PrestadorMedicoSummaryDTO(
+fun prestadorMedicoSummaryDTO(
     staticId: Boolean = true,
     idPrestadorMedico: IdPrestadorMedico = idPrestadorMedico(staticId),
-    nome: String = PRESTADORMEDICO_CO_NOME,
-    crm: String = PRESTADORMEDICO_CO_CRM
+    nome: String = PRESTADORMEDICO_NOME,
+    crm: String = PRESTADORMEDICO_CRM,
+    especialidades: List<EspecialidadeSummaryDTO> = listOf()
 ) = PrestadorMedicoSummaryDTO(
     id = idPrestadorMedico,
     nome = nome,
-    crm = crm
+    crm = crm,
+    especialidades = especialidades
 )
-
-val id: IdPrestadorMedico,
-val nome: String,
-val status: String
 
 fun prestadorMedicoDetailsDTO(
     staticId: Boolean = true,
     idPrestadorMedico: IdPrestadorMedico = idPrestadorMedico(staticId),
-    status: StatusCentral = PRESTADORMEDICO_CO_STATUS,
-    prestMedData: PrestadorMedicoDetailsDTO = PrestMedDTO()
-) = CentralDetailsDTO(
+    status: StatusMedico = PRESTADOR_STATUS,
+    prestMedData: PrestMedDTO = prestMedDTO()
+) = PrestadorMedicoDetailsDTO(
     id = idPrestadorMedico,
     status = status,
     prestMedData = prestMedData

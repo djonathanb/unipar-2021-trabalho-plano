@@ -1,5 +1,30 @@
 package br.unipar.plano.interfaces.rest.credenciamentos.prestadorMedico
 
+import br.unipar.plano.application.exceptions.NotFoundException
+import br.unipar.plano.domain.credenciamentos.model.prestadorMedico.factories.idPrestadorMedico
+import br.unipar.plano.domain.credenciamentos.services.prestadorMedico.PrestMedAppService
+import br.unipar.plano.interfaces.rest.credenciamentos.prestadorMedico.factories.prestMedDTO
+import br.unipar.plano.interfaces.rest.credenciamentos.prestadorMedico.factories.prestadorMedicoDetailsDTO
+import br.unipar.plano.interfaces.rest.credenciamentos.prestadorMedico.factories.prestadorMedicoSummaryDTO
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.nhaarman.mockitokotlin2.any
+import com.nhaarman.mockitokotlin2.eq
+import com.nhaarman.mockitokotlin2.never
+import com.nhaarman.mockitokotlin2.verify
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Test
+import org.mockito.Mockito.`when`
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
+import org.springframework.boot.test.mock.mockito.MockBean
+import org.springframework.http.MediaType
+import org.springframework.test.web.servlet.MockMvc
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.header
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
+
+private const val BASE_PATH = "/prestadorMedico"
+
 @WebMvcTest(PrestadorMedicoResource::class)
 class PrestadorMedicoResourceTest {
 
@@ -7,13 +32,13 @@ class PrestadorMedicoResourceTest {
     private lateinit var mockMvc: MockMvc
 
     @MockBean
-    private lateinit var prestadormedicoApplicationService: PrestadorMedicoApplicationService
+    private lateinit var prestadormedicoApplicationService: PrestMedAppService
 
     @Test
     fun `deve retornar 201 e location ao criar uma nova prestadormedico`() {
         val idNovaPrestadorMedico = idPrestadorMedico()
         val localizacaoEsperada = "http://localhost$BASE_PATH/${idNovaPrestadorMedico.id}"
-        val prestadormedicoDTO = prestadormedicoDTO()
+        val prestadormedicoDTO = prestMedDTO()
 
         `when`(prestadormedicoApplicationService.cria(any())).thenReturn(idNovaPrestadorMedico)
 
@@ -33,9 +58,7 @@ class PrestadorMedicoResourceTest {
 
     @Test
     fun `deve retornar 400 ao criar uma prestadormedico se nome em branco`() {
-        val prestadormedicoDTO = prestadormedicoDTO(
-            nome = ""
-        )
+        val prestadormedicoDTO = prestadorMedicoDetailsDTO()
 
         val endpoint = BASE_PATH
         val conteudoJson = ObjectMapper().writeValueAsString(prestadormedicoDTO)
@@ -53,7 +76,7 @@ class PrestadorMedicoResourceTest {
     @Test
     fun `deve retornar 204 ao atualizar uma prestadormedico`() {
         val idPrestadorMedico = idPrestadorMedico()
-        val prestadormedicoDTO = prestadormedicoDTO()
+        val prestadormedicoDTO = prestMedDTO()
 
         val endpoint = "$BASE_PATH/${idPrestadorMedico.id}"
         val conteudoJson = ObjectMapper().writeValueAsString(prestadormedicoDTO)
@@ -71,10 +94,10 @@ class PrestadorMedicoResourceTest {
     @Test
     fun `deve retornar 404 ao atualizar uma prestadormedico inexistente`() {
         val idPrestadorMedico = idPrestadorMedico()
-        val prestadormedicoDTO = prestadormedicoDTO()
+        val prestadormedicoDTO = prestMedDTO()
 
         `when`(prestadormedicoApplicationService.atualiza(eq(idPrestadorMedico), eq(prestadormedicoDTO))).thenThrow(
-            PrestadorMedicoNotFoundException(idPrestadorMedico)
+            NotFoundException("")
         )
 
         val endpoint = "$BASE_PATH/${idPrestadorMedico.id}"
@@ -91,7 +114,7 @@ class PrestadorMedicoResourceTest {
     @Test
     fun `deve retornar 400 ao atualizar uma prestadormedico se nome em branco`() {
         val idPrestadorMedico = idPrestadorMedico()
-        val prestadormedicoDTO = prestadormedicoDTO(nome = "")
+        val prestadormedicoDTO = prestadorMedicoDetailsDTO()
 
         val endpoint = "$BASE_PATH/${idPrestadorMedico.id}"
         val conteudoJson = ObjectMapper().writeValueAsString(prestadormedicoDTO)
@@ -122,7 +145,7 @@ class PrestadorMedicoResourceTest {
         val idPrestadorMedico = idPrestadorMedico()
 
         `when`(prestadormedicoApplicationService.deleta(eq(idPrestadorMedico))).thenThrow(
-            PrestadorMedicoNotFoundException(idPrestadorMedico)
+            NotFoundException("")
         )
 
         val endpoint = "$BASE_PATH/${idPrestadorMedico.id}"
@@ -135,9 +158,9 @@ class PrestadorMedicoResourceTest {
     @Test
     fun `deve retornar 200 e corpo ao consultar uma prestadormedico`() {
         val idPrestadorMedico = idPrestadorMedico()
-        val prestadormedicoDetailsDTO = prestadormedicoDetailsDTO()
+        val prestadormedicoDetailsDTO = prestadorMedicoDetailsDTO()
 
-        whenever(prestadormedicoApplicationService.buscaPorId(eq(idPrestadorMedico))).thenReturn(prestadormedicoDetailsDTO)
+        `when`(prestadormedicoApplicationService.buscaPorId(eq(idPrestadorMedico))).thenReturn(prestadormedicoDetailsDTO)
 
         val endpoint = "$BASE_PATH/${idPrestadorMedico.id}"
         val requisicao = get(endpoint)
@@ -155,7 +178,7 @@ class PrestadorMedicoResourceTest {
         val idPrestadorMedico = idPrestadorMedico()
 
         `when`(prestadormedicoApplicationService.buscaPorId(eq(idPrestadorMedico))).thenThrow(
-            PrestadorMedicoNotFoundException(idPrestadorMedico)
+            NotFoundException("")
         )
 
         val endpoint = "$BASE_PATH/${idPrestadorMedico.id}"
@@ -168,11 +191,11 @@ class PrestadorMedicoResourceTest {
     @Test
     fun `deve retornar 200 e corpo ao listar as centrais`() {
         val listaCentrais = listOf(
-            prestadormedicoSummaryDTO(),
-            prestadormedicoSummaryDTO(staticId = false),
+            prestadorMedicoSummaryDTO(),
+            prestadorMedicoSummaryDTO(staticId = false),
         )
 
-        whenever(prestadormedicoApplicationService.lista()).thenReturn(listaCentrais)
+        `when`(prestadormedicoApplicationService.lista()).thenReturn(listaCentrais)
 
         val endpoint = BASE_PATH
         val requisicao = get(endpoint)
@@ -202,8 +225,8 @@ class PrestadorMedicoResourceTest {
     fun `deve retornar 404 ao credenciar uma prestadormedico inexistente`() {
         val idPrestadorMedico = idPrestadorMedico()
 
-        whenever(prestadormedicoApplicationService.credenciar(eq(idPrestadorMedico))).thenThrow(
-            PrestadorMedicoNotFoundException(idPrestadorMedico)
+        `when`(prestadormedicoApplicationService.credenciar(eq(idPrestadorMedico))).thenThrow(
+            NotFoundException("")
         )
 
         val endpoint = "$BASE_PATH/${idPrestadorMedico.id}/credenciamento"
@@ -230,8 +253,8 @@ class PrestadorMedicoResourceTest {
     fun `deve retornar 404 ao descredenciar uma prestadormedico inexistente`() {
         val idPrestadorMedico = idPrestadorMedico()
 
-        whenever(prestadormedicoApplicationService.descredenciar(eq(idPrestadorMedico))).thenThrow(
-            PrestadorMedicoNotFoundException(idPrestadorMedico)
+        `when`(prestadormedicoApplicationService.descredenciar(eq(idPrestadorMedico))).thenThrow(
+            NotFoundException("")
         )
 
         val endpoint = "$BASE_PATH/${idPrestadorMedico.id}/credenciamento"
