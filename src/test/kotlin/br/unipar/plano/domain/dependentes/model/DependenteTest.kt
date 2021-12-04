@@ -1,11 +1,12 @@
-package br.unipar.plano.domain.pessoas.model
+package br.unipar.plano.domain.dependentes.model
 
-
-import br.unipar.plano.domain.pessoas.model.factories.*
+import br.unipar.plano.domain.pessoas.model.StatusEstadoCivil
+import br.unipar.plano.domain.pessoas.model.factories.PESSOA_CO_ID
+import br.unipar.plano.domain.pessoas.model.factories.pessoaTest
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 
-class PessoaTest {
+class DependenteTest {
 
     @Test
     fun `deve criar com estado civil igual a AMASIADO`() {
@@ -34,4 +35,5 @@ class PessoaTest {
         Assertions.assertEquals(novoNome, informacaoNova.nome)
         Assertions.assertEquals(novoEndereco, informacaoNova.endereco)
     }
+
 }

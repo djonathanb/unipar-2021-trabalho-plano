@@ -8,20 +8,6 @@ import java.time.LocalDate
 import javax.validation.constraints.NotBlank
 
 
-data class PessoaSummaryDTO(
-    val id: IdPessoa
-) {
-
-    companion object {
-
-        fun toDTO(pessoa: Pessoa) = PessoaSummaryDTO(
-            id = pessoa.idPessoa
-        )
-
-
-    }
-
-}
 
 data class PessoaDetailsDTO(
     val id: IdPessoa,

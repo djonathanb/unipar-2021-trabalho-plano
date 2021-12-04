@@ -1,18 +1,13 @@
-package br.unipar.plano.domain.pessoas.model.factories
+package br.unipar.plano.interfaces.rest.pessoas.factories
 
 import br.unipar.plano.domain.pessoas.model.IdPessoa
-import br.unipar.plano.domain.pessoas.model.Pessoa
 import br.unipar.plano.domain.pessoas.model.StatusEstadoCivil
+import br.unipar.plano.domain.pessoas.model.factories.*
+import br.unipar.plano.interfaces.rest.pessoas.PessoaDTO
+import br.unipar.plano.interfaces.rest.pessoas.PessoaDetailsDTO
 import java.time.LocalDate
 
-fun idPessoa (static: Boolean = true) = if (static) {
-    PESSOA_CO_ID
-} else {
-    IdPessoa()
-}
-
-fun pessoaTest(
-    idPessoa:  IdPessoa = idPessoa(),
+fun pessoaDTO(
     nome: String = PESSOA_CO_NOMEPESSOA,
     endereco: String = PESSOA_CO_ENDERECO,
     rg: String = PESSOA_CO_RG,
@@ -21,14 +16,22 @@ fun pessoaTest(
     nomeMae: String = PESSOA_CO_NOME_MAE,
     nomePai: String = PESSOA_CO_NOME_PAI,
     estadoCivil: StatusEstadoCivil = PESSOA_CO_ESTADO_CIVIL
-) = Pessoa (
-    idPessoa = idPessoa,
+) = PessoaDTO(
     nome = nome,
     endereco = endereco,
     rg = rg,
     cpf = cpf,
+    estadoCivil = estadoCivil,
     dataDeNascimento = dataDeNascimento,
     nomeMae = nomeMae,
     nomePai = nomePai,
-    estadoCivil = estadoCivil
+)
+
+fun pessoaDetailsDto(
+    staticId: Boolean = true,
+    id: IdPessoa = idPessoa(staticId),
+    pessoaData : PessoaDTO = pessoaDTO()
+) = PessoaDetailsDTO(
+    id = id,
+    pessoaData = pessoaData
 )

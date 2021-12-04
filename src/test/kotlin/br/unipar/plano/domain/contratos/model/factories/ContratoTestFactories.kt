@@ -22,13 +22,15 @@ fun contrato(
     plano: Plano = plano(),
     titular : Pessoa = pessoaTest(),
     dataCancelamento: LocalDate = CONTRATO_CO_DATACANCELAMENTO
+
 ) = Contrato(
     id = id,
     dataContratacao = dataCadastro,
     dataContratoFinal = dataVencimento,
     plano = plano,
     titular = titular,
-    dataCancelamento = dataCancelamento
+    dataCancelamento = dataCancelamento,
+    dependentes = null
 )
 
 

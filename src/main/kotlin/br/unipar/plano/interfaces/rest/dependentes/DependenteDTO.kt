@@ -5,28 +5,46 @@ import br.unipar.plano.domain.dependentes.model.Dependente
 import br.unipar.plano.domain.dependentes.model.IdDependente
 import br.unipar.plano.domain.dependentes.model.TipoDependente
 import br.unipar.plano.domain.pessoas.model.Pessoa
-import br.unipar.plano.interfaces.rest.pessoas.PessoaDTO
-import br.unipar.plano.interfaces.rest.pessoas.PessoaSummaryDTO
+
 import javax.validation.constraints.NotNull
 
 
+data class DependenteDetailsDTO(
+    val id: IdDependente,
+    val dependenteData : DependenteDTO
+) {
+
+    companion object {
+
+        fun toDTO(dependente: Dependente) = DependenteDetailsDTO(
+            id = dependente.idDependente,
+            dependenteData = DependenteDTO.toDTO(dependente)
+        )
+
+    }
+
+}
+
 data class DependenteDTO(
-    @NotNull(message = "finalizar mensagem") // todo
+
+    @NotNull(message = "ID") // todo
     val idDependente: IdDependente,
 
     @NotNull(message = "A pessoa deve ser informada !")
-    val pessoa: PessoaSummaryDTO,
+    val pessoa: Pessoa,
 
     @NotNull(message = "O Tipo de Dependente deve ser informado !")
-    val tipo: TipoDependente
+    val tipo: TipoDependente,
 
+    @NotNull(message = "O contrato deve ser informado !")
+    val contrato : Contrato
 ) {
 
-    fun toModel(id: IdDependente = this.idDependente, contrato: Contrato, pessoa: Pessoa) = Dependente(
+    fun toModel(id: IdDependente = this.idDependente, pessoa: Pessoa) = Dependente(
         idDependente = id,
-        contrato = contrato,
         pessoa = pessoa,
-        tipo = this.tipo
+        tipo = this.tipo,
+        contrato = this.contrato
     )
 
 
@@ -34,8 +52,9 @@ data class DependenteDTO(
 
         fun toDTO(dependente: Dependente) = DependenteDTO(
             idDependente = dependente.idDependente,
-            pessoa = PessoaSummaryDTO.toDTO(dependente.pessoa),
-            tipo = dependente.tipo
+            pessoa = dependente.pessoa,
+            tipo = dependente.tipo,
+            contrato = dependente.contrato
         )
     }
 

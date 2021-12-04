@@ -25,7 +25,6 @@ class ContratoApplicationServiceImpl(
     private val atualizaContratoUseCase: AtualizaContratoUseCase,
     private val cobrancaService: CobrancaService,
     private val cancelaContratoUseCase: CancelaContratoUseCase,
-    private val planoQueryService: PlanoQueryService
 ) : ContratoApplicationService {
 
     override fun cria(@Valid contratoDTO: ContratoDTO): IdContrato {
@@ -45,7 +44,7 @@ class ContratoApplicationServiceImpl(
         atualizaContratoUseCase.executa(idContrato) {
             it.with(
                 dataContratoFinal = contratoDTO.dataContratoFinal,
-                plano = contratoDTO.plano
+                plano = contratoDTO.idPlano
             )
         }
     }

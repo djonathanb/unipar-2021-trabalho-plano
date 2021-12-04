@@ -2,8 +2,8 @@ package br.unipar.plano.interfaces.rest.contratos
 
 import br.unipar.plano.domain.contratos.model.Contrato
 import br.unipar.plano.domain.contratos.model.IdContrato
-import br.unipar.plano.domain.planos.model.Plano
 import br.unipar.plano.domain.contratos.model.StatusContrato
+import br.unipar.plano.domain.contratos.planos.model.Plano
 import br.unipar.plano.domain.dependentes.model.Dependente
 import br.unipar.plano.domain.pessoas.model.Pessoa
 import br.unipar.plano.interfaces.rest.dependentes.DependenteDTO
@@ -59,10 +59,10 @@ data class ContratoDTO(
     @NotNull(message = "Data de termino de contrato não informada")
     val dataContratoFinal: LocalDate,
 
-    @NotNull(message = "ID Plano não informado") //Arrumar mensagem todo
+    @NotNull(message = "Plano não informado") //Arrumar mensagem todo
     val idPlano: Plano,
 
-    @NotNull(message = "ID Pessoa não informado") //Arrumar mensagem todo
+    @NotNull(message = "Titular não informado") //Arrumar mensagem todo
     val idTitular: Pessoa,
 
     val dataCancelamento: LocalDate?,
@@ -78,8 +78,7 @@ data class ContratoDTO(
         plano = this.idPlano,
         titular = this.idTitular,
         dataCancelamento = this.dataCancelamento,
-        dependentes = this.dependentes?.map{ it.toModel(it.idDependente, this.)}
-
+        dependentes = this.dependentes?.map{ it.toModel(it.idDependente, pessoa = idTitular)}
     )
 
     companion object {

@@ -43,7 +43,7 @@ class PessoaResource(private val pessoaApplicationService: PessoaApplicationServ
     @Operation(summary = "Deleta uma pessoa a partir do seu id")
     @DeleteMapping("/{idPessoa}")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
-    @ApiResponses(ApiResponse(description = "Sucesso ao deletar a pessoa", responseCode = "200"),
+    @ApiResponses(ApiResponse(description = "Sucesso ao deletar a pessoa", responseCode = "204"),
                   ApiResponse(description = "Caso ocorra algum erro ao deletar a pessoa", responseCode = "400"))
     fun deleta(@PathVariable("idPessoa") idPessoa: IdPessoa) {
         pessoaApplicationService.deleta(idPessoa = idPessoa)

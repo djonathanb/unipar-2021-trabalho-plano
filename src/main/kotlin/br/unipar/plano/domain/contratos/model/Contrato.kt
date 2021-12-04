@@ -1,8 +1,8 @@
 package br.unipar.plano.domain.contratos.model
 
+import br.unipar.plano.domain.contratos.planos.model.Plano
 import br.unipar.plano.domain.dependentes.model.Dependente
 import br.unipar.plano.domain.pessoas.model.Pessoa
-import br.unipar.plano.domain.planos.model.Plano
 import java.time.LocalDate
 import javax.persistence.*
 
@@ -39,12 +39,12 @@ class Contrato(
 
 ) {
     fun with(
-        idContrato: IdContrato = this.id,
+        id: IdContrato = this.id,
         dataContratoFinal: LocalDate = this.dataContratoFinal,
         plano: Plano = this.plano,
         dependentes: List<Dependente>? = this.dependentes
     ) = copy(
-        idContrato = idContrato,
+        idContrato = id,
         dataContratoFinal = dataContratoFinal,
         plano = plano,
         dependentes = dependentes

@@ -45,7 +45,7 @@ class CriaContratoUseCaseImplTest {
     }
 
     @Test
-    fun `deve disparar uma excecao se uma central com o mesmo id ja existir`() {
+    fun `deve disparar uma excecao se um contrato com o mesmo id ja existir`() {
         assertThrows<IllegalStateException> {
             criaContratoUseCase.cria(contrato())
         }

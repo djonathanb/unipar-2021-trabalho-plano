@@ -27,25 +27,27 @@ class Dependente(
 ) {
     fun with(
         idDependente: IdDependente = this.idDependente,
-        contrato: Contrato = this.contrato,
         pessoa: Pessoa = this.pessoa,
-        tipo: TipoDependente = this.tipo
+        tipo: TipoDependente = this.tipo,
+        contrato: Contrato = this.contrato
     ) = copy(
         idDependente = idDependente,
-        contrato = contrato,
         pessoa =pessoa,
-        tipo = tipo
+        tipo = tipo,
+        contrato = contrato
+
     )
 
     private fun copy(
         idDependente: IdDependente = this.idDependente,
-        contrato: Contrato = this.contrato,
         pessoa: Pessoa = this.pessoa,
-        tipo: TipoDependente = this.tipo
+        tipo: TipoDependente = this.tipo,
+        contrato : Contrato = this.contrato
     ) = Dependente(
         idDependente = idDependente,
-        contrato = contrato,
         pessoa =pessoa,
-        tipo = tipo
+        tipo = tipo,
+        contrato = contrato
+
     )
 }

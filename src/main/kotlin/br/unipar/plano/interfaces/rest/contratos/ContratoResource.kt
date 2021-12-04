@@ -18,7 +18,7 @@ import javax.validation.Valid
 class ContratoResource(private val contratoApplicationService: ContratoApplicationService) {
 
     @Operation(summary = "Cria uma novo contrato e retorna o endereço do novo recurso")
-    @ApiResponses(ApiResponse(description = "Sucesso ao Criar um contrato", responseCode = "200"),
+    @ApiResponses(ApiResponse(description = "Sucesso ao Criar um contrato", responseCode = "201"),
                   ApiResponse(description = "Caso ocorra algum erro durante a criação do contrato", responseCode = "400")
     )
     @PostMapping
