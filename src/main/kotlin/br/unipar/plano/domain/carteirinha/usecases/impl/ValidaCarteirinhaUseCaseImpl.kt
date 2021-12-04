@@ -16,8 +16,7 @@ class ValidaCarteirinhaUseCaseImpl(private val carteirinhaQueryService: Carteiri
             throw ex;
         }
 
-        if (!carteirinhaResult.validate())
-            throw Exception("Carteirinha Inválida:\n Status: ${carteirinhaResult.status}")
+        carteirinhaResult.validate();
 
         return carteirinhaResult
 

@@ -18,11 +18,11 @@ class Carteirinha(
         @Column(nullable = false)
         val dataVencimento: LocalDate,
 
-        @Column()
+        @Column(nullable = true)
         val dataEntrega: LocalDate?,
 
         @Enumerated(EnumType.STRING)
-        val status: StatusCarteirinha) {
+        val status: StatusCarteirinha = StatusCarteirinha.ENTREGA_PENDENTE) {
 
     fun registrarEntrega(): Carteirinha {
 
@@ -40,7 +40,9 @@ class Carteirinha(
     }
 
     fun validate() : Boolean {
-        return (status == StatusCarteirinha.VALIDA && dataVencimento >= LocalDate.now())
+        if (status == StatusCarteirinha.VALIDA && dataVencimento >= LocalDate.now())
+            return true;
+        throw Exception("Carteirinha Inválida:\n Status: $status")
     }
 
     private fun copy(
