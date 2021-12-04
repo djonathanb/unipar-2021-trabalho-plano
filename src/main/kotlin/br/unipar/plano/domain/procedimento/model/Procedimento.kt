@@ -1,6 +1,8 @@
 package br.unipar.plano.domain.procedimento.model
 
 import br.unipar.plano.domain.carteirinha.model.Carteirinha
+import br.unipar.plano.domain.centrais.model.Central
+import br.unipar.plano.domain.centrais.model.StatusCentral
 import br.unipar.plano.domain.contrato.model.Contrato
 import br.unipar.plano.domain.prestador.model.Prestador
 import java.math.BigDecimal
@@ -48,6 +50,14 @@ class Procedimento(
         val especialidade: Especialidade
 
 ) {
+
+
+    fun cancela(): Procedimento {
+            if (status != StatusProcedimento.PENDENTE) {
+                    throw IllegalStateException("Não é possível cancelar um procedimento com status $status")
+            }
+            return copy(status = StatusProcedimento.CANCELADO, dataCancelamento = LocalDate.now())
+    }
 
     fun with(
             id: IdProcedimento = this.id,
