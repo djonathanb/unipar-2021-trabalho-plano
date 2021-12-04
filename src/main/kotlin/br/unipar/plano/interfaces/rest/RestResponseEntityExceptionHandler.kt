@@ -1,5 +1,6 @@
 package br.unipar.plano.interfaces.rest
 
+import br.unipar.plano.application.exceptions.NegocioException
 import br.unipar.plano.application.exceptions.NotFoundException
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
@@ -17,9 +18,13 @@ class RestResponseEntityExceptionHandler : ResponseEntityExceptionHandler() {
         return handleException(notFoundException, status = HttpStatus.NOT_FOUND, request)
     }
 
+    @ExceptionHandler(NegocioException::class)
+    fun negocioException(exception: NegocioException, request: WebRequest) = handleException(exception, HttpStatus.BAD_REQUEST, request)
+
     private fun handleException(exception: Exception, status: HttpStatus, request: WebRequest): ResponseEntity<Any> {
         return handleExceptionInternal(exception, ExceptionResponse(exception.message ?: ""), HttpHeaders(), status, request)
     }
+
 
 }
 
