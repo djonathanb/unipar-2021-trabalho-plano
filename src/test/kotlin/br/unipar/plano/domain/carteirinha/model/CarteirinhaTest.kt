@@ -33,9 +33,21 @@ class CarteirinhaTest {
     }
 
     @Test
-    fun `Registrar o extravio da Carteirinha`() {
-        val carteirinha = carteirinha().registrarExtravio();
+    fun `Registrar o extravio da Carteirinha valida`() {
+        val carteirinha = carteirinha(status = StatusCarteirinha.VALIDA).registrarExtravio();
+
         assertEquals(StatusCarteirinha.EXTRAVIADA, carteirinha.status)
+    }
+
+    @Test
+    fun `Não deve Registrar o extravio da Carteirinha se a mesma nao for valida`() {
+        val mensagemEsperada = "Só é possível registrar o extravio de uma carteirinha com status: VALIDA"
+
+        val message = assertThrows<Exception> {
+            carteirinha().registrarExtravio()
+        }.message
+
+        assertEquals(mensagemEsperada, message)
     }
 
 }
