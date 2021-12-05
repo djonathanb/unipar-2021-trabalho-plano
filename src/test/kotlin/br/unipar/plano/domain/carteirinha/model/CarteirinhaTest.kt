@@ -40,7 +40,7 @@ class CarteirinhaTest {
     }
 
     @Test
-    fun `Não deve Registrar o extravio da Carteirinha se a mesma nao for valida`() {
+    fun `Nao deve Registrar o extravio da Carteirinha se a mesma nao for valida`() {
         val mensagemEsperada = "Só é possível registrar o extravio de uma carteirinha com status: VALIDA"
 
         val message = assertThrows<Exception> {
