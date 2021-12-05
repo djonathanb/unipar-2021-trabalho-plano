@@ -12,7 +12,8 @@ import java.util.*
 import javax.validation.Valid
 
 @RestController
-@RequestMapping("/prenatal")
+@RequestMapping("/consultas/prenatais")
+
 class PreNatalResource(private val solicitarPreNatalService: SolicitarPreNatalService) {
 
     @Operation(summary = "Cria um novo pre natal e retorna o id do novo pre natal")
