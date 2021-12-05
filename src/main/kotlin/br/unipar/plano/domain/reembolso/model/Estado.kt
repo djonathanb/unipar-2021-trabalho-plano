@@ -1,6 +1,6 @@
 package br.unipar.plano.domain.reembolso.model
 
-enum class  EnumEstados {
+enum class  Estado {
     AMAZONAS,
     ALAGOAS,
     ACRE,

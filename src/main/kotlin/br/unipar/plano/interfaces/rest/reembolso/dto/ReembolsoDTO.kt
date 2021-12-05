@@ -9,13 +9,13 @@ import javax.validation.constraints.NotBlank
 import javax.validation.constraints.NotNull
 
 data class ReembolsoSummaryDTO(
-        val id: IdReembolso,
-        val estadoSolicitacao: EnumEstados,
-        val statusReembolso: StatusReembolso,
-        val valor: BigDecimal,
-        val dataSolicitacao: LocalDate,
-        val dataAnalize: LocalDate,
-        val usuario: Usuario
+    val id: IdReembolso,
+    val estadoSolicitacao: Estado,
+    val statusReembolso: StatusReembolso,
+    val valor: BigDecimal,
+    val dataSolicitacao: LocalDate,
+    val dataAnalize: LocalDate,
+    val usuario: Usuario
 ) {
 
     companion object {
@@ -35,13 +35,13 @@ data class ReembolsoSummaryDTO(
 }
 
 data class ReembolsoDetailsDTO(
-        val id: IdReembolso,
-        val estadoSolicitacao: EnumEstados,
-        val statusReembolso: StatusReembolso,
-        val valor: BigDecimal,
-        val dataSolicitacao: LocalDate,
-        val dataAnalize: LocalDate,
-        val usuario: Usuario
+    val id: IdReembolso,
+    val estadoSolicitacao: Estado,
+    val statusReembolso: StatusReembolso,
+    val valor: BigDecimal,
+    val dataSolicitacao: LocalDate,
+    val dataAnalize: LocalDate,
+    val usuario: Usuario
 ) {
 
     companion object {
@@ -61,22 +61,26 @@ data class ReembolsoDetailsDTO(
 }
 
 data class ReembolsoDTO(
-        @field:NotBlank
-        val estadoSolicitacao: EnumEstados,
 
-        @field:Enumerated(EnumType.STRING)
-        val statusReembolso: StatusReembolso,
+    @field:NotBlank
+    val estadoSolicitacao: Estado,
 
-        @field:NotNull
-        val valor: BigDecimal,
+    @field:Enumerated(EnumType.STRING)
+    val statusReembolso: StatusReembolso,
 
-        @field:NotNull
-        val dataSolicitacao: LocalDate,
+    @field:NotNull
+    val valor: BigDecimal,
 
-        val dataAnalize: LocalDate,
+    @field:NotNull
+    val dataSolicitacao: LocalDate,
 
-        @field:NotNull
-        val usuario: Usuario
+    @field:NotNull
+    val dataAnalize: LocalDate,
+
+    @field:NotNull
+    val usuario: Usuario,
+
+    val rejeicaoReembolso: RejeicaoReembolso
 ) {
 
     fun toModel(id: IdReembolso) = Reembolso(
@@ -86,7 +90,8 @@ data class ReembolsoDTO(
             valor = valor,
             dataSolicitacao = dataSolicitacao,
             dataAnalize = dataAnalize,
-            usuario = usuario
+            usuario = usuario,
+            rejeicaoReembolso = rejeicaoReembolso
     )
 
     companion object {
@@ -97,7 +102,8 @@ data class ReembolsoDTO(
                 valor = reembolso.valor,
                 dataSolicitacao = reembolso.dataSolicitacao,
                 dataAnalize = reembolso.dataAnalize,
-                usuario = reembolso.usuario
+                usuario = reembolso.usuario,
+                rejeicaoReembolso = reembolso.rejeicaoReembolso
         )
     }
 

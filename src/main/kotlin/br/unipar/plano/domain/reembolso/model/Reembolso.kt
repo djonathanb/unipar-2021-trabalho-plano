@@ -1,11 +1,7 @@
 package br.unipar.plano.domain.reembolso.model
 
-import org.springframework.core.convert.converter.Converter
-import org.springframework.lang.NonNull
-import org.springframework.stereotype.Component
 import java.math.BigDecimal
 import java.time.LocalDate
-import java.util.*
 import javax.persistence.*
 
 enum class StatusReembolso {
@@ -18,10 +14,10 @@ class Reembolso(
         val id: IdReembolso,
 
         @Column(nullable = false)
-        val estadoSolicitacao: EnumEstados,
+        val estadoSolicitacao: Estado,
 
         @Enumerated(EnumType.STRING)
-        val statusReembolso: StatusReembolso = StatusReembolso.EM_ANALIZE,
+        var statusReembolso: StatusReembolso = StatusReembolso.EM_ANALIZE,
 
         @Column(nullable = false)
         val valor: BigDecimal,
@@ -29,11 +25,14 @@ class Reembolso(
         @Column(nullable = false)
         val dataSolicitacao: LocalDate = LocalDate.now(),
 
-        @Column(nullable = true)
-        val dataAnalize: LocalDate,
+        @Column(nullable = false)
+        var dataAnalize: LocalDate,
 
         @OneToOne(cascade = [CascadeType.ALL])
-        val usuario: Usuario
+        val usuario: Usuario,
+
+        @OneToOne
+        var rejeicaoReembolso: RejeicaoReembolso
 ){
 
         fun autoriza(): Reembolso {
@@ -43,16 +42,19 @@ class Reembolso(
                 return copy(status = StatusReembolso.APROVADO)
         }
 
-        fun rejeita(): Reembolso {
-                if (statusReembolso != StatusReembolso.APROVADO) {
+        fun rejeita(rejeicaoReembolso: RejeicaoReembolso): Reembolso {
+                if (statusReembolso != StatusReembolso.EM_ANALIZE) {
                         throw IllegalStateException("Não é possível rejeitar um reembolso com status $statusReembolso")
                 }
+
+//                this.rejeicaoReembolso = rejeicaoReembolso
+
                 return copy(status = StatusReembolso.REJEITADO)
         }
 
         fun with(
                 id: IdReembolso = this.id,
-                estadoSolicitacao: EnumEstados = this.estadoSolicitacao,
+                estadoSolicitacao: Estado = this.estadoSolicitacao,
                 valor: BigDecimal = this.valor,
                 dataSolicitacao: LocalDate = this.dataSolicitacao,
                 dataAnalize: LocalDate = this.dataAnalize,
@@ -68,12 +70,13 @@ class Reembolso(
 
         private fun copy(
                 id: IdReembolso = this.id,
-                estadoSolicitacao: EnumEstados = this.estadoSolicitacao,
+                estadoSolicitacao: Estado = this.estadoSolicitacao,
                 valor: BigDecimal = this.valor,
                 dataSolicitacao: LocalDate = this.dataSolicitacao,
                 dataAnalize: LocalDate = this.dataAnalize,
                 usuario: Usuario = this.usuario,
-                status: StatusReembolso = this.statusReembolso
+                status: StatusReembolso = this.statusReembolso,
+                rejeicaoReembolso:RejeicaoReembolso = this.rejeicaoReembolso
         ) = Reembolso(
                 id = id,
                 estadoSolicitacao = estadoSolicitacao,
@@ -81,6 +84,7 @@ class Reembolso(
                 dataSolicitacao = dataSolicitacao,
                 dataAnalize = dataAnalize,
                 usuario = usuario,
-                statusReembolso = status
+                statusReembolso = status,
+                rejeicaoReembolso = rejeicaoReembolso
         )
 }

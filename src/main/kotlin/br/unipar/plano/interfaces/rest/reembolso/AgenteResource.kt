@@ -13,7 +13,7 @@ import org.springframework.http.ResponseEntity
 import javax.validation.Valid
 
 @RestController
-@RequestMapping("/reembolso")
+@RequestMapping("/reembolsos")
 class AgenteResource(private val agenteApplicationService: AgenteApplicationService) {
 
     @Operation(summary = "Autoriza um reembolso")
@@ -24,7 +24,7 @@ class AgenteResource(private val agenteApplicationService: AgenteApplicationServ
     }
 
     @Operation(summary = "Rejeita um reembolso")
-    @PutMapping("/{idReembolso}/autorizacao")
+    @PostMapping("/{idReembolso}/rejeicao")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     fun rejeitarReembolso(@PathVariable("idReembolso") idReembolso: UUID, @RequestBody @Valid reembolsoRejeitadoDTO : ReembolsoRejeitadoDTO) {
         agenteApplicationService.rejeitarReembolso(idReembolso = IdReembolso(idReembolso), reembolsoRejeitadoDTO = reembolsoRejeitadoDTO)

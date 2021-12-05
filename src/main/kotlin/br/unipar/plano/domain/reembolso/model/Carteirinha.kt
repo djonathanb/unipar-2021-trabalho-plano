@@ -1,7 +1,6 @@
 package br.unipar.plano.domain.reembolso.model
 
 import java.time.LocalDate
-import java.util.*
 import javax.persistence.*
 
 enum class StatusCarteirinha {
@@ -10,8 +9,8 @@ enum class StatusCarteirinha {
 
 @Entity
 class Carteirinha (
-    @Id
-    val id: UUID,
+    @field:EmbeddedId
+    val id: IdCarteirinha,
 
     @Column(nullable = false)
     val numero: String,
@@ -22,6 +21,6 @@ class Carteirinha (
     @Column(nullable = false)
     val dataValidade: LocalDate,
 
-    @OneToOne(cascade = [CascadeType.ALL])
+    @ManyToOne(cascade = [CascadeType.ALL])
     val usuario: Usuario,
 )

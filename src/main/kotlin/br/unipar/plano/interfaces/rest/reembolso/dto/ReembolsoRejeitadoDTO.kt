@@ -7,7 +7,7 @@ import javax.validation.constraints.NotBlank
 import javax.validation.constraints.NotNull
 
 data class ReembolsoRejeitadoSummaryDTO(
-        val id: UUID,
+        val id: IdRejeicao,
         val dataRejeicao: LocalDate,
         val motivo: String,
         val agente: Int,
@@ -16,12 +16,12 @@ data class ReembolsoRejeitadoSummaryDTO(
 
     companion object {
 
-        fun toDTO(reembolsoRejeitado: ReembolsoRejeitado) = ReembolsoRejeitadoSummaryDTO(
-                id = reembolsoRejeitado.id,
-                dataRejeicao = reembolsoRejeitado.dataRejeicao,
-                motivo = reembolsoRejeitado.motivo,
-                agente = reembolsoRejeitado.agente,
-                reembolso = reembolsoRejeitado.reembolso
+        fun toDTO(rejeicaoReembolso: RejeicaoReembolso) = ReembolsoRejeitadoSummaryDTO(
+                id = rejeicaoReembolso.id,
+                dataRejeicao = rejeicaoReembolso.dataRejeicao,
+                motivo = rejeicaoReembolso.motivo,
+                agente = rejeicaoReembolso.agente,
+                reembolso = rejeicaoReembolso.reembolso
         )
 
     }
@@ -29,7 +29,7 @@ data class ReembolsoRejeitadoSummaryDTO(
 }
 
 data class ReembolsoRejeitadoDetailsDTO(
-        val id: UUID,
+        val id: IdRejeicao,
         val dataRejeicao: LocalDate,
         val motivo: String,
         val agente: Int,
@@ -38,12 +38,12 @@ data class ReembolsoRejeitadoDetailsDTO(
 
     companion object {
 
-        fun toDTO(reembolsoRejeitado: ReembolsoRejeitado) = ReembolsoRejeitadoDetailsDTO(
-                id = reembolsoRejeitado.id,
-                dataRejeicao = reembolsoRejeitado.dataRejeicao,
-                motivo = reembolsoRejeitado.motivo,
-                agente = reembolsoRejeitado.agente,
-                reembolso = reembolsoRejeitado.reembolso
+        fun toDTO(rejeicaoReembolso: RejeicaoReembolso) = ReembolsoRejeitadoDetailsDTO(
+                id = rejeicaoReembolso.id,
+                dataRejeicao = rejeicaoReembolso.dataRejeicao,
+                motivo = rejeicaoReembolso.motivo,
+                agente = rejeicaoReembolso.agente,
+                reembolso = rejeicaoReembolso.reembolso
         )
 
     }
@@ -52,7 +52,7 @@ data class ReembolsoRejeitadoDetailsDTO(
 
 data class ReembolsoRejeitadoDTO (
         @field:NotNull
-        val id: UUID,
+        val id: IdRejeicao,
 
         @field:NotNull
         val dataRejeicao: LocalDate,
@@ -67,7 +67,7 @@ data class ReembolsoRejeitadoDTO (
         val reembolso: Reembolso
 ){
 
-    fun toModel(id: UUID) = ReembolsoRejeitado(
+    fun toModel(id: IdRejeicao) = RejeicaoReembolso(
             id = id,
             dataRejeicao = dataRejeicao,
             motivo = motivo,
@@ -77,12 +77,12 @@ data class ReembolsoRejeitadoDTO (
 
     companion object {
 
-        fun toDTO(reembolsoRejeitado: ReembolsoRejeitado) = ReembolsoRejeitadoDTO(
-                id = reembolsoRejeitado.id,
-                dataRejeicao = reembolsoRejeitado.dataRejeicao,
-                motivo = reembolsoRejeitado.motivo,
-                agente = reembolsoRejeitado.agente,
-                reembolso = reembolsoRejeitado.reembolso
+        fun toDTO(rejeicaoReembolso: RejeicaoReembolso) = ReembolsoRejeitadoDTO(
+                id = rejeicaoReembolso.id,
+                dataRejeicao = rejeicaoReembolso.dataRejeicao,
+                motivo = rejeicaoReembolso.motivo,
+                agente = rejeicaoReembolso.agente,
+                reembolso = rejeicaoReembolso.reembolso
         )
     }
 

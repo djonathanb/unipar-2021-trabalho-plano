@@ -5,9 +5,9 @@ import java.util.*
 import javax.persistence.*
 
 @Entity
-class ReembolsoRejeitado (
-    @Id
-    val id: UUID,
+class RejeicaoReembolso (
+    @field:EmbeddedId
+    val id: IdRejeicao,
 
     @Column(nullable = true)
     val dataRejeicao: LocalDate,

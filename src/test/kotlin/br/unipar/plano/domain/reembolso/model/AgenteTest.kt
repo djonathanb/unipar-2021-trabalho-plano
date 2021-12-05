@@ -21,12 +21,12 @@ class AgenteTest {
         Assertions.assertEquals(StatusReembolso.APROVADO, novoEstadoReembolso.statusReembolso)
     }
 
-    @Test
-    fun `deve alterar o status do reembolso quando rejeitado`() {
-        val reembolso = reembolso().autoriza()
-        val novoEstadoReembolso = reembolso.rejeita()
-
-        Assertions.assertEquals(StatusReembolso.APROVADO, reembolso.statusReembolso)
-        Assertions.assertEquals(StatusReembolso.REJEITADO, novoEstadoReembolso.statusReembolso)
-    }
+//    @Test
+//    fun `deve alterar o status do reembolso quando rejeitado`() {
+//        val reembolso = reembolso().autoriza()
+//        val novoEstadoReembolso = reembolso.rejeita()
+//
+//        Assertions.assertEquals(StatusReembolso.APROVADO, reembolso.statusReembolso)
+//        Assertions.assertEquals(StatusReembolso.REJEITADO, novoEstadoReembolso.statusReembolso)
+//    }
 }

@@ -6,14 +6,15 @@ import io.swagger.v3.oas.annotations.Operation
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder
+import java.util.*
 import javax.validation.Valid
 
 @RestController
-@RequestMapping("/solicitacao-reembolso")
+@RequestMapping("/usuarios")
 class UsuarioResource (private val usuarioApplicationService: UsuarioApplicationService){
 
     @Operation(summary = "Faz uma solicitação de reembolso e retorna o endereço do novo recurso")
-    @PostMapping
+    @PostMapping("/{idUsuario}/reembolsos")
     fun solicitaReembolso(@RequestBody @Valid reembolsoDTO: ReembolsoDTO): ResponseEntity<Void> {
         val idNovoReembolso = usuarioApplicationService.solicitaReembolso(reembolsoDTO)
 

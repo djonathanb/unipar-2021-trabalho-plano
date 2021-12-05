@@ -16,7 +16,7 @@ class Plano (
     val tipoAbrangencia: TipoAbrangencia,
 
     @Column(nullable = false)
-    val areaAbrangencia: EnumEstados,
+    val areaAbrangencia: Estado,
 
     @OneToOne(cascade = [CascadeType.ALL])
     val usuario: Usuario

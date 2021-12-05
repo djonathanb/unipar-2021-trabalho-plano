@@ -11,6 +11,12 @@ fun idReembolso(static: Boolean = true) = if (static) {
     IdReembolso()
 }
 
+fun idRejeicao(static: Boolean = true) = if (static) {
+        REJEICAO_ID
+} else {
+        IdRejeicao()
+}
+
 fun idUsuario(static: Boolean = true) = if (static) {
     USUARIO_ID
 } else {
@@ -20,7 +26,7 @@ fun idUsuario(static: Boolean = true) = if (static) {
 fun idCarteirinha(static: Boolean = true) = if (static) {
     CARTEIRINHA_ID
 } else {
-    UUID.randomUUID()
+    IdCarteirinha()
 }
 
 fun idPlano(static: Boolean = true) = if (static) {
@@ -29,14 +35,29 @@ fun idPlano(static: Boolean = true) = if (static) {
     UUID.randomUUID()
 }
 
+fun rejeicao(
+        idRejeicao: IdRejeicao = idRejeicao(),
+        dataRejeicao: LocalDate = REJEICAO_DATA,
+        motivo: String = REJEICAO_MOTIVO,
+        agente: Int = REJEICAO_AGENTE,
+        reembolso: Reembolso = reembolso(idReembolso = idReembolso())
+) = RejeicaoReembolso(
+        id = idRejeicao,
+        dataRejeicao = dataRejeicao,
+        motivo = motivo,
+        agente = agente,
+        reembolso = reembolso
+)
+
 fun reembolso(
         idReembolso: IdReembolso = idReembolso(),
-        estadoSolicitacao: EnumEstados = REEMBOLSO_ESTADO,
+        estadoSolicitacao: Estado = REEMBOLSO_ESTADO,
         statusReembolso: StatusReembolso = REEMBOLSO_STATUS,
         valor: BigDecimal = REEMBOLSO_VALOR,
         dataSolicitacao: LocalDate = REEMBOLSO_DATA_SOLICITACAO,
         dataAnalize: LocalDate = REEMBOLSO_DATA_ANALIZE,
-        usuario: Usuario = usuario(idUsuario = idUsuario())
+        usuario: Usuario = usuario(idUsuario = idUsuario()),
+        rejeicaoReembolso: RejeicaoReembolso = rejeicao(idRejeicao = idRejeicao())
 ) = Reembolso(
         id = idReembolso,
         estadoSolicitacao = estadoSolicitacao,
@@ -44,7 +65,8 @@ fun reembolso(
         valor = valor,
         dataSolicitacao = dataSolicitacao,
         dataAnalize = dataAnalize,
-        usuario = usuario
+        usuario = usuario,
+        rejeicaoReembolso = rejeicaoReembolso
 )
 
 fun usuario(
@@ -58,7 +80,7 @@ fun usuario(
 )
 
 fun carteirinha(
-        id: UUID = idCarteirinha(),
+        id: IdCarteirinha = IdCarteirinha(),
         numero: String = CARTEIRINHA_NUMERO,
         statusCarteirinha: StatusCarteirinha = CARTEIRNHA_STATUS,
         dataValidade: LocalDate = CARTEIRNHA_DATA_VALIDADE,
@@ -74,7 +96,7 @@ fun carteirinha(
 fun plano(
         id: UUID = idPlano(),
         tipoAbrangencia: TipoAbrangencia = PLANO_TIPO_ABRANGENCIA,
-        areaAbrangencia: EnumEstados = PLANO_ATEA_ABRANGENCIA,
+        areaAbrangencia: Estado = PLANO_ATEA_ABRANGENCIA,
         usuario: Usuario = usuario(idUsuario = idUsuario())
 ) = Plano (
         id = id,
