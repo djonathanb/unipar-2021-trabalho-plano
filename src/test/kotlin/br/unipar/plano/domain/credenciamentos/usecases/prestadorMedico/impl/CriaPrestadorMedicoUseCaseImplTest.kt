@@ -1,11 +1,10 @@
-package br.unipar.plano.domain.centrais.usecases.impl
+package br.unipar.plano.domain.credenciamentos.usecases.prestadorMedico.impl
 
 import br.unipar.plano.domain.credenciamentos.model.prestadorMedico.PrestadorMedico
 import br.unipar.plano.domain.credenciamentos.model.prestadorMedico.PrestadorMedicoRepository
 import br.unipar.plano.domain.credenciamentos.model.prestadorMedico.factories.PRESTADORMEDICO_ID
 import br.unipar.plano.domain.credenciamentos.model.prestadorMedico.factories.idPrestadorMedico
 import br.unipar.plano.domain.credenciamentos.model.prestadorMedico.factories.prestadorMedico
-import br.unipar.plano.domain.credenciamentos.usecases.prestadorMedico.impl.CriaPrestMedicoUseCaseImpl
 import com.nhaarman.mockitokotlin2.*
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
@@ -37,15 +36,6 @@ class CriaPrestadorMedicoUseCaseImplTest {
         val prestadorMedicoSalva = argumentCaptor.firstValue
 
         assertEquals(novaPrestadorMedico, prestadorMedicoSalva)
-    }
-
-    @Test
-    fun `deve disparar uma excecao se uma prestador Medico com o mesmo id ja existir`() {
-        assertThrows<IllegalStateException> {
-            criaPrestadorMedicoUseCase.executa(prestadorMedico())
-        }
-
-        verify(prestadorMedicoRepository, never()).save(any())
     }
 
 }

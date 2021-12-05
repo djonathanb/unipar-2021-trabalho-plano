@@ -35,12 +35,12 @@ class PrestadorMedicoResourceTest {
     private lateinit var prestadormedicoApplicationService: PrestMedAppService
 
     @Test
-    fun `deve retornar 201 e location ao criar uma nova prestadormedico`() {
-        val idNovaPrestadorMedico = idPrestadorMedico()
-        val localizacaoEsperada = "http://localhost$BASE_PATH/${idNovaPrestadorMedico.id}"
+    fun `deve retornar 201 e location ao criar uma novo prestadormedico`() {
+        val idNovoPrestadorMedico = idPrestadorMedico()
+        val localizacaoEsperada = "http://localhost$BASE_PATH/${idNovoPrestadorMedico.id}"
         val prestadormedicoDTO = prestMedDTO()
 
-        `when`(prestadormedicoApplicationService.cria(any())).thenReturn(idNovaPrestadorMedico)
+        `when`(prestadormedicoApplicationService.cria(any())).thenReturn(idNovoPrestadorMedico)
 
         val endpoint = BASE_PATH
         val conteudoJson = ObjectMapper().writeValueAsString(prestadormedicoDTO)
@@ -189,13 +189,13 @@ class PrestadorMedicoResourceTest {
     }
 
     @Test
-    fun `deve retornar 200 e corpo ao listar as centrais`() {
-        val listaCentrais = listOf(
+    fun `deve retornar 200 e corpo ao listar os prestadores medicos`() {
+        val listaPrestadoresMedicos = listOf(
             prestadorMedicoSummaryDTO(),
             prestadorMedicoSummaryDTO(staticId = false),
         )
 
-        `when`(prestadormedicoApplicationService.lista()).thenReturn(listaCentrais)
+        `when`(prestadormedicoApplicationService.lista()).thenReturn(listaPrestadoresMedicos)
 
         val endpoint = BASE_PATH
         val requisicao = get(endpoint)
@@ -204,7 +204,7 @@ class PrestadorMedicoResourceTest {
             .andExpect(status().isOk)
             .andReturn()
 
-        val resultadoEsperado = ObjectMapper().writeValueAsString(listaCentrais)
+        val resultadoEsperado = ObjectMapper().writeValueAsString(listaPrestadoresMedicos)
         assertEquals(resultadoEsperado, mvcResult.response.contentAsString)
     }
 
