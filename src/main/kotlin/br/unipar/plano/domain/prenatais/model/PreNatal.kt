@@ -20,7 +20,6 @@ class PreNatal(
     @OneToOne(cascade = [CascadeType.ALL])
     val carteirinha: Carteirinha,
 
-    @Temporal(TemporalType.TIMESTAMP)
     val dataSolicitacao: LocalDate = LocalDate.now(),
 
     @Column
