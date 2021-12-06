@@ -1,9 +1,10 @@
 package br.unipar.plano.interfaces.rest.centrais
 
 import br.unipar.plano.domain.centrais.model.Central
-import br.unipar.plano.domain.centrais.model.Endereco
+import br.unipar.plano.domain.centrais.model.EnderecoCentral
 import br.unipar.plano.domain.centrais.model.IdCentral
 import br.unipar.plano.domain.centrais.model.StatusCentral
+import br.unipar.plano.domain.enderecos.model.Endereco
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.NotNull
 import javax.validation.constraints.Size
@@ -96,7 +97,7 @@ data class EnderecoDTO(
     val complemento: String
 ) {
 
-    fun toModel(idCentral: IdCentral) = Endereco(
+    fun toModel(idCentral: IdCentral) = EnderecoCentral(
         idCentral = idCentral,
         cidade = this.cidade,
         cep = this.cep,

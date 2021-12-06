@@ -19,7 +19,7 @@ class Central(
     val cnpj: String,
 
     @OneToOne(cascade = [CascadeType.ALL], orphanRemoval = true)
-    val endereco: Endereco,
+    val endereco: EnderecoCentral,
 
     @Enumerated(EnumType.STRING)
     val status: StatusCentral = StatusCentral.CRIADA
@@ -44,7 +44,7 @@ class Central(
         id: IdCentral = this.id,
         nome: String = this.nome,
         cnpj: String = this.cnpj,
-        endereco: Endereco = this.endereco
+        endereco: EnderecoCentral = this.endereco
     ) = copy(
         id = id,
         nome = nome,
@@ -56,7 +56,7 @@ class Central(
         id: IdCentral = this.id,
         nome: String = this.nome,
         cnpj: String = this.cnpj,
-        endereco: Endereco = this.endereco,
+        endereco: EnderecoCentral = this.endereco,
         status: StatusCentral = this.status
     ) = Central(
         id = id,
