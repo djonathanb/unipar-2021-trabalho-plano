@@ -2,12 +2,17 @@ package br.unipar.plano.domain.carteirinha.model
 
 import javax.persistence.EmbeddedId
 import javax.persistence.Entity
+import javax.persistence.EnumType
+import javax.persistence.Enumerated
 
 @Entity
 class Carteirinha(
 
         @field:EmbeddedId
-        val id: IdCarteirinha
+        val id: IdCarteirinha,
+
+        @Enumerated(EnumType.STRING)
+        val status: StatusCarteirinha
 
 );
 
