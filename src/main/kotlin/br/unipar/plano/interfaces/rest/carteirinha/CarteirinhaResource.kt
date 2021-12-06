@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.responses.ApiResponses
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.validation.BindingResult
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder
 import javax.validation.Valid
@@ -16,7 +17,8 @@ class CarteirinhaResource(private val carteirinhaApplicationService: Carteirinha
 
     @Operation(summary = "Cria uma nova carteirinha para o usuário e retorna o endereço do novo recurso")
     @ApiResponses(value = [
-        ApiResponse(responseCode = "201", description = "Carteirinha criada com sucesso!")
+        ApiResponse(responseCode = "201", description = "Carteirinha criada com sucesso!"),
+        ApiResponse(responseCode = "404", description = "Carteirinha Inválida ou não encontrada!")
     ])
     @PostMapping
     fun criarCarteirinha(@RequestBody @Valid dto: CarteirinhaDTO): ResponseEntity<Any> {
@@ -39,6 +41,10 @@ class CarteirinhaResource(private val carteirinhaApplicationService: Carteirinha
     }
 
     @Operation(summary = "Verifica se uma carteirinha é válida ou não")
+    @ApiResponses(value = [
+        ApiResponse(responseCode = "200", description = "Carteirinha Válida!"),
+        ApiResponse(responseCode = "404", description = "Carteirinha inválida!")
+    ])
     @GetMapping("/{numeroCarteirinha}/valida")
     fun verificarValidade(@PathVariable("numeroCarteirinha") numeroCarteirinha: String) : ResponseEntity<Any> {
         try {
@@ -51,6 +57,10 @@ class CarteirinhaResource(private val carteirinhaApplicationService: Carteirinha
     }
 
     @Operation(summary = "Registra a entrega da carteirinha ao usuário")
+    @ApiResponses(value = [
+        ApiResponse(responseCode = "200", description = "Carteirinha Registrada!"),
+        ApiResponse(responseCode = "404", description = "Carteirinha não Registrada!")
+    ])
     @GetMapping("/{numeroCarteirinha}/entrega")
     fun registrarEntrega(@PathVariable("numeroCarteirinha") numeroCarteirinha: String): ResponseEntity<Any> {
         try {
@@ -62,6 +72,10 @@ class CarteirinhaResource(private val carteirinhaApplicationService: Carteirinha
     }
 
     @Operation(summary = "Registra o extravio e grava o motivo deste")
+    @ApiResponses(value = [
+        ApiResponse(responseCode = "200", description = "Extravio registrado!"),
+        ApiResponse(responseCode = "404", description = "Falha ao registrar extravio!")
+    ])
     @PostMapping("/registermisplacement")
     fun registrarExtravio(@RequestBody @Valid motivoDTO: MotivoDTO): ResponseEntity<Any> {
         try {
