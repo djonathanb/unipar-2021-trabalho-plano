@@ -12,10 +12,9 @@ import org.springframework.stereotype.Service
 class CriaProcedimentoUseCaseImpl(private val procedimentoRepository: ProcedimentoRepository) : CriaProcedimentoUseCase {
 
     override fun executa(procedimento: Procedimento): Procedimento {
-        if (procedimentoRepository.existsById(procedimento.id)) {
+        if (procedimentoRepository.existsById(procedimento.id))
             throw IllegalStateException("Outr procedimento com id ${procedimento.id} já foi cadastrado")
-        }
+
         return procedimentoRepository.save(procedimento)
     }
-
 }

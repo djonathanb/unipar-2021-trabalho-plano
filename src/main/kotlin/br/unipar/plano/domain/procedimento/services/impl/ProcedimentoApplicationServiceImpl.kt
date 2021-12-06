@@ -43,5 +43,4 @@ class ProcedimentoApplicationServiceImpl(
         val procedimento = procedimentoQueryService.buscaPorId(idProcedimento)
         return ProcedimentoDetailsDTO.toDTO(procedimento)
     }
-
 }

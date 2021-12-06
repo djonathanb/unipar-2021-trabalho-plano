@@ -14,5 +14,4 @@ class AtualizaProcedimentoUseCaseImpl(private val procedimentoRepository: Proced
         val procedimento = procedimentoRepository.findById(idProcedimento).orElseThrow { ProcedimentoNotFoundException(idProcedimento) }
         procedimentoRepository.save(transformation(procedimento).with(id = idProcedimento))
     }
-
 }

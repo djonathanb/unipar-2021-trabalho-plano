@@ -6,11 +6,9 @@ import br.unipar.plano.interfaces.rest.procedimento.ProcedimentoDetailsDTO
 import br.unipar.plano.interfaces.rest.procedimento.ProcedimentoSummaryDTO
 
 interface ProcedimentoApplicationService {
-
     fun cria(procedimentoDTO: ProcedimentoDTO): IdProcedimento
     fun atualiza(idProcedimento: IdProcedimento, procedimentoDTO: ProcedimentoDTO)
     fun lista(): List<ProcedimentoSummaryDTO>
     fun buscaPorId(idProcedimento: IdProcedimento): ProcedimentoDetailsDTO
     fun deleta(idProcedimento: IdProcedimento)
-
 }
