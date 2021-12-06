@@ -47,7 +47,7 @@ class Reembolso(
                         throw IllegalStateException("Não é possível rejeitar um reembolso com status $statusReembolso")
                 }
 
-//                this.rejeicaoReembolso = rejeicaoReembolso
+                this.rejeicaoReembolso = rejeicaoReembolso
 
                 return copy(status = StatusReembolso.REJEITADO)
         }
