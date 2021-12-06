@@ -1,17 +1,14 @@
 package br.unipar.plano.domain.procedimento.model
 
 import br.unipar.plano.domain.carteirinha.model.Carteirinha
-import br.unipar.plano.domain.centrais.model.Central
-import br.unipar.plano.domain.centrais.model.StatusCentral
+import br.unipar.plano.domain.carteirinha.model.StatusCarteirinha
 import br.unipar.plano.domain.contrato.model.Contrato
 import br.unipar.plano.domain.prestador.model.Prestador
+import br.unipar.plano.domain.solicitacaoprocedimento.service.SolicitacaoProcedimentoQueryService
 import java.math.BigDecimal
 import java.time.LocalDate
+import java.util.*
 import javax.persistence.*
-
-enum class StatusProcedimento {
-    CANCELADO, REALIZADO, PENDENTE
-}
 
 @Entity
 class Procedimento(
@@ -51,12 +48,23 @@ class Procedimento(
 
 ) {
 
-
     fun cancela(): Procedimento {
-            if (status != StatusProcedimento.PENDENTE) {
-                    throw IllegalStateException("Não é possível cancelar um procedimento com status $status")
-            }
-            return copy(status = StatusProcedimento.CANCELADO, dataCancelamento = LocalDate.now())
+        if (status != StatusProcedimento.PENDENTE) {
+            throw Exception("Não é possível cancelar um procedimento com status $status")
+        }
+        return copy(status = StatusProcedimento.CANCELADO, dataCancelamento = LocalDate.now())
+    }
+
+    fun criar(solicitacaoProcedimentoQueryService: SolicitacaoProcedimentoQueryService): Procedimento {
+
+        if (!carteirinha.status.equals(StatusCarteirinha.VALIDA))
+            throw IllegalStateException("A carteirinha com id ${carteirinha.numeroCarteirinha} não é válida!")
+
+        if (!especialidade.equals(Especialidade.CLINICA_MEDICA))
+            if (solicitacaoProcedimentoQueryService.findByProcedimento_Id(id).count() == 0)
+                throw IllegalStateException("Procedimentos diferentes de clínica médica, deve estar atrelados a uma liberação!")
+
+        return copy(status = StatusProcedimento.PENDENTE, dataEmissao = LocalDate.now())
     }
 
     fun with(
