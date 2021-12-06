@@ -9,10 +9,6 @@ import java.math.BigDecimal
 import java.time.LocalDate
 import javax.persistence.*
 
-enum class StatusProcedimento {
-    CANCELADO, REALIZADO, PENDENTE
-}
-
 @Entity
 class Procedimento(
 

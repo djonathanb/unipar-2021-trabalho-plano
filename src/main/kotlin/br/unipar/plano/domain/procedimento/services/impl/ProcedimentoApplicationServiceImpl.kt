@@ -5,7 +5,7 @@ import br.unipar.plano.domain.procedimento.services.ProcedimentoApplicationServi
 import br.unipar.plano.domain.procedimento.services.ProcedimentoQueryService
 import br.unipar.plano.domain.procedimento.usecases.AtualizaProcedimentoUseCase
 import br.unipar.plano.domain.procedimento.usecases.CriaProcedimentoUseCase
-import br.unipar.plano.domain.procedimento.usecases.DeletaProcedimentoUseCase
+import br.unipar.plano.domain.procedimento.usecases.CancelaProcedimentoUseCase
 import br.unipar.plano.interfaces.rest.procedimento.ProcedimentoDTO
 import br.unipar.plano.interfaces.rest.procedimento.ProcedimentoDetailsDTO
 import br.unipar.plano.interfaces.rest.procedimento.ProcedimentoSummaryDTO
@@ -16,7 +16,7 @@ class ProcedimentoApplicationServiceImpl(
     private val procedimentoQueryService: ProcedimentoQueryService,
     private val criaProcedimentoUseCase: CriaProcedimentoUseCase,
     private val atualizaProcedimentoUseCase: AtualizaProcedimentoUseCase,
-    private val deletaProcedimentoUseCase: DeletaProcedimentoUseCase
+    private val cancelaProcedimentoUseCase: CancelaProcedimentoUseCase
 ) : ProcedimentoApplicationService {
 
     override fun cria(procedimentoDTO: ProcedimentoDTO): IdProcedimento {
@@ -33,8 +33,8 @@ class ProcedimentoApplicationServiceImpl(
         }
     }
 
-    override fun deleta(idProcedimento: IdProcedimento) {
-        deletaProcedimentoUseCase.executa(idProcedimento)
+    override fun cancela(idProcedimento: IdProcedimento) {
+        cancelaProcedimentoUseCase.executa(idProcedimento)
     }
 
     override fun lista() = procedimentoQueryService.lista().map(ProcedimentoSummaryDTO::toDTO)

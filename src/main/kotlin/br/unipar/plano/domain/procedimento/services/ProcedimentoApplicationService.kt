@@ -10,5 +10,5 @@ interface ProcedimentoApplicationService {
     fun atualiza(idProcedimento: IdProcedimento, procedimentoDTO: ProcedimentoDTO)
     fun lista(): List<ProcedimentoSummaryDTO>
     fun buscaPorId(idProcedimento: IdProcedimento): ProcedimentoDetailsDTO
-    fun deleta(idProcedimento: IdProcedimento)
+    fun cancela(idProcedimento: IdProcedimento)
 }

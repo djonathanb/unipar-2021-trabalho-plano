@@ -13,7 +13,7 @@ class CriaProcedimentoUseCaseImpl(private val procedimentoRepository: Procedimen
 
     override fun executa(procedimento: Procedimento): Procedimento {
         if (procedimentoRepository.existsById(procedimento.id))
-            throw IllegalStateException("Outr procedimento com id ${procedimento.id} já foi cadastrado")
+            throw IllegalStateException("Outro procedimento com id ${procedimento.id} já foi cadastrado!")
 
         return procedimentoRepository.save(procedimento)
     }
