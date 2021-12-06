@@ -2,8 +2,6 @@ package br.unipar.plano.domain.procedimento.model
 
 import br.unipar.plano.domain.carteirinha.model.Carteirinha
 import br.unipar.plano.domain.carteirinha.model.StatusCarteirinha
-import br.unipar.plano.domain.centrais.model.Central
-import br.unipar.plano.domain.centrais.model.StatusCentral
 import br.unipar.plano.domain.contrato.model.Contrato
 import br.unipar.plano.domain.prestador.model.Prestador
 import br.unipar.plano.domain.solicitacaoprocedimento.service.SolicitacaoProcedimentoQueryService
