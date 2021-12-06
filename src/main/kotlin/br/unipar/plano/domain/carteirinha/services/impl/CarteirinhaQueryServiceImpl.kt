@@ -3,8 +3,8 @@ package br.unipar.plano.domain.carteirinha.services.impl
 import br.unipar.plano.domain.carteirinha.model.Carteirinha
 import br.unipar.plano.domain.carteirinha.model.CarteirinhaRepository
 import br.unipar.plano.domain.carteirinha.services.CarteirinhaQueryService
-import br.unipar.plano.domain.carteirinha.usecases.impl.CarteirinhaNotFoundException
-import br.unipar.plano.domain.carteirinha.usecases.impl.CarteirinhaUsuarioNotFoundException
+import br.unipar.plano.application.exceptions.CarteirinhaNotFoundException
+import br.unipar.plano.application.exceptions.CarteirinhaUsuarioNotFoundException
 import org.springframework.stereotype.Service
 
 @Service

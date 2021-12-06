@@ -1,4 +1,4 @@
-package br.unipar.plano.domain.carteirinha.usecases.impl
+package br.unipar.plano.application.exceptions
 
 import br.unipar.plano.application.exceptions.NotFoundException
 
