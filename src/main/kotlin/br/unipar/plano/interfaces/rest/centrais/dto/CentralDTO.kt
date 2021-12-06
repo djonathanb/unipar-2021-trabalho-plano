@@ -1,4 +1,4 @@
-package br.unipar.plano.interfaces.rest.centrais
+package br.unipar.plano.interfaces.rest.centrais.dto
 
 import br.unipar.plano.domain.centrais.model.Central
 import br.unipar.plano.domain.centrais.model.Endereco
@@ -30,9 +30,9 @@ data class CentralSummaryDTO(
 }
 
 data class CentralDetailsDTO(
-    val id: IdCentral,
-    val status: StatusCentral,
-    val centralData: CentralDTO
+        val id: IdCentral,
+        val status: StatusCentral,
+        val centralData: CentralDTO
 ) {
 
     companion object {

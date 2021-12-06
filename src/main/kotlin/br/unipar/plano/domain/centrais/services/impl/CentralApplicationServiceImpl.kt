@@ -4,9 +4,9 @@ import br.unipar.plano.domain.centrais.model.IdCentral
 import br.unipar.plano.domain.centrais.services.CentralApplicationService
 import br.unipar.plano.domain.centrais.services.CentralQueryService
 import br.unipar.plano.domain.centrais.usecases.*
-import br.unipar.plano.interfaces.rest.centrais.CentralDTO
-import br.unipar.plano.interfaces.rest.centrais.CentralDetailsDTO
-import br.unipar.plano.interfaces.rest.centrais.CentralSummaryDTO
+import br.unipar.plano.interfaces.rest.centrais.dto.CentralDTO
+import br.unipar.plano.interfaces.rest.centrais.dto.CentralDetailsDTO
+import br.unipar.plano.interfaces.rest.centrais.dto.CentralSummaryDTO
 import org.springframework.stereotype.Service
 
 @Service
