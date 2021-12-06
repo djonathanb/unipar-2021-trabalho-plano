@@ -43,21 +43,15 @@ class CarteirinhaApplicationServiceImpl(
     override fun registraExtravio(dto: MotivoDTO): MotivoExtravio {
 
         var carteirinha: Carteirinha? = null;
+        carteirinha = carteirinhaQueryService.findByIdUsuario(dto.idUsuario);
 
-        try {
-            carteirinha = carteirinhaQueryService.findByIdUsuario(dto.idUsuario);
+        carteirinha = registraExtravioUseCase.registraExtravio(carteirinha)
 
-            carteirinha = registraExtravioUseCase.registraExtravio(carteirinha)
+        var motivoExtravio = toModelMotivo(dto, carteirinha)
 
-            var motivoExtravio = toModelMotivo(dto, carteirinha)
+        motivoExtravio = registraMotivoExtravioUseCase.RegistraMotivoExtravio(motivoExtravio)
 
-            motivoExtravio = registraMotivoExtravioUseCase.RegistraMotivoExtravio(motivoExtravio)
-
-            return motivoExtravio
-        } catch (ex: Exception) {
-            throw ex;
-        }
-
+        return motivoExtravio
     }
 
     override fun registraEntrega(numeroCarteirinha: String): Carteirinha {

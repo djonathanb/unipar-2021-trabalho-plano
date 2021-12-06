@@ -11,12 +11,7 @@ import java.util.*
 class RegistraCarteirinhaUseCaseImpl(private val carteirinhaQueryService: CarteirinhaQueryService) : RegistraCarteirinhaUseCase {
 
     override fun registra(numeroCarteirinha: String): Carteirinha {
-        var carteirinhaResult: Carteirinha
-        try {
-            carteirinhaResult = carteirinhaQueryService.buscaPorId(numeroCarteirinha)
-        } catch (ex: Exception) {
-            throw ex;
-        }
+        var carteirinhaResult: Carteirinha = carteirinhaQueryService.buscaPorId(numeroCarteirinha)
 
         carteirinhaResult = carteirinhaResult.registrarEntrega()
 
