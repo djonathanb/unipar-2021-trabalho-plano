@@ -11,10 +11,6 @@ class CancelaProcedimentoUseCaseImpl(private val procedimentoRepository: Procedi
 
     override fun executa(idProcedimento: IdProcedimento) {
         val procedimento = procedimentoRepository.findById(idProcedimento).orElseThrow { ProcedimentoNotFoundException(idProcedimento) }
-
-        if (procedimento.status.equals(StatusProcedimento.CANCELADO))
-            throw IllegalStateException("O procedimento com id ${procedimento.id} já foi cancelado!")
-
         return procedimentoRepository.delete(procedimento)
     }
 }
