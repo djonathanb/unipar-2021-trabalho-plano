@@ -8,5 +8,5 @@ import java.util.*
 @Repository
 interface CarteirinhaRepository : JpaRepository<Carteirinha, String> {
     @Query("select c from Carteirinha c where c.idUsuario = ?1 and (c.status = 'VALIDA' or c.status = 'ENTREGA_PENDENTE')")
-    abstract fun findByIdUsuario(idUsuario: Int): Optional<Carteirinha>
+    abstract fun findCarteirinhaValidaByIdUSuario(idUsuario: Int): Optional<Carteirinha>
 }

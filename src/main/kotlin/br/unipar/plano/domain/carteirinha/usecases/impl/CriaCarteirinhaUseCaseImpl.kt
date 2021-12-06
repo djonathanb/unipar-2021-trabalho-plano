@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service
 class CriaCarteirinhaUseCaseImpl(private val carteirinhaRepository: CarteirinhaRepository): CriaCarteirinhaUseCase {
     override fun cria(carteirinha: Carteirinha): Carteirinha {
 
-        var carteirinhaResult = carteirinhaRepository.findByIdUsuario(carteirinha.idUsuario)
+        var carteirinhaResult = carteirinhaRepository.findCarteirinhaValidaByIdUSuario(carteirinha.idUsuario)
 
         if (carteirinhaResult.isPresent)
             throw Exception("Usuário ${carteirinha.idUsuario} já possui uma carteirinha válida: ${carteirinhaResult.get().numeroCarteirinha}")

@@ -18,7 +18,7 @@ class CarteirinhaQueryServiceImpl(private val carteirinhaRepository: Carteirinha
     }
 
     override fun findByIdUsuario(idUsuario: Int): Carteirinha {
-        return carteirinhaRepository.findByIdUsuario(idUsuario).orElseThrow{
+        return carteirinhaRepository.findCarteirinhaValidaByIdUSuario(idUsuario).orElseThrow{
             CarteirinhaUsuarioNotFoundException(idUsuario)
         };
     }
