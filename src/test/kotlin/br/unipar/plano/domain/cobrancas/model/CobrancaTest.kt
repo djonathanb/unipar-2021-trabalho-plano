@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
+import java.math.BigDecimal
 
 class CobrancaTest {
 
@@ -28,5 +29,18 @@ class CobrancaTest {
         val cobranca = cobranca(status = StatusCobranca.CANCELADO)
         assertThrows<IllegalStateException> { cobranca.cancelar() }
     }
+
+    @Test
+    fun `nao deve permitir uma cobranca com valor total 0`() {
+        assertThrows<IllegalStateException> {
+            cobranca(
+                valorContrato = BigDecimal.ZERO,
+                valorAdicionalIdade = BigDecimal.ZERO,
+                procedimentos = emptyList(),
+                cirurgias = emptyList()
+            )
+        }
+    }
+
 
 }

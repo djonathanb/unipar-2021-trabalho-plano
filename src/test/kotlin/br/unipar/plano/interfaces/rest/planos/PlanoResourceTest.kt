@@ -22,7 +22,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
 private const val BASE_PATH = "/planos"
 
-@WebMvcTest(PlanoResource::class)
+@WebMvcTest(PlanoResource::class, properties = ["inserir.contrato.no.startup=false"])
 class PlanoResourceTest {
 
     @Autowired

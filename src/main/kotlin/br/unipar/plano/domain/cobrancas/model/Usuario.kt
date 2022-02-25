@@ -12,7 +12,7 @@ import javax.persistence.ManyToOne
 class Usuario(
     @Id val id: UUID,
     @ManyToOne(cascade = [CascadeType.ALL])
-    val plano: Plano,
+    val plano: br.unipar.plano.domain.planos.model.Plano,
     val dataNascimento: LocalDate
 ) {
     fun idade() = ChronoUnit.YEARS.between(dataNascimento, LocalDate.now())

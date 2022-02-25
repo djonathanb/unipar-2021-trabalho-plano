@@ -1,16 +1,20 @@
 package br.unipar.plano.interfaces.rest.cobrancas
 
+import br.unipar.plano.domain.cobrancas.model.factories.CONTRATO_UUID
 import br.unipar.plano.domain.cobrancas.model.factories.cobranca
 import br.unipar.plano.domain.cobrancas.model.factories.idCobranca
+import br.unipar.plano.domain.cobrancas.model.factories.idContrato
 import br.unipar.plano.domain.cobrancas.service.CobrancaService
 import br.unipar.plano.domain.cobrancas.service.impl.CobrancaNotFoundException
 import br.unipar.plano.interfaces.rest.cobrancas.factories.cobrancaDetailsDTO
 import br.unipar.plano.interfaces.rest.cobrancas.factories.cobrancaSummaryDTO
-import br.unipar.plano.interfaces.rest.cobrancas.factories.contratoDTO
 import br.unipar.plano.interfaces.rest.cobrancas.factories.registrarCobrancaDTO
 import br.unipar.plano.interfaces.rest.cobrancas.impl.CobrancaResourceImpl
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.nhaarman.mockitokotlin2.*
+import com.nhaarman.mockitokotlin2.any
+import com.nhaarman.mockitokotlin2.eq
+import com.nhaarman.mockitokotlin2.verify
+import com.nhaarman.mockitokotlin2.whenever
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito.`when`
@@ -23,10 +27,10 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.header
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
-private const val BASE_PATH = "/cobrancas"
+private val BASE_PATH = "/contratos/${CONTRATO_UUID}/cobrancas"
 private const val CANCELAMENTO_PATH = "/cancelamento"
 
-@WebMvcTest(CobrancaResourceImpl::class)
+@WebMvcTest(CobrancaResourceImpl::class, properties = ["inserir.contrato.no.startup=false"])
 class CobrancaResourceTest {
 
     @Autowired
@@ -47,6 +51,7 @@ class CobrancaResourceTest {
         `when`(
             cobrancaService.registrarCobranca(
                 any(),
+                any(), any(),
                 any()
             )
         ).thenReturn(idCobranca)
@@ -65,45 +70,28 @@ class CobrancaResourceTest {
     }
 
     @Test
-    fun `deve retornar 400 ao criar uma cobranca sem os dependentes`() {
-        val registrarCobrancaDTO = registrarCobrancaDTO(contratoDTO = contratoDTO(dependentes = emptyList()))
-        val endpoint = BASE_PATH
-        val conteudoJson = objectMapper.writeValueAsString(registrarCobrancaDTO)
-
-        val requisicao = post(endpoint)
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(conteudoJson)
-
-        mockMvc.perform(requisicao)
-            .andExpect(status().isBadRequest)
-
-        verify(cobrancaService, never()).registrarCobranca(any(), any())
-    }
-
-
-    @Test
     fun `deve retornar 200 ao cancelar  uma cobranca`() {
         val idCobranca = idCobranca()
-
+        val idContrato = idContrato()
         val endpoint = "$BASE_PATH/${idCobranca.id}$CANCELAMENTO_PATH"
-        val requisicao = put(endpoint)
+        val requisicao = patch(endpoint)
 
         mockMvc.perform(requisicao)
             .andExpect(status().isOk)
 
-        verify(cobrancaService).cancelarCobranca(eq(idCobranca))
+        verify(cobrancaService).cancelarCobranca(eq(idContrato), eq(idCobranca))
     }
 
     @Test
     fun `deve retornar 404 ao deletar uma cobranca inexistente`() {
         val idCobranca = idCobranca()
-
-        `when`(cobrancaService.cancelarCobranca(eq(idCobranca))).thenThrow(
+        val idContrato = idContrato()
+        `when`(cobrancaService.cancelarCobranca(eq(idContrato), eq(idCobranca))).thenThrow(
             CobrancaNotFoundException(idCobranca)
         )
 
         val endpoint = "$BASE_PATH/${idCobranca.id}$CANCELAMENTO_PATH"
-        val requisicao = put(endpoint)
+        val requisicao = patch(endpoint)
 
         mockMvc.perform(requisicao)
             .andExpect(status().isNotFound)
@@ -112,9 +100,10 @@ class CobrancaResourceTest {
     @Test
     fun `deve retornar 200 e corpo ao consultar uma cobranca`() {
         val idCobranca = idCobranca()
+        val idContrato = idContrato()
         val cobrancaDetailsDTO = cobrancaDetailsDTO()
 
-        whenever(cobrancaService.buscarPorId(eq(idCobranca))).thenReturn(cobrancaDetailsDTO)
+        whenever(cobrancaService.buscarPorId(eq(idContrato), eq(idCobranca))).thenReturn(cobrancaDetailsDTO)
 
         val endpoint = "$BASE_PATH/${idCobranca.id}"
         val requisicao = get(endpoint)
@@ -130,8 +119,9 @@ class CobrancaResourceTest {
     @Test
     fun `deve retornar 404 ao consultar uma cobranca inexistente`() {
         val idCobranca = idCobranca()
+        val idContrato = idContrato()
 
-        `when`(cobrancaService.buscarPorId(eq(idCobranca))).thenThrow(
+        `when`(cobrancaService.buscarPorId(eq(idContrato), eq(idCobranca))).thenThrow(
             CobrancaNotFoundException(idCobranca)
         )
 
@@ -148,8 +138,8 @@ class CobrancaResourceTest {
             cobrancaSummaryDTO(),
             cobrancaSummaryDTO(staticId = false),
         )
-
-        whenever(cobrancaService.buscaTodos()).thenReturn(listaCentrais)
+        val idContrato = idContrato()
+        whenever(cobrancaService.buscaTodos(idContrato)).thenReturn(listaCentrais)
 
         val endpoint = BASE_PATH
         val requisicao = get(endpoint)

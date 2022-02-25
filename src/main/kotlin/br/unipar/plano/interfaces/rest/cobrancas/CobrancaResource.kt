@@ -5,9 +5,9 @@ import java.util.*
 
 interface CobrancaResource {
 
-    fun buscaTodos(): ResponseEntity<List<CobrancaSummaryDTO>>
-    fun buscaPorId(id: UUID): ResponseEntity<CobrancaDetailsDTO>
-    fun registrarCobranca(dto: RegistrarCobrancaDTO): ResponseEntity<Void>
-    fun cancelarCobranca(id: UUID): ResponseEntity<CobrancaDetailsDTO>
+    fun buscaTodos(idContrato: UUID): ResponseEntity<List<CobrancaSummaryDTO>>
+    fun buscaPorId(idContrato: UUID, id: UUID): ResponseEntity<CobrancaDetailsDTO>
+    fun registrarCobranca(idContrato: UUID, dto: RegistrarCobrancaDTO): ResponseEntity<Void>
+    fun cancelarCobranca(idContrato: UUID, id: UUID): ResponseEntity<CobrancaDetailsDTO>
 
 }

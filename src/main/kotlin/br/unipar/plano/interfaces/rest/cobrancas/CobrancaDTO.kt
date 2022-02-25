@@ -2,6 +2,8 @@ package br.unipar.plano.interfaces.rest.cobrancas
 
 import br.unipar.plano.domain.cobrancas.model.*
 import br.unipar.plano.domain.cobrancas.valueobjects.StatusCobranca
+import br.unipar.plano.domain.planos.model.IdPlano
+import br.unipar.plano.interfaces.rest.planos.PlanoDTO
 import java.math.BigDecimal
 import java.time.LocalDate
 import java.util.*
@@ -91,29 +93,15 @@ data class ContratoDTO(
 
     @field:NotNull(message = "O campo ID é obrigatório para o contrato.")
     val id: UUID,
-    val procedimentos: Collection<ProcedimentoDTO>,
-    val cirurgias: Collection<CirurgiaDTO>,
     @field:NotNull(message = "É necessário informar os dependentes do contrato.")
     @field:NotEmpty(message = "É necessário informar os dependentes do contrato.")
     val dependentes: Collection<UsuarioDTO>
 ) {
-
-    fun toModel() = Contrato(
-        id = this.id,
-        procedimentos = this.procedimentos.map(ProcedimentoDTO::toModel),
-        cirurgias = this.cirurgias.map(CirurgiaDTO::toModel),
-        dependentes = this.dependentes.map(UsuarioDTO::toModel)
-    )
-
     companion object {
-
         fun toDTO(contrato: Contrato) = ContratoDTO(
-            id = contrato.id,
-            procedimentos = contrato.procedimentos.map { ProcedimentoDTO.toDTO(it) },
-            cirurgias = contrato.cirurgias.map { CirurgiaDTO.toDTO(it) },
+            id = contrato.id.id,
             dependentes = contrato.dependentes.map { UsuarioDTO.toDTO(it) }
         )
-
     }
 
 }
@@ -157,7 +145,7 @@ data class UsuarioDTO(
 ) {
     fun toModel() = Usuario(
         id = this.id,
-        plano = this.plano.toModel(),
+        plano = this.plano.toModel(IdPlano()),
         dataNascimento = this.dataNascimento
     )
 
@@ -172,21 +160,3 @@ data class UsuarioDTO(
     }
 }
 
-data class PlanoDTO(
-    val id: UUID,
-    val valorBase: BigDecimal
-) {
-    fun toModel() = Plano(
-        id = this.id,
-        valorBase = this.valorBase
-    )
-
-    companion object {
-
-        fun toDTO(plano: Plano) = PlanoDTO(
-            id = plano.id,
-            valorBase = plano.valorBase
-        )
-
-    }
-}

@@ -1,6 +1,7 @@
 package br.unipar.plano.domain.cobrancas.service.impl
 
 import br.unipar.plano.domain.cobrancas.model.IdCobranca
+import br.unipar.plano.domain.cobrancas.model.IdContrato
 import br.unipar.plano.domain.cobrancas.repository.CobrancaRepository
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito
@@ -14,9 +15,9 @@ internal class CobrancaQueryServiceImplTest {
 
     @Test
     fun `deve retornar uma excecao de Cobranca nao encontrada`() {
-        Mockito.`when`(repository.findById(any())).thenReturn(Optional.empty())
+        Mockito.`when`(repository.findById(any(), any())).thenReturn(Optional.empty())
         org.junit.jupiter.api.assertThrows<CobrancaNotFoundException> {
-            cobrancaQueryServiceImpl.buscaPorId(IdCobranca())
+            cobrancaQueryServiceImpl.buscaPorId(IdContrato(), IdCobranca())
         }
     }
 }

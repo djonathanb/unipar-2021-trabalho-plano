@@ -1,11 +1,9 @@
 package br.unipar.plano.interfaces.rest.cobrancas.impl
 
 import br.unipar.plano.domain.cobrancas.model.IdCobranca
+import br.unipar.plano.domain.cobrancas.model.IdContrato
 import br.unipar.plano.domain.cobrancas.service.CobrancaService
-import br.unipar.plano.interfaces.rest.cobrancas.CobrancaDetailsDTO
-import br.unipar.plano.interfaces.rest.cobrancas.CobrancaResource
-import br.unipar.plano.interfaces.rest.cobrancas.CobrancaSummaryDTO
-import br.unipar.plano.interfaces.rest.cobrancas.RegistrarCobrancaDTO
+import br.unipar.plano.interfaces.rest.cobrancas.*
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.responses.ApiResponses
@@ -16,13 +14,13 @@ import java.util.*
 import javax.validation.Valid
 
 @RestController
-@RequestMapping("/cobrancas")
+@RequestMapping("/contratos/{idContrato}/cobrancas")
 class CobrancaResourceImpl(private val service: CobrancaService) : CobrancaResource {
     @GetMapping
     @ApiResponses(ApiResponse(description = "ok.", responseCode = "200"))
     @Operation(description = "Retorna todas as cobranças já registradas.")
-    override fun buscaTodos(): ResponseEntity<List<CobrancaSummaryDTO>> =
-        ResponseEntity.ok(service.buscaTodos())
+    override fun buscaTodos(@PathVariable("idContrato") idContrato: UUID): ResponseEntity<List<CobrancaSummaryDTO>> =
+        ResponseEntity.ok(service.buscaTodos(IdContrato(idContrato)))
 
 
     @GetMapping("/{id}")
@@ -31,8 +29,11 @@ class CobrancaResourceImpl(private val service: CobrancaService) : CobrancaResou
         ApiResponse(description = "Caso não exista a cobrança.", responseCode = "404")
     )
     @Operation(description = "Retorna a cobrança a partir do ID informado.")
-    override fun buscaPorId(@PathVariable("id") id: UUID): ResponseEntity<CobrancaDetailsDTO> =
-        ResponseEntity.ok(service.buscarPorId(IdCobranca(id)))
+    override fun buscaPorId(
+        @PathVariable("idContrato") idContrato: UUID,
+        @PathVariable("id") id: UUID
+    ): ResponseEntity<CobrancaDetailsDTO> =
+        ResponseEntity.ok(service.buscarPorId(IdContrato(idContrato), IdCobranca(id)))
 
     @PostMapping
     @ApiResponses(
@@ -43,14 +44,22 @@ class CobrancaResourceImpl(private val service: CobrancaService) : CobrancaResou
         )
     )
     @Operation(description = "Registra uma cobrança a partir do contrato informado para a data informada.")
-    override fun registrarCobranca(@Valid @RequestBody dto: RegistrarCobrancaDTO): ResponseEntity<Void> {
-        val cobranca = service.registrarCobranca(dto.contrato.toModel(), dto.dataEmissao)
+    override fun registrarCobranca(
+        @PathVariable("idContrato") idContrato: UUID,
+        @Valid @RequestBody dto: RegistrarCobrancaDTO
+    ): ResponseEntity<Void> {
+        val cobranca = service.registrarCobranca(
+            IdContrato(idContrato),
+            dto.dataEmissao,
+            dto.cirurgias.map(CirurgiaDTO::toModel),
+            dto.procedimentos.map(ProcedimentoDTO::toModel)
+        )
         val uri = ServletUriComponentsBuilder.fromCurrentRequest()
             .path("/{id}").buildAndExpand(cobranca.id).toUri()
         return ResponseEntity.created(uri).build()
     }
 
-    @PutMapping("/{id}/cancelamento")
+    @PatchMapping("/{id}/cancelamento")
     @ApiResponses(
         ApiResponse(description = "ok.", responseCode = "200"),
         ApiResponse(
@@ -60,6 +69,9 @@ class CobrancaResourceImpl(private val service: CobrancaService) : CobrancaResou
         ApiResponse(description = "Caso não exista a cobrança.", responseCode = "404")
     )
     @Operation(description = "Cancela a cobrança informada.")
-    override fun cancelarCobranca(@PathVariable("id") id: UUID): ResponseEntity<CobrancaDetailsDTO> =
-        ResponseEntity.ok(service.cancelarCobranca(IdCobranca(id)))
+    override fun cancelarCobranca(
+        @PathVariable("idContrato") idContrato: UUID,
+        @PathVariable("id") id: UUID
+    ): ResponseEntity<CobrancaDetailsDTO> =
+        ResponseEntity.ok(service.cancelarCobranca(IdContrato(idContrato), IdCobranca(id)))
 }
