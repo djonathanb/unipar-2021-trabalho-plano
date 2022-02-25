@@ -2,6 +2,9 @@ package br.unipar.plano.domain.cobrancas.model.factories
 
 import br.unipar.plano.domain.cobrancas.model.IdCobranca
 import br.unipar.plano.domain.cobrancas.valueobjects.StatusCobranca
+import br.unipar.plano.domain.planos.model.IdPlano
+import br.unipar.plano.domain.planos.model.TipoAbrangencia
+import br.unipar.plano.domain.planos.model.TipoAcomodacao
 import java.math.BigDecimal
 import java.time.LocalDate
 import java.util.*
@@ -14,8 +17,12 @@ val VALOR_ADICIONAL_IDADE = BigDecimal.ONE
 val DATA_EMISSAO_COBRANCA = LocalDate.of(2021, 10, 11)
 val DATA_VENCIMENTO_COBRANCA = LocalDate.of(2021, 10, 21)
 val STATUS_CoBRANCA_ABERTO = StatusCobranca.ABERTO
-val PLANO_ID_1 = UUID.fromString("18ac3b92-b3c1-4145-84d4-21fa8e48c4ee")
-val PLANO_ID_2 = UUID.fromString("0f043bac-e7c8-43ca-86e7-1b8baf32c281")
+val PLANO_ID_1 = IdPlano(UUID.fromString("18ac3b92-b3c1-4145-84d4-21fa8e48c4ee"))
+val PLANO_ID_2 = IdPlano(UUID.fromString("0f043bac-e7c8-43ca-86e7-1b8baf32c281"))
+val NOME_PLANO_1 = "Plano dahora de 500 conto"
+val NOME_PLANO_2 = "Plano top de 600 conto"
+val ABRANGENCIA_PLANO_1 = TipoAbrangencia.ESTADUAL
+val ACOMODACAO_PLANO_1 = TipoAcomodacao.INDIVIDUAL
 val PROCEDIMENTO_ID_1 = UUID.fromString("96e596cf-9838-4094-b75b-c7c18cb3af7a")
 val PROCEDIMENTO_ID_2 = UUID.fromString("1af6e0e4-12e8-484d-80b3-5bf39e0a69a6")
 val CIRURGIA_ID_1 = UUID.fromString("012f4c4e-f381-4cce-9ce0-5c1ecd3d94cb")

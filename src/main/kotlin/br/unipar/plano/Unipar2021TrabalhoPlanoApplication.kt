@@ -2,9 +2,9 @@ package br.unipar.plano
 
 import br.unipar.plano.domain.cobrancas.model.Contrato
 import br.unipar.plano.domain.cobrancas.model.IdContrato
-import br.unipar.plano.domain.cobrancas.model.Plano
 import br.unipar.plano.domain.cobrancas.model.Usuario
 import br.unipar.plano.domain.cobrancas.repository.ContratoRepository
+import br.unipar.plano.domain.planos.model.IdPlano
 import org.springframework.boot.CommandLineRunner
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression
@@ -27,9 +27,10 @@ class Unipar2021TrabalhoPlanoApplication {
                 dependentes = mutableListOf(
                     Usuario(
                         id = UUID.fromString("8ed0dd32-e8de-420b-9566-e3df4969aa38"),
-                        plano = Plano(
-                            id = UUID.fromString("18ac3b92-b3c1-4145-84d4-21fa8e48c4ee"),
-                            valorBase = BigDecimal.valueOf(500)
+                        plano = br.unipar.plano.domain.planos.model.Plano(
+                            id = IdPlano(UUID.fromString("18ac3b92-b3c1-4145-84d4-21fa8e48c4ee")),
+                            valorBase = BigDecimal.valueOf(500),
+                            nome = "Plano MOCK"
                         ),
                         dataNascimento = LocalDate.of(1997, 11, 6)
                     )

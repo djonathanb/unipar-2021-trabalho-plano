@@ -4,6 +4,7 @@ import br.unipar.plano.domain.cobrancas.model.IdCobranca
 import br.unipar.plano.domain.cobrancas.model.factories.*
 import br.unipar.plano.domain.cobrancas.valueobjects.StatusCobranca
 import br.unipar.plano.interfaces.rest.cobrancas.*
+import br.unipar.plano.interfaces.rest.planos.PlanoDTO
 import java.math.BigDecimal
 import java.time.LocalDate
 import java.util.*
@@ -13,7 +14,7 @@ fun contratoDTO(
     id: UUID = UUID.randomUUID(),
     dependentes: List<UsuarioDTO> = listOf(
         usuarioDTO(),
-        usuarioDTO(USUARIO_ID_2, planoDTO(PLANO_ID_2, VALOR_PLANO_600REAIS))
+        usuarioDTO(USUARIO_ID_2, planoDTO(NOME_PLANO_2, VALOR_PLANO_600REAIS))
     )
 ) = ContratoDTO(id = id, dependentes = dependentes)
 
@@ -71,7 +72,16 @@ fun procedimentoDTO(id: UUID = PROCEDIMENTO_ID_1) = ProcedimentoDTO(id)
 
 fun cirurgiaDTO(id: UUID = CIRURGIA_ID_1) = CirurgiaDTO(id)
 
-fun planoDTO(id: UUID = PLANO_ID_1, valorBase: BigDecimal = VALOR_PLANO_500REAIS) = PlanoDTO(id, valorBase)
+fun planoDTO(nome: String = NOME_PLANO_1, valorBase: BigDecimal = VALOR_PLANO_500REAIS) =
+    PlanoDTO(
+        valorBase = valorBase,
+        nome = nome,
+        abrangencia = ABRANGENCIA_PLANO_1,
+        acomodacao = ACOMODACAO_PLANO_1,
+        obstetricia = false,
+        transporteAereo = false
+    )
+
 fun usuarioDTO(
     id: UUID = USUARIO_ID_1,
     planoDTO: PlanoDTO = planoDTO(),
