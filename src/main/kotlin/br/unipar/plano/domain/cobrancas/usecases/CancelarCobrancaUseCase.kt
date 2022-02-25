@@ -2,10 +2,10 @@ package br.unipar.plano.domain.cobrancas.usecases
 
 import br.unipar.plano.domain.cobrancas.model.Cobranca
 import br.unipar.plano.domain.cobrancas.model.IdCobranca
-import br.unipar.plano.interfaces.rest.cobrancas.CobrancaDetailsDTO
+import br.unipar.plano.domain.cobrancas.model.IdContrato
 
 interface CancelarCobrancaUseCase {
 
-    fun executa(idCobranca: IdCobranca) : Cobranca
+    fun executa(idContrato: IdContrato, idCobranca: IdCobranca): Cobranca
 
 }

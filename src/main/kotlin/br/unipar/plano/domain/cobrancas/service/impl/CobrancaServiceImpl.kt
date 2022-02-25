@@ -1,8 +1,10 @@
 package br.unipar.plano.domain.cobrancas.service.impl
 
 import br.unipar.plano.domain.centrais.usecases.RegistrarCobrancaUseCase
-import br.unipar.plano.domain.cobrancas.model.Contrato
+import br.unipar.plano.domain.cobrancas.model.Cirurgia
 import br.unipar.plano.domain.cobrancas.model.IdCobranca
+import br.unipar.plano.domain.cobrancas.model.IdContrato
+import br.unipar.plano.domain.cobrancas.model.Procedimento
 import br.unipar.plano.domain.cobrancas.service.CobrancaQueryService
 import br.unipar.plano.domain.cobrancas.service.CobrancaService
 import br.unipar.plano.domain.cobrancas.usecases.CancelarCobrancaUseCase
@@ -20,26 +22,30 @@ class CobrancaServiceImpl(
     private val cancelarCobrancaUseCase: CancelarCobrancaUseCase,
 
     ) : CobrancaService {
-    override fun registrarCobranca(contrato: Contrato, dataEmissao: LocalDate): IdCobranca =
-        registrarCobrancaUseCase.executa(contrato, dataEmissao).id
+    override fun registrarCobranca(
+        idContrato: IdContrato, dataEmissao: LocalDate, cirurgias: Collection<Cirurgia>,
+        procedimentos: Collection<Procedimento>
+    ): IdCobranca =
+        registrarCobrancaUseCase.executa(idContrato, dataEmissao, cirurgias, procedimentos).id
 
 
-    override fun cancelarCobranca(idCobranca: IdCobranca): CobrancaDetailsDTO =
-        CobrancaDetailsDTO.toDTO(cancelarCobrancaUseCase.executa(idCobranca))
+    override fun cancelarCobranca(idContrato: IdContrato, idCobranca: IdCobranca): CobrancaDetailsDTO =
+        CobrancaDetailsDTO.toDTO(cancelarCobrancaUseCase.executa(idContrato, idCobranca))
 
 
-    override fun buscaTodos(): List<CobrancaSummaryDTO> = queryService.lista().map(CobrancaSummaryDTO::toDTO)
+    override fun buscaTodos(idContrato: IdContrato): List<CobrancaSummaryDTO> =
+        queryService.lista(idContrato).map(CobrancaSummaryDTO::toDTO)
 
-    override fun buscarPorId(id: IdCobranca): CobrancaDetailsDTO {
-        return CobrancaDetailsDTO.toDTO(queryService.buscaPorId(id))
+    override fun buscarPorId(idContrato: IdContrato, id: IdCobranca): CobrancaDetailsDTO {
+        return CobrancaDetailsDTO.toDTO(queryService.buscaPorId(idContrato, id))
 
     }
 
     override fun buscarPorContratoAndStatus(
-        contrato: Contrato,
+        idContrato: IdContrato,
         status: Optional<List<StatusCobranca>>
     ): List<CobrancaDetailsDTO> {
-        return queryService.buscarPorContratoAndStatus(contrato, status).map(CobrancaDetailsDTO::toDTO)
+        return queryService.buscarPorContratoAndStatus(idContrato, status).map(CobrancaDetailsDTO::toDTO)
     }
 
 

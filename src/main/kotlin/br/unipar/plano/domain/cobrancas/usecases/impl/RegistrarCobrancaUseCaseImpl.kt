@@ -2,10 +2,10 @@ package br.unipar.plano.domain.cobrancas.usecases.impl
 
 import br.unipar.plano.application.exceptions.NegocioException
 import br.unipar.plano.domain.centrais.usecases.RegistrarCobrancaUseCase
-import br.unipar.plano.domain.cobrancas.model.Cobranca
-import br.unipar.plano.domain.cobrancas.model.Contrato
-import br.unipar.plano.domain.cobrancas.model.IdCobranca
+import br.unipar.plano.domain.cobrancas.model.*
 import br.unipar.plano.domain.cobrancas.repository.CobrancaRepository
+import br.unipar.plano.domain.cobrancas.repository.ContratoRepository
+import br.unipar.plano.domain.cobrancas.service.impl.ContratoNotFoundException
 import br.unipar.plano.domain.cobrancas.valueobjects.StatusCobranca
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
@@ -16,6 +16,7 @@ import java.time.format.DateTimeFormatter
 @Service
 class RegistrarCobrancaUseCaseImpl(
     private val repository: CobrancaRepository,
+    private val contratoRepository: ContratoRepository,
     @Value("\${valor.adicional.cirurgia}")
     private val valorAdicionalCirurgia: BigDecimal,
     @Value("\${valor.adicional.consulta}")
@@ -24,10 +25,15 @@ class RegistrarCobrancaUseCaseImpl(
     private val diasVencimentoCobranca: Int
 ) : RegistrarCobrancaUseCase {
 
-    override fun executa(contrato: Contrato, dataEmissao: LocalDate): Cobranca {
-        if (verificaSeExisteCobrancaProContratoNoMes(contrato, dataEmissao)) {
+    override fun executa(
+        idContrato: IdContrato,
+        dataEmissao: LocalDate,
+        cirurgias: Collection<Cirurgia>,
+        procedimentos: Collection<Procedimento>
+    ): Cobranca {
+        if (verificaSeExisteCobrancaProContratoNoMes(idContrato, dataEmissao)) {
             throw NegocioException(
-                "Já existe cobrança em aberto para o contrato ${contrato.id} para o período ${
+                "Já existe cobrança em aberto para o contrato ${idContrato.id} para o período ${
                     dataEmissao.format(
                         DateTimeFormatter.ISO_LOCAL_DATE
                     )
@@ -37,24 +43,31 @@ class RegistrarCobrancaUseCaseImpl(
         if (dataEmissao.isAfter(LocalDate.now())) {
             throw NegocioException("Não é possível registrar uma Cobrança para uma data futura.")
         }
+        //TODO ajustar esse trecho para buscar do QueryService do contrato quando este for entregue pela equipe 3
+        val contrato = contratoRepository.findById(idContrato);
+        if (contrato.isEmpty) {
+            throw ContratoNotFoundException(idContrato);
+        }
         val cobranca = Cobranca(
             id = IdCobranca(),
-            valorContrato = calculaValorBase(contrato),
+            valorContrato = calculaValorBase(contrato.get()),
             valorAdicionalConsulta = valorAdicionalConsulta,
             valorAdicionalCirurgia = valorAdicionalCirurgia,
-            valorAdicionalIdade = calculaAdicionalIdades(contrato),
+            valorAdicionalIdade = calculaAdicionalIdades(contrato.get()),
             status = StatusCobranca.ABERTO,
             dataEmissao = dataEmissao,
-            contrato = contrato,
+            contrato = contrato.get(),
             dataCancelamento = null,
             dataVencimento = geraDataVencimento(dataEmissao),
-            valorTotal = BigDecimal.ZERO
+            valorTotal = BigDecimal.ZERO,
+            cirurgias = cirurgias,
+            procedimentos = procedimentos
         )
         return repository.save(cobranca)
     }
 
-    fun verificaSeExisteCobrancaProContratoNoMes(contrato: Contrato, dataEmissao: LocalDate) =
-        repository.existsInMonthByContratoAndDateAndStatusNotEquals(contrato, dataEmissao, StatusCobranca.CANCELADO)
+    fun verificaSeExisteCobrancaProContratoNoMes(idContrato: IdContrato, dataEmissao: LocalDate) =
+        repository.existsInMonthByContratoAndDateAndStatusNotEquals(idContrato, dataEmissao, StatusCobranca.CANCELADO)
 
     fun geraDataVencimento(dataEmissao: LocalDate) =
         dataEmissao.plusDays(diasVencimentoCobranca.toLong())

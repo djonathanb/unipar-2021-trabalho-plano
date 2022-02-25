@@ -11,13 +11,11 @@ import java.util.*
 
 fun contratoDTO(
     id: UUID = UUID.randomUUID(),
-    procedimentos: List<ProcedimentoDTO> = listOf(procedimentoDTO(), procedimentoDTO(PROCEDIMENTO_ID_2)),
-    cirurgias: List<CirurgiaDTO> = listOf(cirurgiaDTO(), cirurgiaDTO(CIRURGIA_ID_2)),
     dependentes: List<UsuarioDTO> = listOf(
         usuarioDTO(),
         usuarioDTO(USUARIO_ID_2, planoDTO(PLANO_ID_2, VALOR_PLANO_600REAIS))
     )
-) = ContratoDTO(id = id, procedimentos = procedimentos, cirurgias = cirurgias, dependentes = dependentes)
+) = ContratoDTO(id = id, dependentes = dependentes)
 
 fun cobrancaSummaryDTO(
     staticId: Boolean = true,
@@ -80,5 +78,9 @@ fun usuarioDTO(
     dataNascimento: LocalDate = DATA_NASCIMENTO_DEPENDENTE_1
 ) = UsuarioDTO(id, planoDTO, dataNascimento)
 
-fun registrarCobrancaDTO(contratoDTO: ContratoDTO = contratoDTO(), dataEmissao: LocalDate = DATA_EMISSAO_COBRANCA) =
-    RegistrarCobrancaDTO(contrato = contratoDTO, dataEmissao = dataEmissao)
+fun registrarCobrancaDTO(
+    dataEmissao: LocalDate = DATA_EMISSAO_COBRANCA,
+    procedimentos: List<ProcedimentoDTO> = listOf(procedimentoDTO(), procedimentoDTO(PROCEDIMENTO_ID_2)),
+    cirurgias: List<CirurgiaDTO> = listOf(cirurgiaDTO(), cirurgiaDTO(CIRURGIA_ID_2)),
+) =
+    RegistrarCobrancaDTO(dataEmissao = dataEmissao, procedimentos, cirurgias)
