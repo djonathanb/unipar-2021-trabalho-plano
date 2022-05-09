@@ -30,7 +30,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 private val BASE_PATH = "/contratos/${CONTRATO_UUID}/cobrancas"
 private const val CANCELAMENTO_PATH = "/cancelamento"
 
-@WebMvcTest(CobrancaResourceImpl::class, properties = ["inserir.contrato.no.startup=false"])
+@WebMvcTest(CobrancaResourceImpl::class, properties = ["inserir.contrato.startup=false"])
 class CobrancaResourceTest {
 
     @Autowired

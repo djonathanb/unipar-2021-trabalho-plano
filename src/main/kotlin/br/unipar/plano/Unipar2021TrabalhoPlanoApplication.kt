@@ -3,8 +3,8 @@ package br.unipar.plano
 import br.unipar.plano.domain.cobrancas.model.Contrato
 import br.unipar.plano.domain.cobrancas.model.IdContrato
 import br.unipar.plano.domain.cobrancas.model.Usuario
-import br.unipar.plano.domain.cobrancas.repository.ContratoRepository
 import br.unipar.plano.domain.planos.model.IdPlano
+import br.unipar.plano.infra.cobrancas.repository.ContratoRepository
 import org.springframework.boot.CommandLineRunner
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression
@@ -18,7 +18,7 @@ import java.util.*
 class Unipar2021TrabalhoPlanoApplication {
 
     @Bean
-    @ConditionalOnExpression("\${spring.h2.console.enabled:true} and \${inserir.contrato.no.startup:true}")
+    @ConditionalOnExpression("\${spring.h2.console.enabled:true} and \${inserir.contrato.startup:true}")
     //objetivo é só salvar um contrato para ser possível testar a rotina de cobrança quando estiver utilizando banco em memória
     fun insereContratoNoStartup(contratoRepository: ContratoRepository) = CommandLineRunner {
         contratoRepository.save(

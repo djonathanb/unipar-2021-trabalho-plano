@@ -2,7 +2,7 @@ package br.unipar.plano.interfaces.rest.cobrancas
 
 import br.unipar.plano.domain.cobrancas.model.*
 import br.unipar.plano.domain.cobrancas.valueobjects.StatusCobranca
-import br.unipar.plano.domain.planos.model.IdPlano
+import br.unipar.plano.infra.cobrancas.model.CobrancaView
 import br.unipar.plano.interfaces.rest.planos.PlanoDTO
 import java.math.BigDecimal
 import java.time.LocalDate
@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull
 
 
 data class CobrancaSummaryDTO(
-    val id: IdCobranca,
+    val id: UUID,
     val valorContrato: BigDecimal,
     val dataEmissao: LocalDate,
     val dataVencimento: LocalDate,
@@ -22,7 +22,7 @@ data class CobrancaSummaryDTO(
 
     companion object {
 
-        fun toDTO(cobranca: Cobranca) = CobrancaSummaryDTO(
+        fun toDTO(cobranca: CobrancaView) = CobrancaSummaryDTO(
             id = cobranca.id,
             valorContrato = cobranca.valorContrato,
             dataEmissao = cobranca.dataEmissao,
@@ -36,15 +36,21 @@ data class CobrancaSummaryDTO(
 }
 
 data class CobrancaDetailsDTO(
-    val id: IdCobranca,
+    val id: UUID,
     val status: StatusCobranca,
     val cobrancaData: CobrancaDTO
 ) {
 
     companion object {
 
-        fun toDTO(cobranca: Cobranca) = CobrancaDetailsDTO(
+        fun toDTO(cobranca: CobrancaView) = CobrancaDetailsDTO(
             id = cobranca.id,
+            status = cobranca.status,
+            cobrancaData = CobrancaDTO.toDTO(cobranca)
+        )
+
+        fun toDTO(cobranca: Cobranca) = CobrancaDetailsDTO(
+            id = cobranca.id.id,
             status = cobranca.status,
             cobrancaData = CobrancaDTO.toDTO(cobranca)
         )
@@ -73,6 +79,18 @@ data class CobrancaDTO(
 
 
     companion object {
+
+        fun toDTO(cobranca: CobrancaView) = CobrancaDTO(
+            valorAdicionalConsulta = cobranca.valorAdicionalConsulta,
+            valorAdicionalCirurgia = cobranca.valorAdicionalCirurgia,
+            valorAdicionalIdade = cobranca.valorAdicionalIdade,
+            dataEmissao = cobranca.dataEmissao,
+            dataCancelamento = cobranca.dataCancelamento,
+            dataVencimento = cobranca.dataVencimento,
+            valorTotal = cobranca.valorTotal,
+            valorContrato = cobranca.valorContrato,
+            contrato = ContratoDTO.toDTO(contrato = cobranca.contrato)
+        )
 
         fun toDTO(cobranca: Cobranca) = CobrancaDTO(
             valorAdicionalConsulta = cobranca.valorAdicionalConsulta,
@@ -113,13 +131,6 @@ data class ProcedimentoDTO(
         id = this.id
     )
 
-    companion object {
-
-        fun toDTO(procedimento: Procedimento) = ProcedimentoDTO(
-            id = procedimento.id,
-        )
-
-    }
 }
 
 data class CirurgiaDTO(
@@ -128,14 +139,6 @@ data class CirurgiaDTO(
     fun toModel() = Cirurgia(
         id = this.id
     )
-
-    companion object {
-
-        fun toDTO(cirurgia: Cirurgia) = CirurgiaDTO(
-            id = cirurgia.id,
-        )
-
-    }
 }
 
 data class UsuarioDTO(
@@ -143,12 +146,6 @@ data class UsuarioDTO(
     val plano: PlanoDTO,
     val dataNascimento: LocalDate
 ) {
-    fun toModel() = Usuario(
-        id = this.id,
-        plano = this.plano.toModel(IdPlano()),
-        dataNascimento = this.dataNascimento
-    )
-
     companion object {
 
         fun toDTO(usuario: Usuario) = UsuarioDTO(

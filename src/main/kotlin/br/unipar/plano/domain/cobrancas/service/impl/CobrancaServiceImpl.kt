@@ -1,6 +1,8 @@
 package br.unipar.plano.domain.cobrancas.service.impl
 
 import br.unipar.plano.domain.centrais.usecases.RegistrarCobrancaUseCase
+import br.unipar.plano.domain.cobrancas.commands.CancelarCobrancaCommand
+import br.unipar.plano.domain.cobrancas.commands.RegistrarCobrancaCommand
 import br.unipar.plano.domain.cobrancas.model.Cirurgia
 import br.unipar.plano.domain.cobrancas.model.IdCobranca
 import br.unipar.plano.domain.cobrancas.model.IdContrato
@@ -26,11 +28,11 @@ class CobrancaServiceImpl(
         idContrato: IdContrato, dataEmissao: LocalDate, cirurgias: Collection<Cirurgia>,
         procedimentos: Collection<Procedimento>
     ): IdCobranca =
-        registrarCobrancaUseCase.executa(idContrato, dataEmissao, cirurgias, procedimentos).id
+        registrarCobrancaUseCase.executa(RegistrarCobrancaCommand(idContrato, dataEmissao, cirurgias, procedimentos)).id
 
 
     override fun cancelarCobranca(idContrato: IdContrato, idCobranca: IdCobranca): CobrancaDetailsDTO =
-        CobrancaDetailsDTO.toDTO(cancelarCobrancaUseCase.executa(idContrato, idCobranca))
+        CobrancaDetailsDTO.toDTO(cancelarCobrancaUseCase.executa(CancelarCobrancaCommand(idContrato, idCobranca)))
 
 
     override fun buscaTodos(idContrato: IdContrato): List<CobrancaSummaryDTO> =

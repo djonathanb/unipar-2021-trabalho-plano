@@ -1,4 +1,4 @@
-package br.unipar.plano.domain.cobrancas.repository
+package br.unipar.plano.infra.cobrancas.repository
 
 import br.unipar.plano.domain.cobrancas.model.Contrato
 import br.unipar.plano.domain.cobrancas.model.IdContrato

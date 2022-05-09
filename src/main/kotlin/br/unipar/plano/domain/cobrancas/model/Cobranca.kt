@@ -1,6 +1,7 @@
 package br.unipar.plano.domain.cobrancas.model
 
 import br.unipar.plano.domain.cobrancas.valueobjects.StatusCobranca
+import br.unipar.plano.infra.cobrancas.model.CobrancaView
 import java.math.BigDecimal
 import java.math.RoundingMode
 import java.time.LocalDate
@@ -86,6 +87,24 @@ class Cobranca(
         contrato = contrato,
         status = status,
         valorTotal = valorTotal,
+        procedimentos = procedimentos,
+        cirurgias = cirurgias
+    )
+}
+
+fun Cobranca.toCobrancaView(): CobrancaView {
+    return CobrancaView(
+        id = id.id,
+        valorContrato = valorContrato,
+        valorAdicionalConsulta = valorAdicionalConsulta,
+        valorAdicionalCirurgia = valorAdicionalCirurgia,
+        valorAdicionalIdade = valorAdicionalIdade,
+        status = status,
+        dataEmissao = dataEmissao,
+        dataCancelamento = dataCancelamento,
+        dataVencimento = dataVencimento,
+        valorTotal = valorTotal,
+        contrato = contrato,
         procedimentos = procedimentos,
         cirurgias = cirurgias
     )

@@ -1,14 +1,16 @@
 package br.unipar.plano.domain.cobrancas.usecases.impl
 
 import br.unipar.plano.application.exceptions.NegocioException
+import br.unipar.plano.domain.cobrancas.commands.RegistrarCobrancaCommand
+import br.unipar.plano.domain.cobrancas.gateway.CobrancaGateway
 import br.unipar.plano.domain.cobrancas.model.Cirurgia
 import br.unipar.plano.domain.cobrancas.model.Cobranca
 import br.unipar.plano.domain.cobrancas.model.Procedimento
 import br.unipar.plano.domain.cobrancas.model.factories.*
-import br.unipar.plano.domain.cobrancas.repository.CobrancaRepository
-import br.unipar.plano.domain.cobrancas.repository.ContratoRepository
+import br.unipar.plano.domain.cobrancas.service.CobrancaQueryService
 import br.unipar.plano.domain.cobrancas.service.impl.ContratoNotFoundException
 import br.unipar.plano.domain.cobrancas.valueobjects.StatusCobranca
+import br.unipar.plano.infra.cobrancas.repository.ContratoRepository
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -22,11 +24,13 @@ import java.util.*
 
 class RegistrarCobrancaUseCaseImplTest {
 
-    private var repository = mock<CobrancaRepository>()
+    private var repository = mock<CobrancaGateway>()
+    private var cobrancaQueryService = mock<CobrancaQueryService>()
     private var contratoRepository = mock<ContratoRepository>()
     private var registrarCobrancaUseCaseImpl =
         RegistrarCobrancaUseCaseImpl(
             repository,
+            cobrancaQueryService,
             contratoRepository,
             BigDecimal.valueOf(1000),
             BigDecimal.valueOf(10),
@@ -35,7 +39,7 @@ class RegistrarCobrancaUseCaseImplTest {
 
     @BeforeEach
     fun setup() {
-        Mockito.`when`(repository.save(any())).doAnswer { it -> it.arguments[0] as Cobranca? }
+        Mockito.`when`(repository.salvar(any())).doAnswer { it -> it.arguments[0] as Cobranca? }
         Mockito.`when`(contratoRepository.findById(any())).thenReturn(Optional.of(contrato()))
     }
 
@@ -48,7 +52,14 @@ class RegistrarCobrancaUseCaseImplTest {
         )
         val cirurgias: Collection<Cirurgia> = mutableListOf(Cirurgia(id = CIRURGIA_ID_1), Cirurgia(id = CIRURGIA_ID_2))
         val cobranca =
-            registrarCobrancaUseCaseImpl.executa(contrato.id, DATA_EMISSAO_COBRANCA, cirurgias, procedimentos)
+            registrarCobrancaUseCaseImpl.executa(
+                RegistrarCobrancaCommand(
+                    contrato.id,
+                    DATA_EMISSAO_COBRANCA,
+                    cirurgias,
+                    procedimentos
+                )
+            )
         assertNotNull(cobranca)
         assertEquals(
             cobranca.valorTotal,
@@ -67,12 +78,12 @@ class RegistrarCobrancaUseCaseImplTest {
         assertEquals(cobranca.status, StatusCobranca.ABERTO)
         assertEquals(cobranca.dataEmissao, DATA_EMISSAO_COBRANCA)
         assertNull(cobranca.dataCancelamento)
-        verify(repository, times(1)).save(any())
+        verify(repository, times(1)).salvar(any())
     }
 
     @Test
     fun `nao deve gerar cobranca com data futura`() {
-        Mockito.`when`(repository.existsInMonthByContratoAndDateAndStatusNotEquals(any(), any(), any()))
+        Mockito.`when`(cobrancaQueryService.verificaSeExisteCobrancaProContratoNoMes(any(), any(), any()))
             .thenReturn(false)
         val contrato = contrato()
         val procedimentos: Collection<Procedimento> = mutableListOf(
@@ -81,14 +92,21 @@ class RegistrarCobrancaUseCaseImplTest {
         )
         val cirurgias: Collection<Cirurgia> = mutableListOf(Cirurgia(id = CIRURGIA_ID_1), Cirurgia(id = CIRURGIA_ID_2))
         assertThrows(NegocioException::class.java) {
-            registrarCobrancaUseCaseImpl.executa(contrato.id, LocalDate.now().plusDays(1L), cirurgias, procedimentos)
+            registrarCobrancaUseCaseImpl.executa(
+                RegistrarCobrancaCommand(
+                    contrato.id,
+                    LocalDate.now().plusDays(1L),
+                    cirurgias,
+                    procedimentos
+                )
+            )
         }
 
     }
 
     @Test
     fun `nao deve gerar uma cobranca pois o contrato nao existe`() {
-        Mockito.`when`(repository.existsInMonthByContratoAndDateAndStatusNotEquals(any(), any(), any()))
+        Mockito.`when`(cobrancaQueryService.verificaSeExisteCobrancaProContratoNoMes(any(), any(), any()))
             .thenReturn(false)
         Mockito.`when`(contratoRepository.findById(any())).thenReturn(Optional.empty())
         val contrato = contrato()
@@ -98,7 +116,14 @@ class RegistrarCobrancaUseCaseImplTest {
         )
         val cirurgias: Collection<Cirurgia> = mutableListOf(Cirurgia(id = CIRURGIA_ID_1), Cirurgia(id = CIRURGIA_ID_2))
         assertThrows(ContratoNotFoundException::class.java) {
-            registrarCobrancaUseCaseImpl.executa(contrato.id, LocalDate.now(), cirurgias, procedimentos)
+            registrarCobrancaUseCaseImpl.executa(
+                RegistrarCobrancaCommand(
+                    contrato.id,
+                    LocalDate.now(),
+                    cirurgias,
+                    procedimentos
+                )
+            )
         }
     }
 }

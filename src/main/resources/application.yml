@@ -1,0 +1,19 @@
+cobranca:
+  valor:
+    adicional:
+      consulta: 10
+      cirurgia: 1000
+  dias:
+    vencimento: 10
+
+inserir:
+  contrato:
+    startup: true
+spring:
+  h2:
+    console:
+      enabled: true
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/plano
+
