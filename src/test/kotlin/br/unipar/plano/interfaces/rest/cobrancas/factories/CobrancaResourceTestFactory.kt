@@ -27,7 +27,7 @@ fun cobrancaSummaryDTO(
     valorTotal: BigDecimal? = null,
     contrato: ContratoDTO = contratoDTO()
 ) = CobrancaSummaryDTO(
-    id = idCobranca,
+    id = idCobranca.id,
     valorContrato = valorContrato,
     dataEmissao = dataEmissao,
     dataVencimento = dataVencimento,
@@ -63,7 +63,7 @@ fun cobrancaDetailsDTO(
     status: StatusCobranca = STATUS_CoBRANCA_ABERTO,
     cobrancaData: CobrancaDTO = cobrancaDTO()
 ) = CobrancaDetailsDTO(
-    id = idCobranca,
+    id = idCobranca.id,
     status = status,
     cobrancaData = cobrancaData
 )
