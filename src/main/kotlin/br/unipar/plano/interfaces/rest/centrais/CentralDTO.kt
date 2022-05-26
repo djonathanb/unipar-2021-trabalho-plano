@@ -28,7 +28,7 @@ data class CentralSummaryDTO(
     }
 
 }
-
+////////////////////////////////////////////////////////////
 data class CentralDetailsDTO(
     val id: IdCentral,
     val status: StatusCentral,
@@ -46,7 +46,7 @@ data class CentralDetailsDTO(
     }
 
 }
-
+////////////////////////////////////////////////////////////
 data class CentralDTO(
 
     @field:NotBlank(message = "O nome deve ser informado")
@@ -82,7 +82,7 @@ data class CentralDTO(
     }
 
 }
-
+////////////////////////////////////////////////////////////
 data class EnderecoDTO(
 
     @field:NotNull
